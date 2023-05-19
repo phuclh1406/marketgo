@@ -36,16 +36,17 @@ class _IntroScreenState extends State<IntroScreen> {
       AlignmentGeometry alignment) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Container(
           alignment: alignment,
           child: ImageHelper.loadFromAsset(
             image,
-            height: 415,
-            fit: BoxFit.fitHeight,
+            height: 480,
+            fit: BoxFit.fitHeight
           ),
         ),
-        const SizedBox(height: kMediumPadding * 2),
+        const SizedBox(height: kMediumPadding * 1.5),
         Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: kMediumPadding,
@@ -57,7 +58,7 @@ class _IntroScreenState extends State<IntroScreen> {
                 title,
                 style: TextStyles.defaultStyle.bold,
               ),
-              const SizedBox(height: kMediumPadding),
+              const SizedBox(height: kMediumPadding / 2),
               Text(
                 description,
                 style: TextStyles.defaultStyle,
@@ -79,25 +80,25 @@ class _IntroScreenState extends State<IntroScreen> {
             children: [
               _buildItemIntroScreen(
                   AssetHelper.intro1,
-                  'Book a flight',
-                  'Found a flight that matches your destination and schedule? Book it instantly.',
-                  Alignment.centerRight),
+                  'Suggest dish by your budget',
+                  'Need a dish with your specifically budget? Go now',
+                  Alignment.center),
               _buildItemIntroScreen(
                   AssetHelper.intro2,
-                  'Find a hotel room',
-                  'Select the day, book your room. We give you the best price.',
+                  '100+ Recipe',
+                  'The recipe is created by experienced chef',
                   Alignment.center),
               _buildItemIntroScreen(
                   AssetHelper.intro3,
-                  'Enjoy your trip',
-                  'Easy discovering new places and share these between your friends and travel together.',
-                  Alignment.centerLeft),
+                  'Got your ingredients by one click',
+                  'Many ingredients are selled. Click and buy it!',
+                  Alignment.center),
             ],
           ),
           Positioned(
               left: kMediumPadding,
               right: kMediumPadding,
-              bottom: kMediumPadding * 2.5,
+              bottom: kMediumPadding * 1,
               child: Row(
                 children: [
                   Expanded(

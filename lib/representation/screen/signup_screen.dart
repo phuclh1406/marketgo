@@ -52,7 +52,7 @@ class _SignUpPageState extends State<SignUpPage> {
               obscureText: isPassword,
               decoration: const InputDecoration(
                   border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
+                  fillColor: Color.fromARGB(255, 225, 225, 231),
                   filled: true))
         ],
       ),
@@ -121,7 +121,6 @@ class _SignUpPageState extends State<SignUpPage> {
     return RichText(
       textAlign: TextAlign.center,
       text: const TextSpan(
-          text: 'd',
           style: TextStyle(
               fontSize: 30,
               fontWeight: FontWeight.w700,
@@ -130,11 +129,11 @@ class _SignUpPageState extends State<SignUpPage> {
 
           children: [
             TextSpan(
-              text: 'ev',
+              text: 'Market',
               style: TextStyle(color: Colors.black, fontSize: 30),
             ),
             TextSpan(
-              text: 'rnz',
+              text: 'Go',
               style: TextStyle(color: Color(0xffe46b10), fontSize: 30),
             ),
           ]),
@@ -145,7 +144,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return Column(
       children: <Widget>[
         _entryField("Username"),
-        _entryField("Email id"),
+        _entryField("Email"),
         _entryField("Password", isPassword: true),
       ],
     );

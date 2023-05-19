@@ -27,10 +27,10 @@ class _SplashScreenState extends State<SplashScreen> {
     final ignoreIntroScreen =
         LocalStorageHelper.getValue('ignoreIntroScreen') as bool?;
     await Future.delayed(const Duration(seconds: 2));
-    // ignore: use_build_context_synchronously
+
     if (ignoreIntroScreen != null && ignoreIntroScreen) {
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).pushNamed(LoginPage.routeName);
+
+      Navigator.of(context).pushNamed(LoginPage.routeName); // => sua thanh Navigator.of(context).pushNamed(IntroScreen.routeName)
     } else {
       LocalStorageHelper.setValue('ignoreIntroScreen', true);
       // ignore: use_build_context_synchronously
@@ -46,7 +46,7 @@ class _SplashScreenState extends State<SplashScreen> {
             child: ImageHelper.loadFromAsset(AssetHelper.imageBackGroundSplash,
                 fit: BoxFit.fitWidth)),
         Positioned.fill(
-            child: ImageHelper.loadFromAsset(AssetHelper.imageCircleSplash)),
+            child: ImageHelper.loadFromAsset(AssetHelper.imageLogoSplash)),
       ],
     );
   }

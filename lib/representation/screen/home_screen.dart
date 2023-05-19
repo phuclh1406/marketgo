@@ -5,7 +5,7 @@ import '../widgets/app_bar_container.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
-
+  static const routeName = 'login_screen';
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
