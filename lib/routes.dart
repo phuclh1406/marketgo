@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'representation/screen/check_out_screen.dart';
+import 'package:matching/representation/screen/home_screen.dart';
 import 'representation/screen/login_screen.dart';
 
 import 'representation/screen/intro_screen.dart';
@@ -13,6 +14,7 @@ final Map<String, WidgetBuilder> routes = {
   LoginPage.routeName: (context) => const LoginPage(),
   CheckOutScreen.routeName: (context) => const CheckOutScreen(),
   
+  HomeScreen.routeName: (context) => const HomeScreen(),
   
   
 };
