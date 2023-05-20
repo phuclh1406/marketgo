@@ -40,7 +40,7 @@ dependencies:
   salomon_bottom_bar: ^3.3.1
   font_awesome_flutter: ^10.1.0
   firebase_auth: ^4.6.1
-  google_sign_in: ^6.1.0
+  google_sign_in: ^6.0.2
   firebase_core : ^2.13.0
 
 dev_dependencies:

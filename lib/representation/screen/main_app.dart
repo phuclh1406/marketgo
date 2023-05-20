@@ -25,13 +25,7 @@ class _MainAppState extends State<MainApp> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Logout'),
-        actions: [
-          IconButton(onPressed: () async {
-            await GoogleSignIn().signOut();
-            FirebaseAuth.instance.signOut();
-          }, icon: const Icon(Icons.power_settings_new))
-        ]
+
       ),
       backgroundColor: Colors.white,
       body: IndexedStack(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:matching/representation/screen/main_app.dart';
 import 'package:matching/representation/screen/signup_screen.dart';
-
+import 'package:flutter/services.dart' show PlatformException;
 import '../widgets/bezier_Container.dart';
 
 class LoginPage extends StatefulWidget {
@@ -163,17 +163,31 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  signInWithGoogle() async {
-    GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    GoogleSignInAuthentication? googleAuth = await googleUser?.authentication;
 
-    AuthCredential credential = GoogleAuthProvider.credential(
+signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+
+    if (googleUser == null) {
+      // User canceled the sign-in process
+      return;
+    }
+
+    // ignore: unnecessary_nullable_for_final_variable_declarations
+    final GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
+
+    final AuthCredential credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
-    UserCredential userCredential =
+
+    final UserCredential userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-    print(userCredential.user?.displayName);
-  }
+
+    if (userCredential.user != null) {
+      // ignore: use_build_context_synchronously
+      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MainApp()));
+    }
+}
+
 
   @override
   Widget build(BuildContext context) {

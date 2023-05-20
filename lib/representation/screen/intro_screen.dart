@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:matching/representation/screen/login_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../core/constants/dismension_constants.dart';
@@ -124,7 +125,7 @@ class _IntroScreenState extends State<IntroScreen> {
                             if(_pageController.page != 2 ) {
                               _pageController.nextPage(duration: const Duration(milliseconds: 200), curve: Curves.easeIn);
                             } else {
-                              Navigator.of(context).pushNamed(MainApp.routeName);
+                              Navigator.of(context).pushNamed(LoginPage.routeName);
                             }
                             
                           }

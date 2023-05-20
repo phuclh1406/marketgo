@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:matching/representation/screen/login_screen.dart';
 
@@ -5,7 +6,7 @@ import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
 import '../../core/helper/local_storage_helper.dart';
 import 'intro_screen.dart';
-
+import 'main_app.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -26,15 +27,18 @@ class _SplashScreenState extends State<SplashScreen> {
   void redirectIntroScreen() async {
     final ignoreIntroScreen =
         LocalStorageHelper.getValue('ignoreIntroScreen') as bool?;
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
 
     if (ignoreIntroScreen != null && ignoreIntroScreen) {
-
-      Navigator.of(context).pushNamed(LoginPage.routeName); // => sua thanh Navigator.of(context).pushNamed(IntroScreen.routeName)
+      if (mounted) {
+        Navigator.of(context).pushNamed(IntroScreen.routeName);
+      } // => sua thanh Navigator.of(context).pushNamed(IntroScreen.routeName)
     } else {
       LocalStorageHelper.setValue('ignoreIntroScreen', true);
       // ignore: use_build_context_synchronously
-      Navigator.of(context).pushNamed(IntroScreen.routeName);
+      if (mounted) {
+        Navigator.of(context).pushNamed(IntroScreen.routeName);
+      }
     }
   }
 
