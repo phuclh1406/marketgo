@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:matching/representation/screen/check_out_screen.dart';
+import 'package:matching/representation/screen/intro_screen.dart';
+import 'package:matching/representation/screen/login_screen.dart';
 
 import 'core/constants/color_constants.dart';
 import 'core/helper/local_storage_helper.dart';
@@ -25,7 +28,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: routes,
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: const CheckOutScreen(),
     );
   }
 }
