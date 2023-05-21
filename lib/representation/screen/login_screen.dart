@@ -1,10 +1,13 @@
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:matching/representation/screen/main_app.dart';
 import 'package:matching/representation/screen/signup_screen.dart';
-import 'package:flutter/services.dart' show PlatformException;
-import '../widgets/bezier_Container.dart';
+import 'package:http/http.dart' as http;
+import 'package:matching/services/firebase_service.dart';
+
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, this.title}) : super(key: key);
@@ -165,28 +168,50 @@ class _LoginPageState extends State<LoginPage> {
 
 
 
-signInWithGoogle() async {
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+// signInWithGoogle() async {
+//   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-    if (googleUser == null) {
-      // User canceled the sign-in process
-      return;
-    }
+//   if (googleUser == null) {
+//     // User canceled the sign-in process
+//     return;
+//   }
 
-    // ignore: unnecessary_nullable_for_final_variable_declarations
-    final GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
+//   final GoogleSignInAuthentication? googleAuth = await googleUser.authentication;
 
-    final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth?.accessToken, idToken: googleAuth?.idToken);
+//   final AuthCredential credential = GoogleAuthProvider.credential(
+//     accessToken: googleAuth?.accessToken,
+//     idToken: googleAuth?.idToken,
+//   );
 
-    final UserCredential userCredential =
-        await FirebaseAuth.instance.signInWithCredential(credential);
+//   final UserCredential userCredential =
+//       await FirebaseAuth.instance.signInWithCredential(credential);
 
-    if (userCredential.user != null) {
-      // ignore: use_build_context_synchronously
-      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MainApp()));
-    }
-}
+//   if (userCredential.user != null) {
+//     // Retrieve additional information from the access token
+//     final tokenInfoResponse = await http.get(
+//       Uri.parse('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${googleAuth?.idToken}'),
+//     );
+
+//     print(tokenInfoResponse);
+
+//     if (tokenInfoResponse.statusCode == 200) {
+//       final decodedToken = jsonDecode(tokenInfoResponse.body);
+
+//       print(decodedToken);
+//       // Access the desired information from the decoded token
+//       String userId = decodedToken['sub'];
+//       String email = decodedToken['email'];
+//       // Extract other relevant information from the token
+
+//       print('User ID: $userId');
+//       print('Email: $email');
+//     } 
+
+//     // Navigate to the main app screen
+//     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MainApp()));
+//   }
+// }
+
 
 
   @override
@@ -219,9 +244,12 @@ signInWithGoogle() async {
                   ),
                   _divider(),
                   ElevatedButton(
-                      onPressed: () {
-                        signInWithGoogle();
-                      },
+                      onPressed: () async {
+                        await FirebaseServices().signInWithGoogle();
+                        
+                        // ignore: use_build_context_synchronously
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => const MainApp()));},
                       child: const Text('Login with Google')),
                   SizedBox(height: height * .055),
                   _createAccountLabel(),
