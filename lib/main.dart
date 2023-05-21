@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:matching/firebase_options.dart';
+import 'package:matching/representation/screen/cart_screen.dart';
 import 'package:matching/representation/screen/intro_screen.dart';
 import 'package:matching/representation/screen/login_screen.dart';
 import 'package:matching/representation/screen/main_app.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: routes,
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: const CartScreen(),
       // home: FutureBuilder(
       //   future: Future.delayed(
       //       const Duration(seconds: 3)), // Adjust the duration as needed

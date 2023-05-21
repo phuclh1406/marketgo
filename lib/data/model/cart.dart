@@ -2,20 +2,20 @@ import 'package:matching/data/model/order_detail.dart';
 import 'package:uuid/uuid.dart';
 
 class Cart {
-  String id;
-  Map<String, OrderDetail> cart;
+  Uuid id;
+  Map<Uuid, OrderDetail> cart;
 
   Cart({
-    String? id,
+    required this.id,
     required this.cart,
-  }) : id = id ?? const Uuid().v4();
+  });
 
-  Map<String, OrderDetail> getCart() {
+  Map<Uuid, OrderDetail> getCart() {
     return cart;
   }
 
   void addToCart(OrderDetail order) {
-    String id = order.ingredient.id;
+    Uuid id = order.ingredient.id;
     if (cart.containsKey(id)) {
       OrderDetail? existingOrder = cart[id];
       existingOrder?.quantity += order.quantity;
@@ -32,7 +32,7 @@ class Cart {
   }
 
   void updateCart(OrderDetail order) {
-    String id = order.id;
+    Uuid id = order.id;
     if (cart.containsKey(id)) {
       cart[id] = order;
     }
