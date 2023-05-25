@@ -4,29 +4,30 @@ import 'package:matching/data/model/store.dart';
 import 'package:uuid/uuid.dart';
 
 class Ingredient {
-  Uuid id;
-  String name;
-  String description;
-  String image;
-  double price;
-  int quantity;
-  int quantitative;
-  Store store;
-  Promotion promotion;
-  CategoryDetail categoryDetail;
-  String status;
+  final Uuid id;
+  final String? name;
+  final String? description;
+  final String? image;
+  final double? price;
+  final int? quantity;
+  final String? quantitative;
+  final Store? store;
+  final Promotion? promotion;
+  final CategoryDetail? categoryDetail;
+  final String? status;
 
   Ingredient({
     required this.id,
-    required this.name,
-    required this.description,
-    required this.image,
-    required this.price,
-    required this.quantity,
-    required this.quantitative,
-    required this.store,
-    required this.promotion,
-    required this.categoryDetail,
-    required this.status,
+    this.name,
+    this.description,
+    this.image,
+    this.price,
+    this.quantity,
+    this.quantitative,
+    this.store,
+    this.promotion,
+    this.categoryDetail,
+    this.status,
   });
+
 }

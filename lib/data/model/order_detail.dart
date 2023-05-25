@@ -5,8 +5,8 @@ import 'order.dart';
 
 class OrderDetail {
   Uuid id;
-  Order order;
-  Ingredient ingredient;
+  Order? order;
+  Ingredient? ingredient;
   double price;
   int quantity;
   String status;

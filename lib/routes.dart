@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matching/representation/screen/cart_screen.dart';
+import 'package:matching/representation/screen/profile.dart';
 import 'representation/screen/check_out_screen.dart';
 import 'package:matching/representation/screen/home_screen.dart';
 import 'representation/screen/profile_screen.dart';
@@ -17,4 +18,5 @@ final Map<String, WidgetBuilder> routes = {
   CartScreen.routeName: (context) => const CartScreen(),
   HomeScreen.routeName: (context) => const HomeScreen(),
   ProfileScreen.routeName: (context) => const ProfileScreen(),
+  Profile.routeName:(context) => const Profile(),
 };

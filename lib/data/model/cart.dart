@@ -1,46 +1,42 @@
+import 'dart:collection';
+
 import 'package:matching/data/model/order_detail.dart';
 import 'package:uuid/uuid.dart';
 
 class Cart {
-  Uuid id;
-  Map<Uuid, OrderDetail> cart;
+  HashMap<Uuid, OrderDetail> myCart;
 
   Cart({
-    required this.id,
-    required this.cart,
+    required this.myCart,
   });
 
-  Map<Uuid, OrderDetail> getCart() {
-    return cart;
+  List<OrderDetail> getListItem() {
+    return myCart.values.toList();
   }
 
   void addToCart(OrderDetail order) {
-    Uuid id = order.ingredient.id;
-    if (cart.containsKey(id)) {
-      OrderDetail? existingOrder = cart[id];
-      existingOrder?.quantity += order.quantity;
-      cart[id] = existingOrder!;
+    if (myCart.containsKey(order.id)) {
+      myCart[order.id]!.quantity += order.quantity;
     } else {
-      cart[id] = order;
+      myCart[order.id] = order;
     }
   }
 
-  void removeOrder(String id) {
-    if (cart.containsKey(id)) {
-      cart.remove(id);
+  void removeItem(Uuid id) {
+    if (myCart.containsKey(id)) {
+      myCart.remove(id);
     }
   }
 
-  void updateCart(OrderDetail order) {
-    Uuid id = order.id;
-    if (cart.containsKey(id)) {
-      cart[id] = order;
+  void editItem(Uuid id, int quantity) {
+    if (myCart.containsKey(id)) {
+      myCart[id]!.quantity = quantity;
     }
   }
 
   double totalPrice() {
     double total = 0;
-    for (var element in cart.values) {
+    for (var element in myCart.values) {
       total += element.price * element.quantity;
     }
     return total;
