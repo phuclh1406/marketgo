@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: ColorPalette.backgorundScaffoldColor,
       ),
       routes: routes,
+      onGenerateRoute: generateRoutes,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
       // home: FutureBuilder(
