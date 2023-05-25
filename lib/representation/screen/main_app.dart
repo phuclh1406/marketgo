@@ -51,28 +51,28 @@ class _MainAppState extends State<MainApp> {
               FontAwesomeIcons.house,
               size: kDefaultIconSize,
             ), 
-            title: const Text('Home')
+            title: const Text('Trang chủ')
           ),
           SalomonBottomBarItem(
             icon: const Icon(
-              FontAwesomeIcons.solidHeart,
+              FontAwesomeIcons.cartShopping,
               size: kDefaultIconSize,
             ), 
-            title: const Text('Likes')
+            title: const Text('Giỏ hàng')
           ),
           SalomonBottomBarItem(
             icon: const Icon(
-              FontAwesomeIcons.briefcase,
+              FontAwesomeIcons.moneyBillTransfer,
               size: kDefaultIconSize,
             ), 
-            title: const Text('Booking')
+            title: const Text('Lịch sử')
           ),
           SalomonBottomBarItem(
             icon: const Icon(
               FontAwesomeIcons.solidUser,
               size: kDefaultIconSize,
             ), 
-            title: const Text('Profile')
+            title: const Text('Cá nhân')
           ),
         ],
       ),
