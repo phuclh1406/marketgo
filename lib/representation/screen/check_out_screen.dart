@@ -81,6 +81,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     final cart = ModalRoute.of(context)!.settings.arguments as Cart? ?? Cart(myCart: HashMap<Uuid, OrderDetail>());
 
     return AppBarContainerWidget(
+      implementLeading: true,
       titleString: "Checkout Screen",
       child: Column(
         children: [

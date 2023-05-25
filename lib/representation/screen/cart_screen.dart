@@ -14,6 +14,8 @@ import 'package:matching/representation/widgets/item_cart_widget.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../core/constants/color_constants.dart';
+import '../widgets/button_widget.dart';
+import '../widgets/mini_app_bar_container.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -114,35 +116,22 @@ class _CartScreenState extends State<CartScreen> {
     );
 
 
-    return AppBarContainerWidget(
+    return MiniAppBarContainerWidget(
       titleString: "Your Cart",
       child: Padding(
         padding: const EdgeInsets.only(
-          top: 50,
+          top: 15,
         ),
         child: Column(
           children: [
             SizedBox(
-              height: 35,
+              height: 50,
               width: double.infinity,
-              child: ElevatedButton(
-                style: ButtonStyle(
-                  padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
-                  backgroundColor: MaterialStateColor.resolveWith(
-                      (states) => ColorPalette.yellowColor),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(18.0),
-                    ),
-                  ),
-                ),
-                onPressed: () {
+              child: ButtonWidget(
+                ontap: () {
                   Navigator.pushNamed(context, CheckOutScreen.routeName, arguments: cart);
                 },
-                child: const Text(
-                  "CHECK OUT",
-                  style: TextStyle(fontSize: 15),
-                ),
+                title: 'Check out'
               ),
             ),
             const SizedBox(

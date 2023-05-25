@@ -178,8 +178,8 @@ class _CartItemWidgetState extends State<CartItemWidget> {
         ? Column(
             children: listOrder.map((e) => _buildSingleCartItem(e)).toList(),
           )
-        : const Column(
-            children: [
+        : Column(
+            children: const [
               SizedBox(
                 height: 50,
               ),

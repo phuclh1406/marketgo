@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/representation/widgets/info_cart.dart';
 import 'package:matching/representation/widgets/upload_image_widget.dart';
 
 import '../../core/helper/asset_helper.dart';
+import '../../services/firebase_service.dart';
+import 'login_screen.dart';
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -25,13 +28,14 @@ class _ProfileState extends State<Profile> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ImageUploaderWidget()));
+                        builder: (context) => const ImageUploaderWidget()));
               },
-              child: const Stack(
+              child: Stack(
                 alignment: Alignment.bottomRight,
-                children: [
+                children: const [
                   CircleAvatar(
-                    backgroundImage: AssetImage('images/profile-pic.png'),
+                    backgroundImage:
+                        AssetImage('./assets/images/profile_pic.png'),
                     radius: 50,
                   ),
                   Positioned(
@@ -68,9 +72,30 @@ class _ProfileState extends State<Profile> {
             InfoCard(
                 text: 'Wallet', icon: Icons.wallet, onPressed: () async {}),
             InfoCard(
-                text: 'Trần Minh Quân', icon: Icons.person, onPressed: () async {}),
-            InfoCard(text: '039238424', icon: Icons.phone, onPressed: () async {}),
-            InfoCard(text: 'abc@gmail.com', icon: Icons.email, onPressed: () async {}),
+                text: 'Trần Minh Quân',
+                icon: Icons.person,
+                onPressed: () async {}),
+            InfoCard(
+                text: '039238424', icon: Icons.phone, onPressed: () async {}),
+            InfoCard(
+                text: 'abc@gmail.com',
+                icon: Icons.email,
+                onPressed: () async {}),
+            ElevatedButton(
+              onPressed: () async {
+                await FirebaseServices().googleSignOut();
+
+                // ignore: use_build_context_synchronously
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const LoginPage()));
+              },
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Icon(FontAwesomeIcons.powerOff),
+                  ]),
+            )
           ],
         ),
       ),

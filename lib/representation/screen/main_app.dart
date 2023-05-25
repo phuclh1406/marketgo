@@ -2,11 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:matching/representation/screen/profile.dart';
 import 'package:matching/representation/screen/profile_screen.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 import '../../core/constants/color_constants.dart';
 import '../../core/constants/dismension_constants.dart';
+import 'cart_screen.dart';
 import 'home_screen.dart';
 
 class MainApp extends StatefulWidget {
@@ -30,9 +32,9 @@ class _MainAppState extends State<MainApp> {
         index: _currentIndex,
         children:[
           const HomeScreen(),
-          Container(color: Colors.blue,),
+          const CartScreen(),
           Container(color: Colors.red,),
-          const ProfileScreen(),
+          const Profile(),
         ]
       ),
       bottomNavigationBar: SalomonBottomBar(
