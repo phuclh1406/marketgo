@@ -9,7 +9,6 @@ import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
 import '../widgets/button_widget.dart';
-import 'main_app.dart';
 
 class IntroScreen extends StatefulWidget {
   const IntroScreen({super.key});

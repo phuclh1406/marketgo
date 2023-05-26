@@ -49,19 +49,19 @@ class UserModel {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['_id'] = id;
-    _data['user_name'] = name;
-    _data['email'] = email;
-    _data['password'] = password;
-    _data['birthday'] = yob;
-    _data['avatar'] = avatar;
-    _data['address'] = address;
-    _data['phone'] = phone;
-    _data['accessChangePassword'] = accessChangePassword;
-    _data['refresh_token'] = refreshToken;
-    _data['role_id'] = roleId;
-    _data['status'] = status;
-    return _data;
+    final data = <String, dynamic>{};
+    data['_id'] = id;
+    data['user_name'] = name;
+    data['email'] = email;
+    data['password'] = password;
+    data['birthday'] = yob;
+    data['avatar'] = avatar;
+    data['address'] = address;
+    data['phone'] = phone;
+    data['accessChangePassword'] = accessChangePassword;
+    data['refresh_token'] = refreshToken;
+    data['role_id'] = roleId;
+    data['status'] = status;
+    return data;
   }
 }

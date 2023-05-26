@@ -7,7 +7,6 @@ import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../model/recipe_model.dart';
-import '../widgets/app_bar_container.dart';
 import '../widgets/mini_app_bar_container.dart';
 
 class RecipeScreen extends StatefulWidget {

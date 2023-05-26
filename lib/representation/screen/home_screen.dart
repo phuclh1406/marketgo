@@ -2,14 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/representation/screen/recipe_detail_screen.dart';
-import 'package:matching/representation/screen/recipe_order_screen.dart';
 import 'package:matching/representation/screen/recipe_screen.dart';
 
 import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
-import '../../model/recipe_model.dart';
-import '../../services/user_service.dart';
 import '../widgets/app_bar_container.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -107,9 +104,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(kMinPadding),
                       color: Colors.white.withOpacity(0.4),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
+                      children: [
                         Icon(
                           Icons.star,
                           color: Color(0xffFFC107),

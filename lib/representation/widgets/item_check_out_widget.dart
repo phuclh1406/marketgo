@@ -44,14 +44,14 @@ class CheckoutItemWidget extends StatelessWidget {
             children: [
               Text(
                 "Product: $name",
-                style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20),
+                style:
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
-                "Price: $price",
+                "Price: $price VND",
                 style: const TextStyle(fontSize: 15),
               ),
               const SizedBox(
@@ -65,9 +65,7 @@ class CheckoutItemWidget extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(
-            width: 80,
-          ),
+
         ],
       ),
     );

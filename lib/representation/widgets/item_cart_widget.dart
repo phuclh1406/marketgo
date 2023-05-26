@@ -48,7 +48,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
             height: 100,
           ),
           const SizedBox(
-            width: 30,
+            width: 20,
           ),
           Expanded(
             child: Column(
@@ -57,7 +57,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 Text(
                   "Product: ${orderDetail.ingredient!.name}",
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold, fontSize: 20),
+                      fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 const SizedBox(
                   height: 5,
@@ -119,11 +119,13 @@ class _CartItemWidgetState extends State<CartItemWidget> {
             ),
           ),
           Container(
-            height: 30,
-            width: 30,
+            height: 40,
+            width: 40,
             decoration: BoxDecoration(
               color: Colors.red.withOpacity(0.7),
+              shape: BoxShape.circle
             ),
+            
             child: IconButton(
               iconSize: 15,
               onPressed: () {
@@ -131,7 +133,6 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
-                      // title: Text("Remove ${orderDetail.ingredient!.name} from cart?"),
                       content: Text(
                           "Are you sure you want to remove ${orderDetail.ingredient!.name}?"),
                       actions: <Widget>[
@@ -162,6 +163,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 );
               },
               icon: const Icon(
+                size: 20,
                 Icons.delete,
                 color: Colors.white,
               ),

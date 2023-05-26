@@ -1,11 +1,7 @@
-import 'dart:convert';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:matching/representation/screen/main_app.dart';
 import 'package:matching/representation/screen/signup_screen.dart';
-import 'package:http/http.dart' as http;
 import 'package:matching/services/firebase_service.dart';
 
 
@@ -73,8 +69,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _divider() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: const <Widget>[
+      child: const Row(
+        children: <Widget>[
           SizedBox(
             width: 20,
           ),
@@ -113,9 +109,9 @@ class _LoginPageState extends State<LoginPage> {
         margin: const EdgeInsets.symmetric(vertical: 20),
         padding: const EdgeInsets.all(15),
         alignment: Alignment.bottomCenter,
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             Text(
               'Don\'t have an account ?',
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
