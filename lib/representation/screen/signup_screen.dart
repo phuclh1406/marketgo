@@ -94,9 +94,9 @@ class _SignUpPageState extends State<SignUpPage> {
         margin: const EdgeInsets.symmetric(vertical: 20),
         padding: const EdgeInsets.all(15),
         alignment: Alignment.bottomCenter,
-        child: Row(
+        child: const Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             Text(
               'Already have an account ?',
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),

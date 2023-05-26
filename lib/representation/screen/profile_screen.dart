@@ -1,7 +1,4 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/representation/screen/login_screen.dart';
 import 'package:matching/services/firebase_service.dart';
@@ -26,10 +23,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const LoginPage()));
       },
-      child: Column(
+      child: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: const [
+        children: [
           Icon(FontAwesomeIcons.powerOff),
         ]
         ),

@@ -1,14 +1,20 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/color_constants.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/data/model/cart.dart';
 
 import 'package:matching/data/model/order_detail.dart';
-import 'package:matching/representation/widgets/app_bar_container.dart';
 import 'package:matching/representation/widgets/item_check_out_widget.dart';
+import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:uuid/uuid.dart';
+
+import '../../data/model/ingredient.dart';
+import '../../data/model/order.dart';
+import '../../services/firebase_service.dart';
+import 'login_screen.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
@@ -20,7 +26,7 @@ class CheckOutScreen extends StatefulWidget {
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
   final List<String> listStep = [
-    "Checkout",
+    "Delivery",
     "Payment",
     "Confirm",
   ];
@@ -35,7 +41,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           width: kMediumPadding,
           height: kMediumPadding,
           decoration: BoxDecoration(
-            color: isCheck ? Colors.white : Colors.white.withOpacity(0.3),
+            color: isCheck
+                ? ColorPalette.yellowColor
+                : ColorPalette.yellowColor.withOpacity(0.4),
             borderRadius: BorderRadius.circular(
               kMediumPadding,
             ),
@@ -43,8 +51,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           alignment: Alignment.center,
           child: Text(
             step.toString(),
-            style: TextStyle(
-              color: isCheck ? Colors.black : Colors.white,
+            style: const TextStyle(
+              fontSize: 13,
+              color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -54,7 +63,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
         ),
         Text(
           stepName,
-          style: const TextStyle(color: Colors.white, fontSize: 18),
+          style: const TextStyle(
+              color: ColorPalette.yellowColor,
+              fontSize: 18,
+              fontWeight: FontWeight.bold),
         ),
         const SizedBox(
           width: kMinPadding,
@@ -65,7 +77,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             child: Divider(
               height: 1,
               thickness: 1,
-              color: Colors.white,
+              color: ColorPalette.yellowColor,
             ),
           ),
         if (!isEnd)
@@ -78,9 +90,94 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final cart = ModalRoute.of(context)!.settings.arguments as Cart? ?? Cart(myCart: HashMap<Uuid, OrderDetail>());
-
-    return AppBarContainerWidget(
+    //final cart = ModalRoute.of(context)!.settings.arguments as Cart? ?? Cart(myCart: HashMap<Uuid, OrderDetail>());
+    Cart cart = Cart(myCart: HashMap<Uuid, OrderDetail>());
+    cart.addToCart(
+      OrderDetail(
+          id: Uuid(),
+          order: Order.defaults(),
+          ingredient: Ingredient(
+            id: const Uuid(),
+            name: "Khoai tây",
+            description: null,
+            image: null,
+            price: null,
+            quantity: null,
+            quantitative: "gram",
+            store: null,
+            promotion: null,
+            categoryDetail: null,
+            status: null,
+          ),
+          price: 32000,
+          quantity: 12,
+          status: "cart"),
+    );
+    cart.addToCart(
+      OrderDetail(
+          id: Uuid(),
+          order: Order.defaults(),
+          ingredient: Ingredient(
+            id: const Uuid(),
+            name: "Ca rot",
+            description: null,
+            image: null,
+            price: null,
+            quantity: null,
+            quantitative: "gram",
+            store: null,
+            promotion: null,
+            categoryDetail: null,
+            status: null,
+          ),
+          price: 20000,
+          quantity: 6,
+          status: "cart"),
+    );
+    cart.addToCart(
+      OrderDetail(
+          id: Uuid(),
+          order: Order.defaults(),
+          ingredient: Ingredient(
+            id: const Uuid(),
+            name: "Xương ống",
+            description: null,
+            image: null,
+            price: null,
+            quantity: null,
+            quantitative: "kg",
+            store: null,
+            promotion: null,
+            categoryDetail: null,
+            status: null,
+          ),
+          price: 12000,
+          quantity: 2,
+          status: "cart"),
+    );
+    cart.addToCart(
+      OrderDetail(
+          id: Uuid(),
+          order: Order.defaults(),
+          ingredient: Ingredient(
+            id: const Uuid(),
+            name: "Nấm mèo",
+            description: null,
+            image: null,
+            price: null,
+            quantity: null,
+            quantitative: "gram",
+            store: null,
+            promotion: null,
+            categoryDetail: null,
+            status: null,
+          ),
+          price: 8500,
+          quantity: 10,
+          status: "cart"),
+    );
+    return MiniAppBarContainerWidget(
+      implementLeading: true,
       titleString: "Checkout Screen",
       child: Column(
         children: [
@@ -111,7 +208,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ),
                     ),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Text(
                           'Total Price: ${cart.totalPrice()} VND',
@@ -120,8 +217,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         ),
                         ElevatedButton(
                           style: ButtonStyle(
-                            padding: MaterialStateProperty.all(
-                                const EdgeInsets.all(15)),
                             backgroundColor: MaterialStateColor.resolveWith(
                                 (states) => ColorPalette.yellowColor),
                             shape: MaterialStateProperty.all<
