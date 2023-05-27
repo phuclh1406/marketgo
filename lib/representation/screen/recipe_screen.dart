@@ -20,35 +20,35 @@ class RecipeScreen extends StatefulWidget {
 }
 
 class _RecipeScreenState extends State<RecipeScreen> {
-  final List<RecipeModel> listRecipe = [
-    RecipeModel(
-      recipeImage: AssetHelper.food3,
-      recipeName: 'Bún bò Huế',
-      location: 'Món bún bò với hương vị truyền thống đặc trưng xứ Huế',
-      awayKilometer: '364 m',
-      star: 4.5,
-      numberOfReview: 3241,
-      price: 143,
-    ),
-    RecipeModel(
-      recipeImage: AssetHelper.food2,
-      recipeName: 'Hủ tíu Nam Vang',
-      location: 'Món hủ tíu Nam Vang với hương vị truyền thống đặc trưng',
-      awayKilometer: '2.3 km',
-      star: 4.2,
-      numberOfReview: 3241,
-      price: 234,
-    ),
-    RecipeModel(
-      recipeImage: AssetHelper.food4,
-      recipeName: 'Cơm gà',
-      location: 'Món cơm gà được chiên qua dầu và nước mắm',
-      awayKilometer: '1.1 km',
-      star: 3.8,
-      numberOfReview: 1234,
-      price: 132,
-    ),
-  ];
+  // final List<RecipeModel> listRecipe = [
+  //   RecipeModel(
+  //     recipeImage: AssetHelper.food3,
+  //     recipeName: 'Bún bò Huế',
+  //     location: 'Món bún bò với hương vị truyền thống đặc trưng xứ Huế',
+  //     awayKilometer: '364 m',
+  //     star: 4.5,
+  //     numberOfReview: 3241,
+  //     price: 143,
+  //   ),
+  //   RecipeModel(
+  //     recipeImage: AssetHelper.food2,
+  //     recipeName: 'Hủ tíu Nam Vang',
+  //     location: 'Món hủ tíu Nam Vang với hương vị truyền thống đặc trưng',
+  //     awayKilometer: '2.3 km',
+  //     star: 4.2,
+  //     numberOfReview: 3241,
+  //     price: 234,
+  //   ),
+  //   RecipeModel(
+  //     recipeImage: AssetHelper.food4,
+  //     recipeName: 'Cơm gà',
+  //     location: 'Món cơm gà được chiên qua dầu và nước mắm',
+  //     awayKilometer: '1.1 km',
+  //     star: 3.8,
+  //     numberOfReview: 1234,
+  //     price: 132,
+  //   ),
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -87,22 +87,22 @@ class _RecipeScreenState extends State<RecipeScreen> {
           onSubmitted: (String submitValue) {},
         ),
         const SizedBox(height: 10),
-        Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: listRecipe
-                  .map(
-                    (e) => ItemRecipeWidget(
-                      recipeModel: e,
-                      onTap: () {
-                        Navigator.of(context).pushNamed(RecipeDetailScreen.routeName, arguments: e);
-                      },
-                    ),
-                  )
-                  .toList(),
-            ),
-          ),
-        ),
+        // Expanded(
+        //   child: SingleChildScrollView(
+        //     child: Column(
+        //       children: listRecipe
+        //           .map(
+        //             (e) => ItemRecipeWidget(
+        //               recipeModel: e,
+        //               onTap: () {
+        //                 Navigator.of(context).pushNamed(RecipeDetailScreen.routeName, arguments: e);
+        //               },
+        //             ),
+        //           )
+        //           .toList(),
+        //     ),
+        //   ),
+        // ),
       ]),
     );
   }

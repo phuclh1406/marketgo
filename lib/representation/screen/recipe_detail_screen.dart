@@ -119,15 +119,15 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                widget.recipeModel.recipeName,
-                                style: TextStyles.defaultStyle.fontHeader.bold,
-                              ),
+                              // Text(
+                              //   widget.recipeModel.recipeName,
+                              //   style: TextStyles.defaultStyle.fontHeader.bold,
+                              // ),
                               const Spacer(),
-                              Text(
-                                '${widget.recipeModel.price.toString()}.000 vnđ',
-                                style: TextStyles.defaultStyle.fontHeader.bold,
-                              ),
+                              // Text(
+                              //   '${widget.recipeModel.price.toString()}.000 vnđ',
+                              //   style: TextStyles.defaultStyle.fontHeader.bold,
+                              // ),
                               Text(
                                 ' /dish',
                                 style: TextStyles.defaultStyle.fontCaption,
@@ -141,7 +141,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             style: TextStyles.defaultStyle.bold,
                           ),
                           const SizedBox(height: kDefaultPadding),
-                          Text(widget.recipeModel.location),
+                          //Text(widget.recipeModel.location),
                           const SizedBox(height: kDefaultPadding),
                           Text(
                             'Nấu như thế nào?',

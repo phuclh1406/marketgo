@@ -4,13 +4,17 @@ import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/representation/screen/recipe_detail_screen.dart';
 import 'package:matching/representation/screen/recipe_order_screen.dart';
 import 'package:matching/representation/screen/recipe_screen.dart';
+import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
+import '../../model/food_model.dart';
 import '../../model/recipe_model.dart';
+import '../../services/recipe_service.dart';
 import '../../services/user_service.dart';
 import '../widgets/app_bar_container.dart';
+import 'store_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -22,28 +26,102 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<Map<String, String>> listImageLeft = [
-    {
-      'name': 'Cá rán muối ớt',
-      'image': AssetHelper.food1,
-    },
-    {
-      'name': 'Hủ tíu Nam Vang',
-      'image': AssetHelper.food2,
-    },
-  ];
-  final List<Map<String, String>> listImageRight = [
-    {
-      'name': 'Bún bò Huế',
-      'image': AssetHelper.food3,
-    },
-    {
-      'name': 'Cơm gà',
-      'image': AssetHelper.food4,
-    },
-  ];
+  bool isAPICallProcess = false;
+  RecipeModel? recipeModel;
 
-  Widget _buildItemCategory(Widget icon, Color color, Function() onTap, String title) {
+  void initState() {
+    super.initState();
+    recipeModel = RecipeModel();
+
+    Future.delayed(Duration.zero, () {
+      if (ModalRoute.of(context)?.settings.arguments != null) {
+        final Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
+
+        recipeModel = arguments["model"];
+
+        // Set the id value from the arguments map directly to recipeModel's id
+        recipeModel!.foodModel?.foodId = arguments["food_id"];
+        setState(() {});
+      }
+    });
+  }
+
+  Widget loadRecipesLeft() {
+    return FutureBuilder<List<RecipeModel>?>(
+      future: RecipeService.getAllRecipes(),
+      builder:
+          (BuildContext context, AsyncSnapshot<List<RecipeModel>?> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasData) {
+          List<RecipeModel>? recipes = snapshot.data;
+
+          if (recipes != null && recipes.isNotEmpty) {
+            int loopCount = (recipes.length / 2)
+                .ceil(); // Calculate half of the recipes length
+
+            return Column(
+              children: [
+                for (var i = 0; i < loopCount; i++)
+                  if (recipes[i].foodModel?.foodName != null ||
+                      recipes[i].foodModel?.image != null)
+                    _buildImageHomeScreen(recipes[i].foodModel!.foodName!,
+                        recipes[i].foodModel!.image!)
+              ],
+            );
+          } else {
+            return const Text('No recipes found.');
+          }
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return const SizedBox(); // Return an empty container or widget if data is null
+        }
+      },
+    );
+  }
+
+  Widget loadRecipesRight() {
+    return FutureBuilder<List<RecipeModel>?>(
+      future: RecipeService.getAllRecipes(),
+      builder:
+          (BuildContext context, AsyncSnapshot<List<RecipeModel>?> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasData) {
+          List<RecipeModel>? recipes = snapshot.data;
+
+          if (recipes != null && recipes.isNotEmpty) {
+            int startIndex =
+                (recipes.length / 2).ceil(); // Calculate the starting index
+
+            return Column(
+              children: [
+                for (var i = startIndex; i < recipes.length; i++)
+                  if (recipes[i].foodModel?.foodName != null ||
+                      recipes[i].foodModel?.image != null)
+                    _buildImageHomeScreen(recipes[i].foodModel!.foodName!,
+                        recipes[i].foodModel!.image!)
+              ],
+            );
+          } else {
+            return const Text('No recipes found.');
+          }
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
+        } else {
+          return const SizedBox(); // Return an empty container or widget if data is null
+        }
+      },
+    );
+  }
+
+  Widget _buildItemCategory(
+      Widget icon, Color color, Function() onTap, String title) {
     return GestureDetector(
       onTap: onTap,
       child: Column(
@@ -53,7 +131,9 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(
               vertical: kMediumPadding,
             ),
-            decoration: BoxDecoration(color: color.withOpacity(0.2), borderRadius: BorderRadius.circular(kItemPadding)),
+            decoration: BoxDecoration(
+                color: color.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(kItemPadding)),
             child: icon,
           ),
           const SizedBox(
@@ -65,10 +145,11 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buidlImageHomScreen(String name, String image) {
+  Widget _buildImageHomeScreen(String? name, String? image) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(RecipeDetailScreen.routeName, arguments: name);
+        Navigator.of(context)
+            .pushNamed(RecipeDetailScreen.routeName, arguments: name);
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: kDefaultPadding),
@@ -76,7 +157,7 @@ class _HomeScreenState extends State<HomeScreen> {
           alignment: Alignment.topRight,
           children: [
             ImageHelper.loadFromAsset(
-              image,
+              image!,
               height: 200,
               fit: BoxFit.fitHeight,
               radius: BorderRadius.circular(kItemPadding),
@@ -95,7 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    name,
+                    name!,
                     style: TextStyles.defaultStyle.whiteTextColor.bold,
                   ),
                   const SizedBox(
@@ -132,6 +213,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return AppBarContainerWidget(
       titleString: 'home',
       title: Padding(
@@ -143,7 +225,9 @@ class _HomeScreenState extends State<HomeScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Hi James!', style: TextStyles.defaultStyle.fontHeader.whiteTextColor.bold),
+                Text('Hi James!',
+                    style:
+                        TextStyles.defaultStyle.fontHeader.whiteTextColor.bold),
                 const SizedBox(
                   height: kMediumPadding,
                 ),
@@ -218,40 +302,35 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               Expanded(
                 child: _buildItemCategory(
-                  const Icon(
-                    FontAwesomeIcons.book,
-                    weight: kDefaultPadding,          
-                  ),
-                  const Color(0xffFE9C5E),
-                  () {
-                    Navigator.of(context).pushNamed(RecipeScreen.routeName);
-                  },
-                  'Recipes'
-                ),
+                    const Icon(
+                      FontAwesomeIcons.book,
+                      weight: kDefaultPadding,
+                    ),
+                    const Color(0xffFE9C5E), () {
+                  Navigator.of(context).pushNamed(RecipeScreen.routeName);
+                }, 'Recipes'),
               ),
               const SizedBox(width: kDefaultPadding),
               Expanded(
                 child: _buildItemCategory(
-                  const Icon(
-                    FontAwesomeIcons.store,
-                    weight: kDefaultPadding,          
-                  ),
-                  const Color(0xffF77777),
-                  () {},
-                  'Stores'
-                ),
+                    const Icon(
+                      FontAwesomeIcons.store,
+                      weight: kDefaultPadding,
+                    ),
+                    const Color(0xffF77777),
+                    () {Navigator.of(context).pushNamed(StoreScreen.routeName);},
+                    'Stores'),
               ),
               const SizedBox(width: kDefaultPadding),
               Expanded(
                 child: _buildItemCategory(
-                  const Icon(
-                    FontAwesomeIcons.carrot,
-                    weight: kDefaultPadding,          
-                  ),
-                  const Color(0xff3EC8BC),
-                  () {},
-                  'Ingredients'
-                ),
+                    const Icon(
+                      FontAwesomeIcons.carrot,
+                      weight: kDefaultPadding,
+                    ),
+                    const Color(0xff3EC8BC),
+                    () {},
+                    'Ingredients'),
               ),
             ],
           ),
@@ -276,36 +355,23 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
           Expanded(
             child: SingleChildScrollView(
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      children: listImageLeft
-                          .map(
-                            (e) => _buidlImageHomScreen(
-                              e['name']!,
-                              e['image']!,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                  const SizedBox(
-                    width: kDefaultPadding,
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: listImageRight
-                          .map(
-                            (e) => _buidlImageHomScreen(
-                              e['name']!,
-                              e['image']!,
-                            ),
-                          )
-                          .toList(),
-                    ),
-                  ),
-                ],
+              child: ProgressHUD(
+                inAsyncCall: isAPICallProcess,
+                opacity: 0.3,
+                key: UniqueKey(),
+                child: Row(
+                  children: [
+                    // Expanded(
+                    //   child: Column(children: [loadRecipesLeft()]),
+                    // ),
+                    // const SizedBox(
+                    //   width: kDefaultPadding,
+                    // ),
+                    // Expanded(
+                    //   child: Column(children: [loadRecipesRight()]),
+                    // ),
+                  ],
+                ),
               ),
             ),
           ),
