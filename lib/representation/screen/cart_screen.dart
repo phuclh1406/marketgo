@@ -5,11 +5,11 @@ import 'package:matching/data/model/cart.dart';
 import 'package:matching/data/model/ingredient.dart';
 import 'package:matching/data/model/order.dart';
 import 'package:matching/data/model/order_detail.dart';
-import 'package:matching/representation/screen/check_out_screen.dart';
 import 'package:matching/representation/screen/delivery_address.dart';
 import 'package:matching/representation/widgets/item_cart_widget.dart';
 import 'package:uuid/uuid.dart';
 import '../../core/constants/color_constants.dart';
+import '../widgets/button_widget.dart';
 import '../widgets/mini_app_bar_container.dart';
 
 class CartScreen extends StatefulWidget {
@@ -114,35 +114,24 @@ class _CartScreenState extends State<CartScreen> {
       titleString: "Your Cart",
       child: Column(
         children: [
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              style: ButtonStyle(
-                padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
-                backgroundColor: MaterialStateColor.resolveWith(
-                    (states) => ColorPalette.yellowColor),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(18.0),
-                  ),
-                ),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, DeliveryAddressScreen.routeName);
-              },
-              child: const Text(
-                "CHECK OUT",
-                style: TextStyle(fontSize: 15),
-              ),
-            ),
-          ),
           const SizedBox(
-            height: kMediumPadding,
+            height: 10,
           ),
           Expanded(
             child: SingleChildScrollView(
-              child: CartItemWidget(
-                cart: cart,
+              child: Column(
+                children: [
+                  CartItemWidget(
+                    cart: cart,
+                  ),
+                  ButtonWidget(
+                    title: "Check out",
+                    ontap: () {
+                      Navigator.pushNamed(
+                          context, DeliveryAddressScreen.routeName);
+                    },
+                  ),
+                ],
               ),
             ),
           ),

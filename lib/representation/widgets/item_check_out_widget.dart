@@ -45,20 +45,21 @@ class CheckoutItemWidget extends StatelessWidget {
               Text(
                 "Product: $name",
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
                 "Price: $price VND",
-                style: const TextStyle(fontSize: 15),
+                style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(
                 height: 5,
               ),
               Text(
                 "$quantity $quantitative",
+                style: const TextStyle(fontSize: 18),
               ),
               const SizedBox(
                 width: kMediumPadding,

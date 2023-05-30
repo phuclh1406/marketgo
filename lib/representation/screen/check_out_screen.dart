@@ -1,20 +1,19 @@
 import 'dart:collection';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/color_constants.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/data/model/cart.dart';
+import 'package:matching/data/model/delivery_form.dart';
 
 import 'package:matching/data/model/order_detail.dart';
+import 'package:matching/representation/widgets/button_widget.dart';
 import 'package:matching/representation/widgets/item_check_out_widget.dart';
 import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../data/model/ingredient.dart';
 import '../../data/model/order.dart';
-import '../../services/firebase_service.dart';
-import 'login_screen.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
@@ -91,6 +90,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   @override
   Widget build(BuildContext context) {
     //final cart = ModalRoute.of(context)!.settings.arguments as Cart? ?? Cart(myCart: HashMap<Uuid, OrderDetail>());
+    final deliveryForm =
+        ModalRoute.of(context)!.settings.arguments as DeliveryForm;
     Cart cart = Cart(myCart: HashMap<Uuid, OrderDetail>());
     cart.addToCart(
       OrderDetail(
@@ -188,7 +189,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       listStep.indexOf(e) + 1,
                       e,
                       listStep.indexOf(e) == listStep.length - 1,
-                      listStep.indexOf(e) == 0,
+                      listStep.indexOf(e) == 2,
                     ))
                 .toList(),
           ),
@@ -199,46 +200,20 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Container(
-                    height: 50,
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Text(
-                          'Total Price: ${cart.totalPrice()} VND',
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "Products",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
                         ),
-                        ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateColor.resolveWith(
-                                (states) => ColorPalette.yellowColor),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(18.0),
-                              ),
-                            ),
-                          ),
-                          onPressed: () {
-                            // Code to handle the checkout action
-                          },
-                          child: const Text(
-                            "BUY",
-                            style: TextStyle(fontSize: 15),
-                          ),
-                        )
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const SizedBox(
-                    height: kMediumPadding,
+                    height: kMinPadding,
                   ),
                   Column(
                     children: cart.myCart.values
@@ -250,6 +225,105 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                               quantitative: e.ingredient!.quantitative),
                         )
                         .toList(),
+                  ),
+                  Container(
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20),
+                      ),
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        const Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            
+                            Text(
+                              "Delivery info",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                "Name: ${deliveryForm.name}",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Phone: ${deliveryForm.phone}",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Email: ${deliveryForm.email}",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Address: ${deliveryForm.address}",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "City: ${deliveryForm.city}",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    'Total: ${cart.totalPrice().toInt()} VND',
+                    style: const TextStyle(
+                        fontSize: 24, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const ButtonWidget(
+                    title: "Check out",
+                  ),
+                  const SizedBox(
+                    height: 10,
                   ),
                 ],
               ),
