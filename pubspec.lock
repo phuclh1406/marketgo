@@ -16,11 +16,7 @@ packages:
       sha256: bfe67ef28df125b7dddcea62755991f807aa39a2492a23e1550161692950bbe0
       url: "https://pub.dev"
     source: hosted
-<<<<<<< HEAD
     version: "2.10.0"
-=======
-    version: "2.11.0"
->>>>>>> e4baf8aed33cff114397547cc02481ca76cb4d50
   auto_size_text:
     dependency: "direct main"
     description:
@@ -618,5 +614,5 @@ packages:
     source: hosted
     version: "1.0.0"
 sdks:
-  dart: ">=2.19.0 <3.0.0"
+  dart: ">=2.19.2 <3.0.0"
   flutter: ">=3.3.0"
