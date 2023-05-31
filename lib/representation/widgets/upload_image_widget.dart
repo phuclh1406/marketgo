@@ -12,9 +12,9 @@ class _ImageUploaderWidgetState extends State<ImageUploaderWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Upload Image'),
+        title: const Text('Upload Image'),
       ),
-      body: Center(
+      body: const Center(
           child: /*_image == null*/
               Text('No image selected.')
           // : Image.file(_image!),
@@ -22,14 +22,14 @@ class _ImageUploaderWidgetState extends State<ImageUploaderWidget> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         // tooltip: 'Pick Image',
-        child: Icon(Icons.add_a_photo),
+        child: const Icon(Icons.add_a_photo),
       ),
       bottomNavigationBar: BottomAppBar(
-        child: Container(
+        child: SizedBox(
           height: 50.0,
           child: ElevatedButton(
             onPressed: () {},
-            child: Text('Upload Image'),
+            child: const Text('Upload Image'),
           ),
         ),
       ),

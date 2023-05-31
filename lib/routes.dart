@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matching/representation/screen/cart_screen.dart';
+import 'package:matching/representation/screen/delivery_address.dart';
 import 'package:matching/representation/screen/profile.dart';
 import 'representation/screen/check_out_screen.dart';
 import 'package:matching/representation/screen/home_screen.dart';
@@ -26,6 +27,7 @@ final Map<String, WidgetBuilder> routes = {
   Profile.routeName:(context) => const Profile(),
   RecipeScreen.routeName: (context) => const RecipeScreen(),
   IngredientsInRecipeScreen.routeName: (context) => const IngredientsInRecipeScreen(),
+  DeliveryAddressScreen.routeName: (context) => const DeliveryAddressScreen(),
 };
 
 MaterialPageRoute<dynamic>? generateRoutes(RouteSettings settings) {

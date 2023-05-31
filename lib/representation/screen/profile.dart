@@ -3,9 +3,15 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/representation/widgets/info_cart.dart';
 import 'package:matching/representation/widgets/upload_image_widget.dart';
 
+<<<<<<< HEAD
 import '../../core/helper/asset_helper.dart';
 import '../../services/firebase_service.dart';
 import 'login_screen.dart';
+=======
+import '../../services/firebase_service.dart';
+import 'login_screen.dart';
+
+>>>>>>> e4baf8aed33cff114397547cc02481ca76cb4d50
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -23,6 +29,21 @@ class _ProfileState extends State<Profile> {
         minimum: const EdgeInsets.only(top: 50),
         child: Column(
           children: <Widget>[
+            ElevatedButton(
+            onPressed: () async {
+              await FirebaseServices().googleSignOut();
+
+              // ignore: use_build_context_synchronously
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()));
+            },
+            child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(FontAwesomeIcons.powerOff),
+                ]),
+          ),
             GestureDetector(
               onTap: () {
                 Navigator.push(

@@ -1,14 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:matching/representation/widgets/button_widget.dart';
 
 import '../../core/constants/dismension_constants.dart';
-import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
-import '../../model/recipe_model.dart';
-import 'dash_line_widget.dart';
 
 class SelectIngredientsInRecipe extends StatefulWidget {
   const SelectIngredientsInRecipe(

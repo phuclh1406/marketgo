@@ -7,7 +7,7 @@ class InfoCard extends StatelessWidget {
   Function onPressed;
 
   InfoCard(
-      {required this.text, required this.icon, required this.onPressed});
+      {super.key, required this.text, required this.icon, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class InfoCard extends StatelessWidget {
       // onTap: onPressed,
       child: Card(
         // color: Colors.white,
-        margin: EdgeInsets.symmetric(vertical: 10, horizontal: 25),
+        margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 25),
         child: ListTile(
           leading: Icon(
             icon,
@@ -23,7 +23,7 @@ class InfoCard extends StatelessWidget {
           ),
           title: Text(
             text,
-            style: TextStyle(
+            style: const TextStyle(
                 color: Colors.teal,
                 fontSize: 20,
                 fontFamily: "Source Sans Pro"),

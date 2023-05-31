@@ -1,20 +1,19 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
-
 import 'package:matching/data/model/cart.dart';
 import 'package:matching/data/model/ingredient.dart';
 import 'package:matching/data/model/order.dart';
 import 'package:matching/data/model/order_detail.dart';
 import 'package:matching/representation/screen/check_out_screen.dart';
-import 'package:matching/representation/widgets/app_bar_container.dart';
+import 'package:matching/representation/screen/delivery_address.dart';
 import 'package:matching/representation/widgets/item_cart_widget.dart';
-
 import 'package:uuid/uuid.dart';
-
 import '../../core/constants/color_constants.dart';
+<<<<<<< HEAD
 import '../widgets/button_widget.dart';
+=======
+>>>>>>> e4baf8aed33cff114397547cc02481ca76cb4d50
 import '../widgets/mini_app_bar_container.dart';
 
 class CartScreen extends StatefulWidget {
@@ -115,6 +114,7 @@ class _CartScreenState extends State<CartScreen> {
           status: "cart"),
     );
 
+<<<<<<< HEAD
 
     return MiniAppBarContainerWidget(
       titleString: "Your Cart",
@@ -132,20 +132,45 @@ class _CartScreenState extends State<CartScreen> {
                   Navigator.pushNamed(context, CheckOutScreen.routeName, arguments: cart);
                 },
                 title: 'Check out'
-              ),
-            ),
-            const SizedBox(
-              height: kMediumPadding,
-            ),
-            Expanded(
-              child: SingleChildScrollView(
-                child: CartItemWidget(
-                  cart: cart,
+=======
+    return MiniAppBarContainerWidget(
+      titleString: "Your Cart",
+      child: Column(
+        children: [
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              style: ButtonStyle(
+                padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
+                backgroundColor: MaterialStateColor.resolveWith(
+                    (states) => ColorPalette.yellowColor),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(18.0),
+                  ),
                 ),
               ),
+              onPressed: () {
+                Navigator.pushNamed(context, DeliveryAddressScreen.routeName);
+              },
+              child: const Text(
+                "CHECK OUT",
+                style: TextStyle(fontSize: 15),
+>>>>>>> e4baf8aed33cff114397547cc02481ca76cb4d50
+              ),
             ),
-          ],
-        ),
+          ),
+          const SizedBox(
+            height: kMediumPadding,
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: CartItemWidget(
+                cart: cart,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
