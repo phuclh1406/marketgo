@@ -6,6 +6,7 @@ import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
+import '../../model/food_model.dart';
 import '../../model/recipe_model.dart';
 import '../widgets/button_widget.dart';
 import '../widgets/dash_line_widget.dart';
@@ -15,16 +16,27 @@ class RecipeDetailScreen extends StatefulWidget {
 
   const RecipeDetailScreen({
     Key? key,
-    required this.recipeModel,
+    required this.foodModel,
   }) : super(key: key);
 
-  final RecipeModel recipeModel;
+  final FoodModel foodModel;
 
   @override
   State<RecipeDetailScreen> createState() => _RecipeDetailScreenState();
 }
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
+  
+  bool isAPICallProcess = false;
+
+  late FoodModel? foodModel;
+
+  @override
+  void initState() {
+    super.initState();
+    foodModel = widget.foodModel;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,9 +44,9 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
         alignment: Alignment.bottomCenter,
         children: [
           Positioned.fill(
-            child: ImageHelper.loadFromAsset(
+            child: Image.network(
               alignment: Alignment.topCenter,
-              AssetHelper.food4,
+              foodModel!.image![0].image!,
               width: 50,
               fit: BoxFit.fitWidth,
             ),
@@ -58,29 +70,6 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   FontAwesomeIcons.arrowLeft,
                   size: kDefaultPadding,
                   color: Colors.black,
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: kMediumPadding * 3,
-            right: kMediumPadding,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.of(context).pop();
-              },
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(
-                    kDefaultPadding,
-                  ),
-                  color: Colors.white,
-                ),
-                padding: const EdgeInsets.all(kItemPadding),
-                child: const Icon(
-                  FontAwesomeIcons.solidHeart,
-                  size: kDefaultPadding,
-                  color: Colors.red,
                 ),
               ),
             ),
@@ -120,37 +109,28 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                           Row(
                             children: [
                               Text(
-                                widget.recipeModel.recipeName,
+                                widget.foodModel.foodName!,
                                 style: TextStyles.defaultStyle.fontHeader.bold,
                               ),
                               const Spacer(),
-                              Text(
-                                '${widget.recipeModel.price.toString()}.000 vnđ',
-                                style: TextStyles.defaultStyle.fontHeader.bold,
-                              ),
-                              Text(
-                                ' /dish',
-                                style: TextStyles.defaultStyle.fontCaption,
-                              ),
                             ],
                           ),
                           const SizedBox(height: kDefaultPadding),
                           const DashLineWidget(),
                           Text(
-                            'Mô tả',
+                            'Nguyên liệu cần thiết',
                             style: TextStyles.defaultStyle.bold,
                           ),
                           const SizedBox(height: kDefaultPadding),
-                          Text(widget.recipeModel.location),
+                          Text(widget.foodModel.ingreDes!),
                           const SizedBox(height: kDefaultPadding),
                           Text(
                             'Nấu như thế nào?',
                             style: TextStyles.defaultStyle.bold,
                           ),
                           const SizedBox(height: kDefaultPadding),
-                          const Text(
-                            'Sơ chế chân giò, nạm bò. \n'
-                            'Chân giò heo nếu thích nhiều thịt thì chọn chân sau, thích da và gân sần sật thì chọn chân trước, chặt thành những khoanh tròn, rửa sạch. \n\nLuộc chân giò qua nước sôi cho hết chất bẩn sau đó rửa lại bằng nước sạch. \n\nNạm bò rửa sạch, luộc riêng cùng 1/2 củ gừng thái lát cho thơm. \n\nNinh lửa nhỏ khoảng 2 tiếng, dùng đũa xiên thử miếng nạm, nếu xiên qua được là đạt yêu cầu. \n\nĐợi thịt nạm nguội thái miếng mỏng. \n\nHuyết bò hoặc heo có thể mua sẵn hoặc mua huyết về luộc chín, thái miếng vừa ăn. (Lưu ý mua huyết ở những địa chỉ uy tín để đảm bảo an toàn thực phẩm). \n\nNếu không ăn huyết có thể bỏ qua. \n\nChả cua nặn thành từng viên tròn nhỏ thả vào nồi nước luộc nạm, chả nổi lên là đã chín, bạn vớt ra để riêng. \n\nCó thể thay thế chả cua bằng chả bò, chả giò hoặc không cho chả cũng được. \n\nVới 4 cây sả băm nhỏ, còn lại cắt khúc, đập dập. \n\nHành tây chia 2 phần, một nữa cắt đôi, nữa còn lại thái mỏng. \n\nHành lá, mùi tàu, húng quế rửa sạch thái nhỏ. Các loại rau ăn kèm rửa sạch, để ráo nước.',
+                          Text(
+                            foodModel!.implementGuide!,
                           ),
                           const SizedBox(height: kDefaultPadding),
                           ButtonWidget(

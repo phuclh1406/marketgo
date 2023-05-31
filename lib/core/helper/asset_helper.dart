@@ -20,6 +20,7 @@ class AssetHelper {
   static const String ingre5 = 'assets/images/ingre5.jpg';
   static const String ingre6 = 'assets/images/ingre6.jpg';
   static const String ingre7 = 'assets/images/ingre7.jpg';
+  static const String market = 'assets/images/market_image.jpg';
 
   static const String fork_icon = 'assets/icons/fork_icon.png';
   static const String ico_incre = 'assets/icons/ico_incre.png';

@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+<<<<<<< HEAD
+=======
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+>>>>>>> phuc
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
@@ -22,7 +26,11 @@ class StoreItemWidget extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(kMediumPadding),
+<<<<<<< HEAD
         color: ImageHelper.,
+=======
+        color: Colors.white,
+>>>>>>> phuc
       ),
       margin: const EdgeInsets.only(bottom: kMediumPadding),
       padding: const EdgeInsets.all(kDefaultPadding),
@@ -33,12 +41,24 @@ class StoreItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
+<<<<<<< HEAD
+=======
+                flex: 3,
+                child: ImageHelper.loadFromAsset(storeModel.image!,
+                    radius: BorderRadius.circular(kItemPadding),
+                    width: 150,
+                    fit: BoxFit.fitWidth),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
+>>>>>>> phuc
                 flex: 7,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       storeModel.storeName!,
+<<<<<<< HEAD
                       style: TextStyles.defaultStyle.fontHeader.bold,
                     ),
                     const SizedBox(
@@ -50,14 +70,35 @@ class StoreItemWidget extends StatelessWidget {
                     ),
                     const SizedBox(
                       height: kDefaultPadding,
+=======
+                      style: TextStyles.defaultStyle.fontHeader,
+                    ),
+                    const SizedBox(
+                      height: kDefaultPadding / 2,
+                    ),
+                    Row(
+                      children: [
+                        const Icon(FontAwesomeIcons.locationDot, color: Colors.red, size: kDefaultIconSize),
+                        const SizedBox(width: kDefaultPadding / 3),
+                        Text(
+                          storeModel.address!,
+                          style: TextStyles.defaultStyle.light,
+                          maxLines: 2,
+                        ),
+                      ],
+>>>>>>> phuc
                     ),
                   ],
                 ),
               ),
+<<<<<<< HEAD
               Expanded(
                 flex: 3,
                 child: ImageHelper.loadFromAsset(storeModel.image!, radius: BorderRadius.circular(kItemPadding), height: 50, fit: BoxFit.fitHeight),
               ),
+=======
+              
+>>>>>>> phuc
             ],
           ),
         ],
