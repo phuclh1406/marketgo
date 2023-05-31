@@ -31,7 +31,7 @@ class _ProfileState extends State<Profile> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const LoginPage()));
             },
-            child: const Column(
+            child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

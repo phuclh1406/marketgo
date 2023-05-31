@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:matching/representation/screen/login_screen.dart';
 
@@ -6,7 +5,6 @@ import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
 import '../../core/helper/local_storage_helper.dart';
 import 'intro_screen.dart';
-import 'main_app.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -31,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (ignoreIntroScreen != null && ignoreIntroScreen) {
       if (mounted) {
-        Navigator.of(context).pushNamed(MainApp.routeName);
+        Navigator.of(context).pushNamed(LoginPage.routeName);
       } // => sua thanh Navigator.of(context).pushNamed(IntroScreen.routeName)
     } else {
       LocalStorageHelper.setValue('ignoreIntroScreen', true);

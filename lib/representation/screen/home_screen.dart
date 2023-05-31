@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/representation/screen/recipe_detail_screen.dart';
-import 'package:matching/representation/screen/recipe_order_screen.dart';
 import 'package:matching/representation/screen/recipe_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
@@ -186,10 +185,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text(
-                          name!,
-                          style: TextStyles.defaultStyle.bold,
-                          maxLines: 2,
+                        Icon(
+                          Icons.star,
+                          color: Color(0xffFFC107),
                         ),
                       ],
                     ),

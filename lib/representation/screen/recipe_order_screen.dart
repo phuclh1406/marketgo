@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/representation/screen/select_ingredients_recipe_screen.dart';
-import 'package:matching/representation/widgets/item_select_ingredients.dart';
 
 import '../../core/constants/dismension_constants.dart';
-import '../../core/helper/asset_helper.dart';
 import '../widgets/button_widget.dart';
 import '../widgets/item_option_ingredients.dart';
 import '../widgets/mini_app_bar_container.dart';

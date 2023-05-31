@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
-import '../../core/helper/image_helper.dart';
 
 class ItemOptionsIngredientsWidget extends StatelessWidget {
   const ItemOptionsIngredientsWidget({
