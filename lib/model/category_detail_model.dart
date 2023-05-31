@@ -1,8 +1,11 @@
 import 'category_model.dart';
 
-List<CategoryDetailModel> categoryDetailFromJson(dynamic str) =>
-    List<CategoryDetailModel>.from((str).map((x) => CategoryDetailModel.fromJson(x)));
+List<CategoryDetailModel> categoryDetailFromJson(dynamic str) {
 
+  final rows = str['rows'];
+
+  return List<CategoryDetailModel>.from(rows.map((x) => CategoryDetailModel.fromJson(x)));
+}
 class CategoryDetailModel {
   late String? cateDetailId;
   late String? cateDetailName;

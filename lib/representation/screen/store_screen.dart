@@ -25,7 +25,7 @@ class StoreScreen extends StatefulWidget {
 class _StoreScreenState extends State<StoreScreen> {
   bool isAPICallProcess = false;
   StoreModel? storeModel;
-  Widget loadStoreRight() {
+  Widget loadStores() {
     return FutureBuilder<List<StoreModel>?>(
       future: StoreService.getAllStores(),
       builder:
@@ -38,50 +38,10 @@ class _StoreScreenState extends State<StoreScreen> {
           List<StoreModel>? stores = snapshot.data;
 
           if (stores != null && stores.isNotEmpty) {
-            int startIndex =
-                (stores.length / 2).ceil(); // Calculate the starting index
 
             return Column(
               children: [
-                for (var i = startIndex; i < stores.length; i++)
-                  if (stores[i].storeName != null || stores[i].image != null)
-                    StoreItemWidget(
-                      storeModel: stores[i],
-                      onTap: () {},
-                    )
-              ],
-            );
-          } else {
-            return const Text('No stores found.');
-          }
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
-        } else {
-          return const SizedBox(); // Return an empty container or widget if data is null
-        }
-      },
-    );
-  }
-
-  Widget loadStoreLeft() {
-    return FutureBuilder<List<StoreModel>?>(
-      future: StoreService.getAllStores(),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<StoreModel>?> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (snapshot.hasData) {
-          List<StoreModel>? stores = snapshot.data;
-
-          if (stores != null && stores.isNotEmpty) {
-            int loopCount =
-                (stores.length / 2).ceil(); // Calculate the starting index
-
-            return Column(
-              children: [
-                for (var i = 0; i < loopCount; i++)
+                for (var i = 0; i < stores.length; i++)
                   if (stores[i].storeName != null || stores[i].image != null)
                     StoreItemWidget(
                       storeModel: stores[i],
@@ -217,13 +177,7 @@ class _StoreScreenState extends State<StoreScreen> {
                       child: Row(
                         children: [
                           Expanded(
-                            child: Column(children: [loadStoreLeft()]),
-                          ),
-                          const SizedBox(
-                            width: kDefaultPadding,
-                          ),
-                          Expanded(
-                            child: Column(children: [loadStoreRight()]),
+                            child: Column(children: [loadStores()]),
                           ),
                         ],
                       ),

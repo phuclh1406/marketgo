@@ -35,6 +35,7 @@ class FirebaseServices {
           await sendTokenToApi(token);
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('tokenfirebase', token);
+          print(token);
         }
       }
     } on FirebaseAuthException catch (e) {
@@ -63,17 +64,18 @@ class FirebaseServices {
       printWrapped('Token đã được gửi lên API. Dữ liệu trả về: $responseData');
 
     if (response.statusCode == 200) {
-      final name = responseData['user_name'];
-      final phone = responseData['phone'];
-      final email = responseData['email'];
-      final password = responseData['password'];
-      final idUser = responseData['user_id'];
-      final roleId = responseData['user_role'];
-      final yob = responseData['birthday'];
-      final address = responseData['address'];
-      final accessChangePassword = responseData['accessChangePassword'];
-      final avatar = responseData['avatar'];
-      final status = responseData['status'];
+      final name = responseData['user']['user_name'];
+      final phone = responseData['user']['phone'];
+      final email = responseData['user']['email'];
+      final password = responseData['user']['password'];
+      final idUser = responseData['user']['user_id'];
+      final roleId = responseData['user']['user_role']['role_id'];
+      final roleName = responseData['user']['user_role']['role_name'];
+      final yob = responseData['user']['birthday'];
+      final address = responseData['user']['address'];
+      final accessChangePassword = responseData['user']['accessChangePassword'];
+      final avatar = responseData['user']['avatar'];
+      final status = responseData['user']['status'];
 
       
       // Lưu trữ access token bằng Shared Preferences
@@ -90,6 +92,7 @@ class FirebaseServices {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('user_name', name);
       }
+
       if (phone != null) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('phone', phone);
@@ -106,6 +109,10 @@ class FirebaseServices {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('role_id', roleId);
       }
+      if (roleName != null) {
+        final prefs = await SharedPreferences.getInstance();
+        await prefs.setString('role_name', roleName);
+      }
       if (yob != null) {
         final prefs = await SharedPreferences.getInstance();
         await prefs.setString('birthday', yob);
@@ -116,7 +123,7 @@ class FirebaseServices {
       }
       if (accessChangePassword != null) {
         final prefs = await SharedPreferences.getInstance();
-        await prefs.setString('accessChangePassword', accessChangePassword);
+        await prefs.setInt('accessChangePassword', accessChangePassword);
       }
       if (avatar != null) {
         final prefs = await SharedPreferences.getInstance();

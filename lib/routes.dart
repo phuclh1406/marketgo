@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:matching/model/food_model.dart';
 import 'package:matching/model/recipe_model.dart';
 import 'package:matching/representation/screen/recipe_detail_screen.dart';
 import 'package:matching/representation/screen/recipe_order_screen.dart';
@@ -29,12 +30,12 @@ MaterialPageRoute<dynamic>? generateRoutes(RouteSettings settings) {
   switch (settings.name) {
     case RecipeDetailScreen.routeName:
       final dynamic arguments = settings.arguments;
-      if (arguments is RecipeModel) {
-        final RecipeModel recipeModel = arguments;
+      if (arguments is FoodModel) {
+        final FoodModel foodModel = arguments;
         return MaterialPageRoute<dynamic>(
           settings: settings,
           builder: (context) => RecipeDetailScreen(
-            recipeModel: recipeModel,
+            foodModel: foodModel,
           ),
         );
       }

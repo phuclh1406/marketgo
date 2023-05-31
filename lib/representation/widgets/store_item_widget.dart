@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
@@ -33,31 +34,40 @@ class StoreItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Expanded(
+                flex: 3,
+                child: ImageHelper.loadFromAsset(storeModel.image!,
+                    radius: BorderRadius.circular(kItemPadding),
+                    width: 150,
+                    fit: BoxFit.fitWidth),
+              ),
+              const SizedBox(width: 20),
+              Expanded(
                 flex: 7,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       storeModel.storeName!,
-                      style: TextStyles.defaultStyle.fontHeader.bold,
+                      style: TextStyles.defaultStyle.fontHeader,
                     ),
                     const SizedBox(
-                      height: kDefaultPadding,
+                      height: kDefaultPadding / 2,
                     ),
-                    Text(
-                      'Address: ${storeModel.address} m2',
-                      maxLines: 2,
-                    ),
-                    const SizedBox(
-                      height: kDefaultPadding,
+                    Row(
+                      children: [
+                        const Icon(FontAwesomeIcons.locationDot, color: Colors.red, size: kDefaultIconSize),
+                        const SizedBox(width: kDefaultPadding / 3),
+                        Text(
+                          storeModel.address!,
+                          style: TextStyles.defaultStyle.light,
+                          maxLines: 2,
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-              Expanded(
-                flex: 3,
-                child: ImageHelper.loadFromAsset(storeModel.image!, radius: BorderRadius.circular(kItemPadding), height: 50, fit: BoxFit.fitHeight),
-              ),
+              
             ],
           ),
         ],

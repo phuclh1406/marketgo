@@ -4,7 +4,6 @@ import 'package:matching/model/user_model.dart';
 
 import '../core/helper/asset_helper.dart';
 import 'city_model.dart';
-import 'food_model.dart';
 
 List<StoreModel> storesFromJson(dynamic str) {
   if (str == null || str is! Map) {

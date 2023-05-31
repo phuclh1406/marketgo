@@ -4,16 +4,22 @@ import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/representation/screen/recipe_detail_screen.dart';
 import 'package:matching/representation/screen/recipe_order_screen.dart';
 import 'package:matching/representation/screen/recipe_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
+import '../../model/category_model.dart';
 import '../../model/food_model.dart';
 import '../../model/recipe_model.dart';
+import '../../model/user_model.dart';
+import '../../services/category_service.dart';
+import '../../services/food_service.dart';
 import '../../services/recipe_service.dart';
 import '../../services/user_service.dart';
 import '../widgets/app_bar_container.dart';
+import '../widgets/categories_list_widget.dart';
 import 'store_screen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -28,51 +34,42 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool isAPICallProcess = false;
   RecipeModel? recipeModel;
+  UserModel? userModel;
+  late List<CategoryModel> listCate;
 
-  void initState() {
-    super.initState();
-    recipeModel = RecipeModel();
-
-    Future.delayed(Duration.zero, () {
-      if (ModalRoute.of(context)?.settings.arguments != null) {
-        final Map arguments = ModalRoute.of(context)?.settings.arguments as Map;
-
-        recipeModel = arguments["model"];
-
-        // Set the id value from the arguments map directly to recipeModel's id
-        recipeModel!.foodModel?.foodId = arguments["food_id"];
-        setState(() {});
-      }
-    });
+  Future<String> getUser() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? userName = prefs.getString('user_name');
+    return userName ?? ''; // Return an empty string if userName is null
   }
 
-  Widget loadRecipesLeft() {
-    return FutureBuilder<List<RecipeModel>?>(
-      future: RecipeService.getAllRecipes(),
+  Widget loadFoodsLeft() {
+    return FutureBuilder<List<FoodModel>?>(
+      future: FoodService.getAllFoods(),
       builder:
-          (BuildContext context, AsyncSnapshot<List<RecipeModel>?> snapshot) {
+          (BuildContext context, AsyncSnapshot<List<FoodModel>?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasData) {
-          List<RecipeModel>? recipes = snapshot.data;
+          List<FoodModel>? foods = snapshot.data;
 
-          if (recipes != null && recipes.isNotEmpty) {
-            int loopCount = (recipes.length / 2)
-                .ceil(); // Calculate half of the recipes length
+          if (foods != null && foods.isNotEmpty) {
+            int loopCount =
+                (foods.length / 2).ceil(); // Calculate half of the foods length
 
             return Column(
               children: [
                 for (var i = 0; i < loopCount; i++)
-                  if (recipes[i].foodModel?.foodName != null ||
-                      recipes[i].foodModel?.image != null)
-                    _buildImageHomeScreen(recipes[i].foodModel!.foodName!,
-                        recipes[i].foodModel!.image!)
+                  if (foods[i].foodName != null ||
+                      foods[i].image![0].image != null)
+                    _buildImageHomeScreen(
+                        foods[i].foodName, foods[i].image![0].image)
               ],
             );
           } else {
-            return const Text('No recipes found.');
+            return const Text('No foods found.');
           }
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
@@ -83,33 +80,33 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget loadRecipesRight() {
-    return FutureBuilder<List<RecipeModel>?>(
-      future: RecipeService.getAllRecipes(),
+  Widget loadFoodsRight() {
+    return FutureBuilder<List<FoodModel>?>(
+      future: FoodService.getAllFoods(),
       builder:
-          (BuildContext context, AsyncSnapshot<List<RecipeModel>?> snapshot) {
+          (BuildContext context, AsyncSnapshot<List<FoodModel>?> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(
             child: CircularProgressIndicator(),
           );
         } else if (snapshot.hasData) {
-          List<RecipeModel>? recipes = snapshot.data;
+          List<FoodModel>? foods = snapshot.data;
 
-          if (recipes != null && recipes.isNotEmpty) {
+          if (foods != null && foods.isNotEmpty) {
             int startIndex =
-                (recipes.length / 2).ceil(); // Calculate the starting index
+                (foods.length / 2).ceil(); // Calculate half of the foods length
 
             return Column(
               children: [
-                for (var i = startIndex; i < recipes.length; i++)
-                  if (recipes[i].foodModel?.foodName != null ||
-                      recipes[i].foodModel?.image != null)
-                    _buildImageHomeScreen(recipes[i].foodModel!.foodName!,
-                        recipes[i].foodModel!.image!)
+                for (var i = startIndex; i < foods.length; i++)
+                  if (foods[i].foodName != null ||
+                      foods[i].image![0].image != null)
+                    _buildImageHomeScreen(
+                        foods[i].foodName, foods[i].image![0].image)
               ],
             );
           } else {
-            return const Text('No recipes found.');
+            return const Text('No foods found.');
           }
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');
@@ -147,27 +144,29 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget _buildImageHomeScreen(String? name, String? image) {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context)
-            .pushNamed(RecipeDetailScreen.routeName, arguments: name);
-      },
+      // onTap: () {
+      //   Navigator.of(context)
+      //       .pushNamed(RecipeDetailScreen.routeName, arguments: name);
+      // },
       child: Container(
         margin: const EdgeInsets.only(bottom: kDefaultPadding),
         child: Stack(
           alignment: Alignment.topRight,
           children: [
-            ImageHelper.loadFromAsset(
-              image!,
-              height: 200,
-              fit: BoxFit.fitHeight,
-              radius: BorderRadius.circular(kItemPadding),
-            ),
-            const Padding(
-              padding: EdgeInsets.all(kDefaultPadding),
-              child: Icon(
-                Icons.favorite,
-                color: Colors.red,
-              ),
+            Column(
+              children: [
+                SizedBox(
+                  width: 150,
+                  height: 150,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(kDefaultPadding),
+                    child: Image.network(
+                      image!,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                )
+              ],
             ),
             Positioned(
               left: kDefaultPadding,
@@ -175,10 +174,6 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    name!,
-                    style: TextStyles.defaultStyle.whiteTextColor.bold,
-                  ),
                   const SizedBox(
                     height: kItemPadding,
                   ),
@@ -190,15 +185,12 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Icon(
-                          Icons.star,
-                          color: Color(0xffFFC107),
+                      children: [
+                        Text(
+                          name!,
+                          style: TextStyles.defaultStyle.bold,
+                          maxLines: 2,
                         ),
-                        SizedBox(
-                          width: kItemPadding,
-                        ),
-                        Text('4.5')
                       ],
                     ),
                   ),
@@ -213,54 +205,68 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     return AppBarContainerWidget(
       titleString: 'home',
       title: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kItemPadding),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Hi James!',
-                    style:
-                        TextStyles.defaultStyle.fontHeader.whiteTextColor.bold),
-                const SizedBox(
-                  height: kMediumPadding,
-                ),
-                Text(
-                  'Where are you going next?',
-                  style: TextStyles.defaultStyle.fontCaption.whiteTextColor,
-                )
-              ],
-            ),
-            const Spacer(),
-            const Icon(
-              FontAwesomeIcons.bell,
-              size: kDefaultIconSize,
-              color: Colors.white,
-            ),
-            const SizedBox(
-              width: kMinPadding,
-            ),
-            Container(
-              height: 40,
-              width: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(
-                  kItemPadding,
-                ),
+        child: Flexible(
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  FutureBuilder<String>(
+                    future: getUser(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(
+                          'Xin chào \n${snapshot.data!}!',
+                          style: const TextStyle(fontSize: 16),
+                          overflow: TextOverflow.ellipsis,
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        return const Text('Loading...');
+                      }
+                    },
+                  ),
+                  const SizedBox(
+                    height: kMediumPadding,
+                  ),
+                  Text(
+                    'Bạn đang cần gì?',
+                    style: TextStyles.defaultStyle.fontCaption.whiteTextColor,
+                  )
+                ],
+              ),
+              const Spacer(),
+              const Icon(
+                FontAwesomeIcons.bell,
+                size: kDefaultIconSize,
                 color: Colors.white,
               ),
-              padding: const EdgeInsets.all(kItemPadding),
-              child: ImageHelper.loadFromAsset(
-                AssetHelper.intro1,
+              const SizedBox(
+                width: kMinPadding,
               ),
-            ),
-          ],
+              Container(
+                height: 40,
+                width: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    kItemPadding,
+                  ),
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(kItemPadding),
+                child: ImageHelper.loadFromAsset(
+                  AssetHelper.intro1,
+                ),
+              ),
+            ],
+          ),
         ),
       ),
       implementLeading: false,
@@ -270,7 +276,7 @@ class _HomeScreenState extends State<HomeScreen> {
             enabled: true,
             autocorrect: false,
             decoration: const InputDecoration(
-              hintText: 'Search your destination',
+              hintText: 'Tìm kiếm công thức của bạn',
               prefixIcon: Padding(
                 padding: EdgeInsets.all(8.0),
                 child: Icon(
@@ -308,7 +314,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const Color(0xffFE9C5E), () {
                   Navigator.of(context).pushNamed(RecipeScreen.routeName);
-                }, 'Recipes'),
+                }, 'Công thức'),
               ),
               const SizedBox(width: kDefaultPadding),
               Expanded(
@@ -317,9 +323,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       FontAwesomeIcons.store,
                       weight: kDefaultPadding,
                     ),
-                    const Color(0xffF77777),
-                    () {Navigator.of(context).pushNamed(StoreScreen.routeName);},
-                    'Stores'),
+                    const Color(0xffF77777), () {
+                  Navigator.of(context).pushNamed(StoreScreen.routeName);
+                }, 'Cửa hàng'),
               ),
               const SizedBox(width: kDefaultPadding),
               Expanded(
@@ -330,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                     const Color(0xff3EC8BC),
                     () {},
-                    'Ingredients'),
+                    'Nguyên Liệu'),
               ),
             ],
           ),
@@ -340,12 +346,12 @@ class _HomeScreenState extends State<HomeScreen> {
           Row(
             children: [
               Text(
-                'Popular Destinations',
+                'Phổ biến',
                 style: TextStyles.defaultStyle.bold,
               ),
               const Spacer(),
               Text(
-                'See All',
+                'Xem thêm',
                 style: TextStyles.defaultStyle.bold.primaryTextColor,
               ),
             ],
@@ -361,15 +367,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 key: UniqueKey(),
                 child: Row(
                   children: [
-                    // Expanded(
-                    //   child: Column(children: [loadRecipesLeft()]),
-                    // ),
-                    // const SizedBox(
-                    //   width: kDefaultPadding,
-                    // ),
-                    // Expanded(
-                    //   child: Column(children: [loadRecipesRight()]),
-                    // ),
+                    Expanded(
+                      child: Column(children: [loadFoodsLeft()]),
+                    ),
+                    const SizedBox(
+                      width: kDefaultPadding,
+                    ),
+                    Expanded(
+                      child: Column(children: [loadFoodsRight()]),
+                    ),
                   ],
                 ),
               ),

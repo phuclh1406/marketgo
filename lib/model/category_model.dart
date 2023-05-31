@@ -1,7 +1,18 @@
 // user_id, user_name, email, password, birthday, avatar, address, phone, accessChangePassword, refresh_token, role_id, status
 
-List<CategoryModel> categoriesFromJson(dynamic str) =>
-    List<CategoryModel>.from((str).map((x) => CategoryModel.fromJson(x)));
+List<CategoryModel> categoriesFromJson(dynamic str) {
+  if(str == null || str is! Map) {
+    return [];
+  }
+
+  final rows = str['rows'];
+
+  if(rows == null || rows is! Iterable) {
+    return [];
+  }
+
+  return List<CategoryModel>.from(rows.map((x) => CategoryModel.fromJson(x)));
+}
 
 class CategoryModel {
   late String? cateId;
@@ -22,10 +33,10 @@ class CategoryModel {
   }
 
   Map<String, dynamic> toJson() {
-    final _data = <String, dynamic>{};
-    _data['cate_id'] = cateId;
-    _data['cate_name'] = cateName;
-    _data['status'] = status;
-    return _data;
+    final data = <String, dynamic>{};
+    data['cate_id'] = cateId;
+    data['cate_name'] = cateName;
+    data['status'] = status;
+    return data;
   }
 }
