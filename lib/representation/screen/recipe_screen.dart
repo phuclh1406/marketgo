@@ -11,12 +11,8 @@ import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../model/category_model.dart';
 import '../../model/recipe_model.dart';
-<<<<<<< HEAD
-=======
 import '../../services/category_service.dart';
 import '../../services/food_service.dart';
-import '../widgets/app_bar_container.dart';
->>>>>>> phuc
 import '../widgets/mini_app_bar_container.dart';
 
 class RecipeScreen extends StatefulWidget {

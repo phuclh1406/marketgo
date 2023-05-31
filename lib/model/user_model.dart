@@ -62,11 +62,7 @@ class UserModel {
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-<<<<<<< HEAD
-    data['_id'] = id;
-=======
     data['user_id'] = id;
->>>>>>> phuc
     data['user_name'] = name;
     data['email'] = email;
     data['password'] = password;
@@ -76,13 +72,9 @@ class UserModel {
     data['phone'] = phone;
     data['accessChangePassword'] = accessChangePassword;
     data['refresh_token'] = refreshToken;
-<<<<<<< HEAD
-    data['role_id'] = roleId;
-=======
     if (roleModel != null) {
       data['role_model'] = roleModel!.toJson();
     }
->>>>>>> phuc
     data['status'] = status;
     return data;
   }

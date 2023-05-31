@@ -90,11 +90,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
-    final cart = ModalRoute.of(context)!.settings.arguments as Cart? ?? Cart(myCart: HashMap<Uuid, OrderDetail>());
-
-    return AppBarContainerWidget(
-=======
     //final cart = ModalRoute.of(context)!.settings.arguments as Cart? ?? Cart(myCart: HashMap<Uuid, OrderDetail>());
     Cart cart = Cart(myCart: HashMap<Uuid, OrderDetail>());
     cart.addToCart(
@@ -182,7 +177,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
           status: "cart"),
     );
     return MiniAppBarContainerWidget(
->>>>>>> e4baf8aed33cff114397547cc02481ca76cb4d50
       implementLeading: true,
       titleString: "Checkout Screen",
       child: Column(

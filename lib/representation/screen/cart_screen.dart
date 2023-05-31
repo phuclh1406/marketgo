@@ -10,10 +10,7 @@ import 'package:matching/representation/screen/delivery_address.dart';
 import 'package:matching/representation/widgets/item_cart_widget.dart';
 import 'package:uuid/uuid.dart';
 import '../../core/constants/color_constants.dart';
-<<<<<<< HEAD
 import '../widgets/button_widget.dart';
-=======
->>>>>>> e4baf8aed33cff114397547cc02481ca76cb4d50
 import '../widgets/mini_app_bar_container.dart';
 
 class CartScreen extends StatefulWidget {
@@ -114,25 +111,6 @@ class _CartScreenState extends State<CartScreen> {
           status: "cart"),
     );
 
-<<<<<<< HEAD
-
-    return MiniAppBarContainerWidget(
-      titleString: "Your Cart",
-      child: Padding(
-        padding: const EdgeInsets.only(
-          top: 15,
-        ),
-        child: Column(
-          children: [
-            SizedBox(
-              height: 50,
-              width: double.infinity,
-              child: ButtonWidget(
-                ontap: () {
-                  Navigator.pushNamed(context, CheckOutScreen.routeName, arguments: cart);
-                },
-                title: 'Check out'
-=======
     return MiniAppBarContainerWidget(
       titleString: "Your Cart",
       child: Column(
@@ -156,7 +134,6 @@ class _CartScreenState extends State<CartScreen> {
               child: const Text(
                 "CHECK OUT",
                 style: TextStyle(fontSize: 15),
->>>>>>> e4baf8aed33cff114397547cc02481ca76cb4d50
               ),
             ),
           ),

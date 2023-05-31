@@ -9,8 +9,6 @@ import 'package:snippet_coder_utils/ProgressHUD.dart';
 import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
-<<<<<<< HEAD
-=======
 import '../../model/category_model.dart';
 import '../../model/food_model.dart';
 import '../../model/recipe_model.dart';
@@ -19,7 +17,6 @@ import '../../services/category_service.dart';
 import '../../services/food_service.dart';
 import '../../services/recipe_service.dart';
 import '../../services/user_service.dart';
->>>>>>> phuc
 import '../widgets/app_bar_container.dart';
 import '../widgets/categories_list_widget.dart';
 import 'store_screen.dart';
@@ -185,19 +182,12 @@ class _HomeScreenState extends State<HomeScreen> {
                       borderRadius: BorderRadius.circular(kMinPadding),
                       color: Colors.white.withOpacity(0.4),
                     ),
-                    child: const Row(
+                    child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-<<<<<<< HEAD
                         Icon(
                           Icons.star,
                           color: Color(0xffFFC107),
-=======
-                        Text(
-                          name!,
-                          style: TextStyles.defaultStyle.bold,
-                          maxLines: 2,
->>>>>>> phuc
                         ),
                       ],
                     ),

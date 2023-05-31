@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-<<<<<<< HEAD
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:matching/representation/screen/profile.dart';
-=======
->>>>>>> e4baf8aed33cff114397547cc02481ca76cb4d50
 import 'package:matching/representation/screen/profile_screen.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
