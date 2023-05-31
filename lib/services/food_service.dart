@@ -39,7 +39,7 @@ class FoodService {
     'Authorization': 'Bearer $token'
   };
 
-  const url = 'https://market-go.cyclic.app/api/v1/foods';
+  var url = 'https://market-go.cyclic.app/api/v1/foods?food_name=$query';
 
   final response = await http.get(Uri.parse(url), headers: requestHeaders);
 

@@ -6,6 +6,7 @@ import 'package:matching/model/category_detail_model.dart';
 import 'package:matching/model/store_model.dart';
 
 import 'food_model.dart';
+import 'image_model.dart';
 import 'promotion_model.dart';
 
 List<IngredientModel> ingredientsFromJson(dynamic str) =>
@@ -19,8 +20,9 @@ class IngredientModel {
   late int? quantity;
   late double? quantitative;
   late StoreModel? storeModel;
-  late PromotionModel? promotionModel;
+  // late PromotionModel? promotionModel;
   late CategoryDetailModel? categoryDetailModel;
+  late List<ImageModel>? ingreImage;
   late String? status;
 
   IngredientModel({
@@ -31,8 +33,9 @@ class IngredientModel {
     this.quantity,
     this.quantitative,
     this.storeModel,
-    this.promotionModel,
+    // this.promotionModel,
     this.categoryDetailModel,
+    this.ingreImage,
     this.status,
   });
 
@@ -43,15 +46,20 @@ class IngredientModel {
     price = json['price'];
     quantity = json['quantity'];
     quantitative = json['quantitative'];
-    storeModel = json['store_model'] != null
-        ? StoreModel.fromJson(json['store_model'])
+    storeModel = json['ingredient_store'] != null
+        ? StoreModel.fromJson(json['ingredient_store'])
         : null;
-    promotionModel = json['promotion_model'] != null
-        ? PromotionModel.fromJson(json['promotion_model'])
-        : null;
+    // promotionModel = json['promotion_model'] != null
+    //     ? PromotionModel.fromJson(json['promotion_model'])
+    //     : null;
     categoryDetailModel = json['cate_detail_model'] != null
         ? CategoryDetailModel.fromJson(json['cate_detail_model'])
         : null;
+    if (json['food_image'] != null && json['food_image'] is List) {
+      ingreImage = List<ImageModel>.from(
+        json['food_image'].map((x) => ImageModel.fromJson(x)),
+      );
+    }
     status = json['status'];
   }
 
@@ -63,14 +71,21 @@ class IngredientModel {
     data['price'] = price;
     data['quantity'] = quantity;
     data['quantitative'] = quantitative;
-    if (categoryDetailModel != null) {
-      data['cate_detail_model'] = categoryDetailModel!.toJson();
+    if (storeModel != null) {
+      data['ingredient_store'] = storeModel!.toJson();
     }
-    if (promotionModel != null) {
-      data['promotion_model'] = promotionModel!.toJson();
+    // if (promotionModel != null) {
+    //   data['promotion_model'] = promotionModel!.toJson();
+    // }
+     if (categoryDetailModel != null) {
+      data['ingredient_cate_detail'] = {
+        'cate_detail_id': categoryDetailModel!.cateDetailId,
+        'cate_detail_name': categoryDetailModel!.cateDetailName,
+        'cate_id': categoryDetailModel!.categoryModel!.cateId,
+      };
     }
-    if (categoryDetailModel != null) {
-      data['cate_detail_model'] = categoryDetailModel!.toJson();
+    if (ingreImage != null) {
+      data['food_image'] = ingreImage!.map((x) => x.toJson()).toList();
     }
     data['status'] = status;
     return data;
