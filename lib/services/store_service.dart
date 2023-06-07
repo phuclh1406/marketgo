@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../config.dart';
 import '../model/store_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;

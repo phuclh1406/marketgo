@@ -111,8 +111,6 @@ class MiniAppBarContainerWidget extends StatelessWidget {
                 Container(
                   decoration: const BoxDecoration(
                     gradient: Gradients.defaultGradientBackground,
-                    borderRadius:
-                        BorderRadius.only(bottomLeft: Radius.circular(35)),
                   ),
                 ),
                 Positioned(

@@ -3,8 +3,6 @@ import 'package:http/http.dart' as http;
 import 'package:matching/model/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../config.dart';
-
 class UserService {
   static var client = http.Client();
 

@@ -130,7 +130,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                           ),
                           const SizedBox(height: kDefaultPadding),
                           Text(
-                            foodModel!.implementGuide!,
+                            foodModel!.implementGuide !,
                           ),
                           const SizedBox(height: kDefaultPadding),
                           ButtonWidget(

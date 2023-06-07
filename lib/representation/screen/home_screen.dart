@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
+import 'package:matching/representation/screen/ingredients_screen.dart';
 import 'package:matching/representation/screen/recipe_detail_screen.dart';
 import 'package:matching/representation/screen/recipe_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -15,7 +16,6 @@ import '../../model/recipe_model.dart';
 import '../../model/user_model.dart';
 import '../../services/category_service.dart';
 import '../../services/food_service.dart';
-import '../../services/recipe_service.dart';
 import '../../services/user_service.dart';
 import '../widgets/app_bar_container.dart';
 import '../widgets/categories_list_widget.dart';
@@ -32,7 +32,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isAPICallProcess = false;
-  RecipeModel? recipeModel;
+  FoodModel? foodModel;
   UserModel? userModel;
   late List<CategoryModel> listCate;
 
@@ -40,6 +40,11 @@ class _HomeScreenState extends State<HomeScreen> {
     final prefs = await SharedPreferences.getInstance();
     String? userName = prefs.getString('user_name');
     return userName ?? ''; // Return an empty string if userName is null
+  }
+  Future<String> getImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? image = prefs.getString('avatar');
+    return image ?? ''; // Return an empty string if userName is null
   }
 
   Widget loadFoodsLeft() {
@@ -56,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
           if (foods != null && foods.isNotEmpty) {
             int loopCount =
-                (foods.length / 2).ceil(); // Calculate half of the foods length
+                (foods.length / 2).floor(); // Calculate half of the foods length
 
             return Column(
               children: [
@@ -171,6 +176,7 @@ class _HomeScreenState extends State<HomeScreen> {
               left: kDefaultPadding,
               bottom: kDefaultPadding,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
@@ -185,9 +191,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(
-                          Icons.star,
-                          color: Color(0xffFFC107),
+                        Text(
+                          name!,
+                          style: TextStyles.defaultStyle.bold,
+                          maxLines: 2,
                         ),
                       ],
                     ),
@@ -259,9 +266,22 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: Colors.white,
                 ),
                 padding: const EdgeInsets.all(kItemPadding),
-                child: ImageHelper.loadFromAsset(
-                  AssetHelper.intro1,
-                ),
+                child: FutureBuilder<String>(
+                    future: getImage(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Image.network(
+                          snapshot.data!,
+                          width: 10,
+                          height: 10,
+                        );
+                      } else if (snapshot.hasError) {
+                        return ImageHelper.loadFromAsset(AssetHelper.food1);
+                      } else {
+                        return const Text('Loading...');
+                      }
+                    },
+                  ),
               ),
             ],
           ),
@@ -333,7 +353,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       weight: kDefaultPadding,
                     ),
                     const Color(0xff3EC8BC),
-                    () {},
+                    () {Navigator.of(context).pushNamed(IngredientsScreen.routeName);},
                     'Nguyên Liệu'),
               ),
             ],

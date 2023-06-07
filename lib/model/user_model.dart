@@ -22,7 +22,7 @@ class UserModel {
   late String? avatar;
   late String? address;
   late String? phone;
-  late String? accessChangePassword;
+  late bool? accessChangePassword;
   late String? refreshToken;
   late RoleModel? roleModel;
   late String? status;

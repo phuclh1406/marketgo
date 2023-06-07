@@ -16,9 +16,9 @@ class IngredientModel {
   late String? ingredientId;
   late String? ingredientName;
   late String? description;
-  late double? price;
+  late int? price;
   late int? quantity;
-  late double? quantitative;
+  late String? quantitative;
   late StoreModel? storeModel;
   // late PromotionModel? promotionModel;
   late CategoryDetailModel? categoryDetailModel;
@@ -52,12 +52,12 @@ class IngredientModel {
     // promotionModel = json['promotion_model'] != null
     //     ? PromotionModel.fromJson(json['promotion_model'])
     //     : null;
-    categoryDetailModel = json['cate_detail_model'] != null
-        ? CategoryDetailModel.fromJson(json['cate_detail_model'])
+    categoryDetailModel = json['ingredient_cate_detail'] != null
+        ? CategoryDetailModel.fromJson(json['ingredient_cate_detail'])
         : null;
-    if (json['food_image'] != null && json['food_image'] is List) {
+    if (json['ingredient_image'] != null && json['ingredient_image'] is List) {
       ingreImage = List<ImageModel>.from(
-        json['food_image'].map((x) => ImageModel.fromJson(x)),
+        json['ingredient_image'].map((x) => ImageModel.fromJson(x)),
       );
     }
     status = json['status'];
@@ -72,7 +72,11 @@ class IngredientModel {
     data['quantity'] = quantity;
     data['quantitative'] = quantitative;
     if (storeModel != null) {
-      data['ingredient_store'] = storeModel!.toJson();
+      data['ingredient_store'] = {
+        'store_id': storeModel!.storeId,
+        'store_name': storeModel!.storeName,
+        'address': storeModel!.address,
+      };
     }
     // if (promotionModel != null) {
     //   data['promotion_model'] = promotionModel!.toJson();
@@ -85,7 +89,7 @@ class IngredientModel {
       };
     }
     if (ingreImage != null) {
-      data['food_image'] = ingreImage!.map((x) => x.toJson()).toList();
+      data['ingredient_image'] = ingreImage!.map((x) => x.toJson()).toList();
     }
     data['status'] = status;
     return data;

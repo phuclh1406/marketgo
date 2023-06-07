@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:matching/model/category_detail_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CategoryService {
+class CategoryDetailService {
   static var client = http.Client;
 
   static Future<List<CategoryDetailModel>?> getAllCategoriesDetail() async {
@@ -22,7 +22,7 @@ class CategoryService {
     if(response.statusCode == 200) {
       var data = jsonDecode(response.body);
 
-      return categoryDetailFromJson(data['categories_detail']);
+      return categoryDetailFromJson(data['categories']);
     } else {
       return null;
     }

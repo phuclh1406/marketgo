@@ -21,8 +21,7 @@ class StoreItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(kMediumPadding),
+      decoration: const BoxDecoration(
         color: Colors.white,
       ),
       margin: const EdgeInsets.only(bottom: kMediumPadding),
@@ -36,7 +35,6 @@ class StoreItemWidget extends StatelessWidget {
               Expanded(
                 flex: 3,
                 child: ImageHelper.loadFromAsset(storeModel.image!,
-                    radius: BorderRadius.circular(kItemPadding),
                     width: 150,
                     fit: BoxFit.fitWidth),
               ),
