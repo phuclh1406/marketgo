@@ -1,37 +1,33 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:matching/model/user_model.dart';
-
-import '../../config.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UserService {
   static var client = http.Client();
 
   static Future<UserModel?> getUserById(String userId) async {
-  Map<String, String> requestHeaders = {
-    'Content-Type': 'application/json',
-  };
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('accesstoken')!;
+    String? userId = prefs.getString('user_id');
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
 
-  var url = Uri.http(
-    Config.apiURL,
-    '${Config.userAPI}/$userId', // Append the userId to the API endpoint
-  );
+    var url = 'https://market-go.cyclic.app/api/v1/users/$userId';
 
-  var response = await client.get(
-    url,
-    headers: requestHeaders,
-  );
+    final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
-  if (response.statusCode == 200) {
-    var data = jsonDecode(response.body);
-    var user = UserModel.fromJson(data);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      var user = UserModel.fromJson(data['user']);
 
-    return user;
-  } else {
-    return null;
+      return user;
+    } else {
+      return null;
+    }
   }
-}
-
 
 //   static Future<bool> saveProduct(
 //     ProductModel model,

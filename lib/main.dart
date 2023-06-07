@@ -6,6 +6,7 @@ import 'package:matching/representation/screen/cart_screen.dart';
 
 import 'core/constants/color_constants.dart';
 import 'core/helper/local_storage_helper.dart';
+import 'representation/screen/splash_screen.dart';
 import 'routes.dart';
 
 void main() async {
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       routes: routes,
       onGenerateRoute: generateRoutes,
       debugShowCheckedModeBanner: false,
-      home: const CartScreen(),
+      home: const SplashScreen(),
 
     );
   }

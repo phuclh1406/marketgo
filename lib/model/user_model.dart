@@ -1,7 +1,17 @@
 // user_id, user_name, email, password, birthday, avatar, address, phone, accessChangePassword, refresh_token, role_id, status
 
-List<UserModel> usersFromJson(dynamic str) =>
-    List<UserModel>.from((str).map((x) => UserModel.fromJson(x)));
+import 'package:matching/model/role_model.dart';
+
+// List<UserModel> usersFromJson(dynamic str) =>
+// List<UserModel>.from((str).map((x) => UserModel.fromJson(x)));
+
+List<UserModel> usersFromJson(dynamic str) {
+
+  final rows = str['rows'];
+
+  return List<UserModel>.from(rows.map((x) => UserModel.fromJson(x)));
+}
+
 
 class UserModel {
   late String? id;
@@ -12,9 +22,9 @@ class UserModel {
   late String? avatar;
   late String? address;
   late String? phone;
-  late String? accessChangePassword;
+  late bool? accessChangePassword;
   late String? refreshToken;
-  late String? roleId;
+  late RoleModel? roleModel;
   late String? status;
 
   UserModel({
@@ -28,7 +38,7 @@ class UserModel {
     this.phone,
     this.accessChangePassword,
     this.refreshToken,
-    this.roleId,
+    this.roleModel,
     this.status,
     
   });
@@ -44,13 +54,15 @@ class UserModel {
     phone = json['phone'];
     accessChangePassword = json['accessChangePassword'];
     refreshToken = json['refresh_token'];
-    roleId = json['role_id'];
+    roleModel = json['role_model'] != null
+      ? RoleModel.fromJson(json['role_model'])
+      : null;
     status = json['status'];
   }
 
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
-    data['_id'] = id;
+    data['user_id'] = id;
     data['user_name'] = name;
     data['email'] = email;
     data['password'] = password;
@@ -60,7 +72,9 @@ class UserModel {
     data['phone'] = phone;
     data['accessChangePassword'] = accessChangePassword;
     data['refresh_token'] = refreshToken;
-    data['role_id'] = roleId;
+    if (roleModel != null) {
+      data['role_model'] = roleModel!.toJson();
+    }
     data['status'] = status;
     return data;
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:matching/representation/screen/login_screen.dart';
 
 import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
@@ -28,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (ignoreIntroScreen != null && ignoreIntroScreen) {
       if (mounted) {
-        Navigator.of(context).pushNamed(IntroScreen.routeName);
+        Navigator.of(context).pushNamed(LoginPage.routeName);
       } // => sua thanh Navigator.of(context).pushNamed(IntroScreen.routeName)
     } else {
       LocalStorageHelper.setValue('ignoreIntroScreen', true);
