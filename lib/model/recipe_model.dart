@@ -3,12 +3,12 @@
 import 'food_model.dart';
 
 List<RecipeModel> recipesFromJson(dynamic str) {
-  if (str == null || !(str is Map)) {
+  if (str == null || str is! Map) {
     return [];
   }
 
   final rows = str['rows'];
-  if (rows == null || !(rows is Iterable)) {
+  if (rows == null || rows is! Iterable) {
     return [];
   }
 

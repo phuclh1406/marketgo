@@ -1,5 +1,4 @@
 
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:http/http.dart' as http;
@@ -7,10 +6,12 @@ import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 class FirebaseServices {
   final _auth = FirebaseAuth.instance;
   final _googleSignIn = GoogleSignIn();
-  void printWrapped(String text) => RegExp('.{1,800}').allMatches(text).map((m) => m.group(0)).forEach(print);
+  void printWrapped(String text) =>
+      RegExp('.{1,800}').allMatches(text).map((m) => m.group(0)).forEach(print);
 
   Future<void> signInWithGoogle() async {
     try {
@@ -43,8 +44,6 @@ class FirebaseServices {
     }
   }
 
-  
-
   Future<void> sendTokenToApi(String token) async {
     const url = 'https://market-go.cyclic.app/api/v1/auth/login-google';
     // ignore: non_constant_identifier_names
@@ -59,8 +58,8 @@ class FirebaseServices {
         await http.post(Uri.parse(url), headers: headers, body: body);
     final responseData = json.decode(response.body);
     final accesstoken = responseData['access_token'];
-      printWrapped('AcessToken: $accesstoken');
-      printWrapped('Token đã được gửi lên API. Dữ liệu trả về: $responseData');
+    printWrapped('AcessToken: $accesstoken');
+    printWrapped('Token đã được gửi lên API. Dữ liệu trả về: $responseData');
 
     if (response.statusCode == 200) {
       final name = responseData['user']['user_name'];
@@ -76,7 +75,6 @@ class FirebaseServices {
       final avatar = responseData['user']['avatar'];
       final status = responseData['user']['status'];
 
-      
       // Lưu trữ access token bằng Shared Preferences
       if (accesstoken != null) {
         final prefs = await SharedPreferences.getInstance();
@@ -137,7 +135,7 @@ class FirebaseServices {
     } else {
       printWrapped('Invalid response data');
     }
-}
+  }
 
   googleSignOut() async {
     await _auth.signOut();

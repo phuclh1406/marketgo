@@ -31,7 +31,7 @@ class _ProfileState extends State<Profile> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const LoginPage()));
             },
-            child: Column(
+            child: const Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -45,9 +45,9 @@ class _ProfileState extends State<Profile> {
                     MaterialPageRoute(
                         builder: (context) => const ImageUploaderWidget()));
               },
-              child: Stack(
+              child: const Stack(
                 alignment: Alignment.bottomRight,
-                children: const [
+                children: [
                   CircleAvatar(
                     backgroundImage:
                         AssetImage('./assets/images/profile_pic.png'),
@@ -104,10 +104,10 @@ class _ProfileState extends State<Profile> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const LoginPage()));
               },
-              child: Column(
+              child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
+                  children: [
                     Icon(FontAwesomeIcons.powerOff),
                   ]),
             )

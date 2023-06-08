@@ -12,7 +12,7 @@ class CheckoutItemWidget extends StatelessWidget {
   });
 
   final String? name;
-  final double? price;
+  final int? price;
   final int? quantity;
   final String? quantitative;
 

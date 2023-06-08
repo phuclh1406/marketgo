@@ -88,7 +88,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
           stepName,
           style: const TextStyle(
               color: ColorPalette.yellowColor,
-              fontSize: 18,
+              fontSize: 16,
               fontWeight: FontWeight.bold),
         ),
         const SizedBox(
