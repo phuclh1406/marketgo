@@ -33,9 +33,15 @@ class IngredientItemWidget extends StatelessWidget {
             children: [
               Expanded(
                 flex: 3,
-                // child: Image.network(ingredientModel.ingreImage![0].image!,
-                //     width: 70, fit: BoxFit.fitWidth),
-                child: ImageHelper.loadFromAsset(AssetHelper.food1),
+                child: ingredientModel.ingreImage != null &&
+                        ingredientModel.ingreImage!.isNotEmpty &&
+                        ingredientModel.ingreImage![0].image != null
+                    ? Image.network(
+                        ingredientModel.ingreImage![0].image!,
+                        width: 70,
+                        fit: BoxFit.fitWidth,
+                      )
+                    : ImageHelper.loadFromAsset(AssetHelper.no_image), // Replace with the desired widget if image does not exist
               ),
               const SizedBox(width: 20),
               Flexible(

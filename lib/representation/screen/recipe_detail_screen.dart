@@ -5,8 +5,14 @@ import 'package:matching/representation/screen/recipe_order_screen.dart';
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
 import '../../model/food_model.dart';
+<<<<<<< HEAD
+import '../../model/guide_step_model.dart';
+import '../../model/recipe_model.dart';
+=======
+>>>>>>> 2bc603b5fad962c19bdf4ffd0c70c5637217e587
 import '../widgets/button_widget.dart';
 import '../widgets/dash_line_widget.dart';
+import 'ingredients_screen.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   static const String routeName = '/recipe_detail_screen';
@@ -23,10 +29,10 @@ class RecipeDetailScreen extends StatefulWidget {
 }
 
 class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
-  
   bool isAPICallProcess = false;
 
   late FoodModel? foodModel;
+  late List<StepModel> stepList;
 
   @override
   void initState() {
@@ -126,15 +132,90 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                             style: TextStyles.defaultStyle.bold,
                           ),
                           const SizedBox(height: kDefaultPadding),
-                          Text(
-                            foodModel!.implementGuide !,
-                          ),
+                          if (foodModel!.step!.isNotEmpty)
+                            for (var i = 0; i < foodModel!.step!.length; i++)
+                              Column(
+                                children: [
+                                  Row(
+                                    children: [
+                                      Flexible(
+                                        child: Column(
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Container(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            kDefaultPadding /
+                                                                1.5),
+                                                    decoration:
+                                                        const BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            color:
+                                                                Color.fromARGB(
+                                                                    255,
+                                                                    234,
+                                                                    154,
+                                                                    73)),
+                                                    child: Text(
+                                                        (i + 1).toString(),
+                                                        style: TextStyles
+                                                            .defaultStyle
+                                                            .whiteTextColor)),
+                                                const SizedBox(
+                                                    width: kDefaultPadding / 2),
+                                                Flexible(
+                                                  child: Text(
+                                                    foodModel!.step![i]
+                                                        .implementationGuide!,
+                                                    overflow: TextOverflow.fade,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            const SizedBox(height: kMediumPadding / 2),
+                                            SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  const SizedBox(
+                                                      width: kDefaultPadding * 2.4),
+                                                  for (var j = 0;
+                                                      j <
+                                                          foodModel!.step![i]
+                                                              .image!.length;
+                                                      j++)
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                              .only(
+                                                          right: kDefaultPadding /
+                                                              2), // Set the desired spacing
+                                                      child: Image.network(
+                                                        foodModel!.step![i]
+                                                            .image![j].image!,
+                                                        height: 50,
+                                                        fit: BoxFit.fitHeight,
+                                                      ),
+                                                    ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                  const SizedBox(height: kDefaultPadding),
+                                ],
+                              ),
                           const SizedBox(height: kDefaultPadding),
                           ButtonWidget(
                             title: 'Chuyển tới cửa hàng và nguyên liệu',
                             ontap: () {
                               Navigator.of(context)
-                                  .pushNamed(RecipeOrderScreen.routeName);
+                                  .pushNamed(IngredientsScreen.routeName);
                             },
                           ),
                           const SizedBox(height: kMediumPadding),

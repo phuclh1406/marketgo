@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:matching/model/category_detail_model.dart';
 import 'package:matching/model/category_model.dart';
 import 'package:matching/model/ingredient_model.dart';
 import 'package:matching/representation/widgets/ingredient_item_widget.dart';
@@ -10,6 +11,13 @@ import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
+<<<<<<< HEAD
+import '../../core/helper/image_helper.dart';
+import '../../model/store_model.dart';
+import '../../services/category_detail_service.dart';
+import '../../services/store_service.dart';
+=======
+>>>>>>> 2bc603b5fad962c19bdf4ffd0c70c5637217e587
 import '../widgets/categories_list_widget.dart';
 
 class IngredientsScreen extends StatefulWidget {
@@ -111,23 +119,23 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
   }
 
   Widget loadCategories() {
-    return FutureBuilder<List<CategoryModel>?>(
-      future: CategoryService.getAllCategories(),
+    return FutureBuilder<List<CategoryDetailModel>?>(
+      future: CategoryDetailService.getAllCategoriesDetailForFoods(),
       builder:
-          (BuildContext context, AsyncSnapshot<List<CategoryModel>?> snapshot) {
+          (BuildContext context, AsyncSnapshot<List<CategoryDetailModel>?> snapshot) {
         if (snapshot.hasData) {
-          List<CategoryModel>? listCate = snapshot.data!;
+          List<CategoryDetailModel>? listCate = snapshot.data!;
 
           if (listCate.isNotEmpty) {
             return Row(
               children: [
                 for (var i = 0; i < listCate.length; i++)
-                  if (listCate[i].cateName != null)
+                  if (listCate[i].cateDetailName != null)
                     CategoriesList(
-                        cateName: listCate[i].cateName!,
+                        cateName: listCate[i].cateDetailName!,
                         ontap: () {
                           setState(() {
-                            category = listCate[i].cateId!;
+                            category = listCate[i].cateDetailId!;
                           });
                         })
               ],
