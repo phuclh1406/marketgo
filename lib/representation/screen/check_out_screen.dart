@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:matching/core/constants/color_constants.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
@@ -11,7 +10,6 @@ import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:matching/services/order_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
   static const String routeName = "/check-out";
@@ -21,26 +19,18 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
-  String userId = '';
+  String? userId = '';
   final List<String> listStep = [
     "Delivery",
     "Payment",
     "Confirm",
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    _retrieveUserId();
+  Future<void> getUserIdFromSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userId = prefs.getString('user_id');
   }
 
-  Future<void> _retrieveUserId() async {
-    final prefs = await SharedPreferences.getInstance();
-    final storedUserId = prefs.getString('user_id');
-    setState(() {
-      userId = storedUserId ?? '';
-    });
-  }
 
   Widget _buildItemStepCheckout(
       int step, String stepName, bool isEnd, bool isCheck) {
@@ -99,8 +89,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final deliveryForm =
-        ModalRoute.of(context)!.settings.arguments as DeliveryForm;
+    final deliveryForm = ModalRoute.of(context)!.settings.arguments as DeliveryForm;
     Cart cart = Cart();
     return MiniAppBarContainerWidget(
       implementLeading: true,
@@ -248,8 +237,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                       ontap: () async {
                         OrderService.createCartOrder(
                             cart.totalPrice().toString(),
-                            userId,
-                            cart.myCart.values.toList());
+                            userId!,
+                            cart.getListItem());
                       }),
                   const SizedBox(
                     height: 10,

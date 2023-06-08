@@ -19,9 +19,9 @@ class OrderService {
     };
 
     var body = {
-      'user_id': userId,
-      'total_price': totalPrice,
-      'OrderDetails': listOrderDetail,
+      'userId': userId,
+      'totalPrice': totalPrice,
+      'orderDetails': listOrderDetail,
     };
 
     const url = 'https://market-go.cyclic.app/api/v1/order-detail';
