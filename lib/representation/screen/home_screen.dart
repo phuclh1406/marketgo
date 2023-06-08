@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/representation/screen/ingredients_screen.dart';
-import 'package:matching/representation/screen/recipe_detail_screen.dart';
 import 'package:matching/representation/screen/recipe_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
@@ -12,13 +11,9 @@ import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
 import '../../model/category_model.dart';
 import '../../model/food_model.dart';
-import '../../model/recipe_model.dart';
 import '../../model/user_model.dart';
-import '../../services/category_service.dart';
 import '../../services/food_service.dart';
-import '../../services/user_service.dart';
 import '../widgets/app_bar_container.dart';
-import '../widgets/categories_list_widget.dart';
 import 'store_screen.dart';
 
 class HomeScreen extends StatefulWidget {

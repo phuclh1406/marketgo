@@ -5,8 +5,6 @@ import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/image_helper.dart';
 import '../../model/store_model.dart';
-import 'button_widget.dart';
-import 'dash_line_widget.dart';
 
 class StoreItemWidget extends StatelessWidget {
   const StoreItemWidget({

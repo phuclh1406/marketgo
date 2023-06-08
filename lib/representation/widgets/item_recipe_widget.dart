@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/representation/widgets/button_widget.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
-import '../../core/helper/image_helper.dart';
 import '../../model/food_model.dart';
-import '../../model/recipe_model.dart';
 import 'dash_line_widget.dart';
 
 class ItemRecipeWidget extends StatelessWidget {
@@ -128,10 +125,10 @@ class ItemRecipeWidget extends StatelessWidget {
                 const DashLineWidget(),
                 Row(
                   children: [
-                    Expanded(
+                    const Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const [
+                        children: [
                           SizedBox(
                             height: kMinPadding,
                           ),

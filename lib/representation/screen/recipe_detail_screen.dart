@@ -4,10 +4,7 @@ import 'package:matching/representation/screen/recipe_order_screen.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
-import '../../core/helper/asset_helper.dart';
-import '../../core/helper/image_helper.dart';
 import '../../model/food_model.dart';
-import '../../model/recipe_model.dart';
 import '../widgets/button_widget.dart';
 import '../widgets/dash_line_widget.dart';
 
