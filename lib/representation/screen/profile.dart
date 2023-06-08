@@ -61,21 +61,6 @@ class _ProfileState extends State<Profile> {
         minimum: const EdgeInsets.only(top: 50),
         child: Column(
           children: <Widget>[
-            ElevatedButton(
-            onPressed: () async {
-              await FirebaseServices().googleSignOut();
-
-              // ignore: use_build_context_synchronously
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()));
-            },
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const [
-                  Icon(FontAwesomeIcons.powerOff),
-                ]),
-          ),
             GestureDetector(
               onTap: () {
                 Navigator.push(
@@ -85,20 +70,21 @@ class _ProfileState extends State<Profile> {
               },
               child: Stack(
                 alignment: Alignment.bottomRight,
-                children: const [
-                  CircleAvatar(
-                    backgroundImage:
-                        AssetImage('./assets/images/profile_pic.png'),
-                    radius: 50,
-                  ),
-                  Positioned(
-                    top: 70,
-                    right: 2,
-                    child: Icon(
-                      Icons.edit_square,
-                      color: Colors.blue,
-                    ),
-                  ),
+                children: [
+                  FutureBuilder<String>(
+                    future: getImage(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Image.network(
+                          snapshot.data!,
+                        );
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        return const Text('Loading...');
+                      }
+                    },
+                  )
                 ],
               ),
             ),
@@ -220,12 +206,16 @@ class _ProfileState extends State<Profile> {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const LoginPage()));
               },
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: const [
-                    Icon(FontAwesomeIcons.powerOff),
-                  ]),
+              child: Container(
+                  width: 310,
+                  padding:
+                      const EdgeInsets.symmetric(vertical: kDefaultPadding),
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(5),
+                      color: Colors.white),
+                  alignment: Alignment.center,
+                  child: Text('Logout / Change Account',
+                      style: TextStyles.defaultStyle.bold)),
             )
           ],
         ),
