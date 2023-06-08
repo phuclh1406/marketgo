@@ -11,13 +11,10 @@ import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
-<<<<<<< HEAD
 import '../../core/helper/image_helper.dart';
 import '../../model/store_model.dart';
 import '../../services/category_detail_service.dart';
 import '../../services/store_service.dart';
-=======
->>>>>>> 2bc603b5fad962c19bdf4ffd0c70c5637217e587
 import '../widgets/categories_list_widget.dart';
 
 class IngredientsScreen extends StatefulWidget {

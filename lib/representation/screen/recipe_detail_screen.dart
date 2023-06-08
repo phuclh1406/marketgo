@@ -5,11 +5,8 @@ import 'package:matching/representation/screen/recipe_order_screen.dart';
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
 import '../../model/food_model.dart';
-<<<<<<< HEAD
 import '../../model/guide_step_model.dart';
 import '../../model/recipe_model.dart';
-=======
->>>>>>> 2bc603b5fad962c19bdf4ffd0c70c5637217e587
 import '../widgets/button_widget.dart';
 import '../widgets/dash_line_widget.dart';
 import 'ingredients_screen.dart';

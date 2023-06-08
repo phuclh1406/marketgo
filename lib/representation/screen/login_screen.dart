@@ -69,8 +69,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _divider() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      child:  const Row(
-        children: <Widget>[
+      child:  Row(
+        children: const <Widget>[
           SizedBox(
             width: 20,
           ),
@@ -109,9 +109,9 @@ class _LoginPageState extends State<LoginPage> {
         margin: const EdgeInsets.symmetric(vertical: 20),
         padding: const EdgeInsets.all(15),
         alignment: Alignment.bottomCenter,
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: const <Widget>[
             Text(
               'Don\'t have an account ?',
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),

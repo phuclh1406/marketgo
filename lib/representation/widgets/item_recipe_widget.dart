@@ -125,16 +125,6 @@ class ItemRecipeWidget extends StatelessWidget {
                 const DashLineWidget(),
                 Row(
                   children: [
-                    const Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: kMinPadding,
-                          ),
-                        ],
-                      ),
-                    ),
                     Expanded(
                       child: ButtonWidget(
                         title: 'Xem cách chế biến',

@@ -23,10 +23,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Navigator.push(context,
             MaterialPageRoute(builder: (context) => const LoginPage()));
       },
-      child: const Column(
+      child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
+        children: const [
           Icon(FontAwesomeIcons.powerOff),
         ]
         ),
