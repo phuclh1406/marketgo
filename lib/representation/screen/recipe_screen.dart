@@ -67,7 +67,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
 
   Widget loadCategoriesDetail() {
     return FutureBuilder<List<CategoryDetailModel>?>(
-      future: CategoryDetailService.getAllCategoriesDetail(),
+      future: CategoryDetailService.getAllCategoriesDetailForFoods(),
       builder: (BuildContext context,
           AsyncSnapshot<List<CategoryDetailModel>?> snapshot) {
         if (snapshot.hasData) {

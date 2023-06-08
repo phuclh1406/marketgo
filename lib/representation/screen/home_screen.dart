@@ -30,6 +30,7 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
+
 class _HomeScreenState extends State<HomeScreen> {
   bool isAPICallProcess = false;
   FoodModel? foodModel;
@@ -41,6 +42,7 @@ class _HomeScreenState extends State<HomeScreen> {
     String? userName = prefs.getString('user_name');
     return userName ?? ''; // Return an empty string if userName is null
   }
+
   Future<String> getImage() async {
     final prefs = await SharedPreferences.getInstance();
     String? image = prefs.getString('avatar');
@@ -60,8 +62,8 @@ class _HomeScreenState extends State<HomeScreen> {
           List<FoodModel>? foods = snapshot.data;
 
           if (foods != null && foods.isNotEmpty) {
-            int loopCount =
-                (foods.length / 2).floor(); // Calculate half of the foods length
+            int loopCount = (foods.length / 2)
+                .floor(); // Calculate half of the foods length
 
             return Column(
               children: [
@@ -69,7 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (foods[i].foodName != null ||
                       foods[i].image![0].image != null)
                     _buildImageHomeScreen(
-                        foods[i].foodName, foods[i].image![0].image)
+                        foods[i].foodName, foods[i].image![0].image, () {
+                          Navigator.of(context).pushNamed(
+                            RecipeDetailScreen.routeName,
+                            arguments: foods[i],
+                          );
+                        },)
               ],
             );
           } else {
@@ -106,7 +113,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (foods[i].foodName != null ||
                       foods[i].image![0].image != null)
                     _buildImageHomeScreen(
-                        foods[i].foodName, foods[i].image![0].image)
+                        foods[i].foodName, foods[i].image![0].image, () {
+                          Navigator.of(context).pushNamed(
+                            RecipeDetailScreen.routeName,
+                            arguments: foods[i],
+                          );
+                        },)
               ],
             );
           } else {
@@ -146,12 +158,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildImageHomeScreen(String? name, String? image) {
+  Widget _buildImageHomeScreen(String? name, String? image, Function() ontap) {
     return GestureDetector(
-      // onTap: () {
-      //   Navigator.of(context)
-      //       .pushNamed(RecipeDetailScreen.routeName, arguments: name);
-      // },
+      onTap: ontap,
       child: Container(
         margin: const EdgeInsets.only(bottom: kDefaultPadding),
         child: Stack(
@@ -267,21 +276,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 padding: const EdgeInsets.all(kItemPadding),
                 child: FutureBuilder<String>(
-                    future: getImage(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Image.network(
-                          snapshot.data!,
-                          width: 10,
-                          height: 10,
-                        );
-                      } else if (snapshot.hasError) {
-                        return ImageHelper.loadFromAsset(AssetHelper.food1);
-                      } else {
-                        return const Text('Loading...');
-                      }
-                    },
-                  ),
+                  future: getImage(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return Image.network(
+                        snapshot.data!,
+                        width: 10,
+                        height: 10,
+                      );
+                    } else if (snapshot.hasError) {
+                      return ImageHelper.loadFromAsset(AssetHelper.food1);
+                    } else {
+                      return const Text('Loading...');
+                    }
+                  },
+                ),
               ),
             ],
           ),
@@ -352,9 +361,9 @@ class _HomeScreenState extends State<HomeScreen> {
                       FontAwesomeIcons.carrot,
                       weight: kDefaultPadding,
                     ),
-                    const Color(0xff3EC8BC),
-                    () {Navigator.of(context).pushNamed(IngredientsScreen.routeName);},
-                    'Nguyên Liệu'),
+                    const Color(0xff3EC8BC), () {
+                  Navigator.of(context).pushNamed(IngredientsScreen.routeName);
+                }, 'Nguyên Liệu'),
               ),
             ],
           ),

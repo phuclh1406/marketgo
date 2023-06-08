@@ -6,6 +6,7 @@ import 'package:matching/model/category_detail_model.dart';
 import 'package:matching/model/user_model.dart';
 
 import '../core/helper/asset_helper.dart';
+import 'guide_step_model.dart';
 import 'image_model.dart';
 
 // List<FoodModel> foodsFromJson(dynamic str) {
@@ -35,7 +36,7 @@ class FoodModel {
   late String? phone;
   late String? refreshToken;
   late String? ingreDes;
-  late String? implementGuide;
+  late List<StepModel>? step;
   late String? status;
 
   FoodModel({
@@ -49,7 +50,7 @@ class FoodModel {
     this.phone,
     this.refreshToken,
     this.ingreDes,
-    this.implementGuide,
+    this.step,
     this.status,
     
   });
@@ -74,7 +75,11 @@ class FoodModel {
     phone = json['phone'];
     refreshToken = json['refresh_token'];
     ingreDes = json['ingredient_description'];
-    implementGuide = json['implementation_guide'];
+    if (json['food_step'] != null && json['food_step'] is List) {
+      step = List<StepModel>.from(
+        json['food_step'].map((x) => StepModel.fromJson(x)),
+      );
+    }
     status = json['status'];
   }
 
@@ -85,6 +90,9 @@ class FoodModel {
     data['description'] = description;
     if (image != null) {
       data['food_image'] = image!.map((x) => x.toJson()).toList();
+    }
+    if (step != null) {
+      data['food_step'] = step!.map((x) => x.toJson()).toList();
     }
     data['quantitative'] = quantitative;
     if (userModel != null) {
@@ -99,8 +107,7 @@ class FoodModel {
     data['phone'] = phone;
     data['refresh_token'] = refreshToken;
     data['ingredient_description'] = ingreDes;
-    data['refresh_token'] = implementGuide;
-    data['implementation_guide'] = status;
+    data['status'] = status;
     return data;
   }
 }
