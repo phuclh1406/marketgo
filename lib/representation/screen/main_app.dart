@@ -67,10 +67,10 @@ class _MainAppState extends State<MainApp> {
           });
         },
         children: [
-          HomeScreen(),
-          CartScreen(),
+          const HomeScreen(),
+          const CartScreen(),
           Container(color: Colors.red),
-          Profile(),
+          const Profile(),
         ],
       ),
       bottomNavigationBar: SalomonBottomBar(
