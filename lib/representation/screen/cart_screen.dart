@@ -14,8 +14,9 @@ class CartScreen extends StatefulWidget {
   State<CartScreen> createState() => _CartScreenState();
 }
 
-class _CartScreenState extends State<CartScreen> {
+class _CartScreenState extends State<CartScreen> with WidgetsBindingObserver {
   Cart cart = Cart();
+
   @override
   Widget build(BuildContext context) {
     return MiniAppBarContainerWidget(
@@ -32,7 +33,7 @@ class _CartScreenState extends State<CartScreen> {
                 children: [
                   CartItemWidget(cart: cart),
                   Visibility(
-                    visible: cart.getListItem().isNotEmpty,
+                    visible: Cart().getListItem().isNotEmpty,
                     child: ButtonWidget(
                       title: "Check out",
                       ontap: () {

@@ -1,9 +1,7 @@
 import 'dart:collection';
-
-import 'package:flutter/material.dart';
 import 'package:matching/data/model/order_detail.dart';
 
-class Cart with ChangeNotifier {
+class Cart {
   static final Cart _instance = Cart._internal();
 
   factory Cart() {
