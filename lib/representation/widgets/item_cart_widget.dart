@@ -173,7 +173,6 @@ class _CartItemWidgetState extends State<CartItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    print("TEST: ${cart.getListItem().length}");
     return cart.getListItem().isNotEmpty
         ? Column(
             children:

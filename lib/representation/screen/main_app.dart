@@ -19,49 +19,71 @@ class MainApp extends StatefulWidget {
 }
 
 void _navigateToScreen(BuildContext context, int index) {
-    switch (index) {
-      case 0:
-        // Home screen
-        Navigator.pushReplacementNamed(context, HomeScreen.routeName);
-        break;
-      case 1:
-        // Cart screen
-        Navigator.pushReplacementNamed(context, CartScreen.routeName);
-        break;
-      case 2:
-        // Other screen
-        Navigator.pushReplacementNamed(context, CheckOutScreen.routeName);
-        break;
-      case 3:
-        // Profile screen
-        Navigator.pushReplacementNamed(context, Profile.routeName);
-        break;
-      // Add cases for other screens
-    }
+  switch (index) {
+    case 0:
+      // Home screen
+      Navigator.pushReplacementNamed(context, HomeScreen.routeName);
+      break;
+    case 1:
+      // Cart screen
+      Navigator.pushReplacementNamed(context, CartScreen.routeName);
+      break;
+    case 2:
+      // Other screen
+      Navigator.pushReplacementNamed(context, CheckOutScreen.routeName);
+      break;
+    case 3:
+      // Profile screen
+      Navigator.pushReplacementNamed(context, Profile.routeName);
+      break;
+    // Add cases for other screens
   }
+}
 
 class _MainAppState extends State<MainApp> {
   int _currentIndex = 0;
-  
+  final PageController _pageController = PageController(initialPage: 0);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: IndexedStack(index: _currentIndex, children: [
-        const HomeScreen(),
-        const CartScreen(),
-        Container(
-          color: Colors.red,
-        ),
-        const Profile(),
-      ]),
-      bottomNavigationBar: SalomonBottomBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
+      // body: IndexedStack(
+      //   index: _currentIndex,
+      //   children: [
+      //     const HomeScreen(),
+      //     const CartScreen(),
+      //     Container(
+      //       color: Colors.red,
+      //     ),
+      //     const Profile(),
+      //   ],
+      // ),
+      body: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
           setState(() {
             _currentIndex = index;
           });
-          _navigateToScreen(context, index);
+        },
+        children: [
+          HomeScreen(),
+          CartScreen(),
+          Container(color: Colors.red),
+          Profile(),
+        ],
+      ),
+      bottomNavigationBar: SalomonBottomBar(
+        currentIndex: _currentIndex,
+        onTap: (index) {
+          // setState(() {
+          //   _currentIndex = index;
+          // });
+          _pageController.animateToPage(
+            index,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.ease,
+          );
         },
         selectedItemColor: ColorPalette.primaryColor,
         unselectedItemColor: ColorPalette.primaryColor.withOpacity(0.2),
