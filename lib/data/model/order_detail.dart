@@ -1,13 +1,13 @@
-import 'package:matching/data/model/ingredient.dart';
-import 'package:uuid/uuid.dart';
+
+import 'package:matching/model/ingredient_model.dart';
 
 import 'order.dart';
 
 class OrderDetail {
-  Uuid id;
+  String? id;
   Order? order;
-  Ingredient? ingredient;
-  double price;
+  IngredientModel ingredient;
+  int price;
   int quantity;
   String status;
 

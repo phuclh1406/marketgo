@@ -1,13 +1,10 @@
 // user_id, user_name, email, password, birthday, avatar, address, phone, accessChangePassword, refresh_token, role_id, status
 
-import 'dart:ffi';
 
 import 'package:matching/model/category_detail_model.dart';
 import 'package:matching/model/store_model.dart';
 
-import 'food_model.dart';
 import 'image_model.dart';
-import 'promotion_model.dart';
 
 List<IngredientModel> ingredientsFromJson(dynamic str) =>
     List<IngredientModel>.from((str).map((x) => IngredientModel.fromJson(x)));

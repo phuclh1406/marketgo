@@ -1,6 +1,5 @@
 // user_id, user_name, email, password, birthday, avatar, address, phone, accessChangePassword, refresh_token, role_id, status
 
-import 'dart:ffi';
 
 List<PromotionModel> promotionsFromJson(dynamic str) =>
     List<PromotionModel>.from((str).map((x) => PromotionModel.fromJson(x)));

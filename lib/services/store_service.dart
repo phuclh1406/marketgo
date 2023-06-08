@@ -6,7 +6,6 @@ import '../model/store_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 
-import '../model/recipe_model.dart';
 
 class StoreService {
   static var client = http.Client();

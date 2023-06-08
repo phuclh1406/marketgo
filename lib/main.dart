@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:matching/firebase_options.dart';
-import 'package:matching/representation/screen/cart_screen.dart';
 
 import 'core/constants/color_constants.dart';
 import 'core/helper/local_storage_helper.dart';

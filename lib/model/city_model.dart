@@ -1,6 +1,5 @@
 // user_id, user_name, email, password, birthday, avatar, address, phone, accessChangePassword, refresh_token, role_id, status
 
-import 'dart:ffi';
 
 List<CityModel> citiesFromJson(dynamic str) =>
     List<CityModel>.from((str).map((x) => CityModel.fromJson(x)));

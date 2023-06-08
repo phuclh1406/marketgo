@@ -1,14 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
-import '../../core/helper/image_helper.dart';
 import '../../model/store_model.dart';
 import '../../services/store_service.dart';
 import '../widgets/store_item_widget.dart';

@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/helper/asset_helper.dart';
+import 'package:matching/data/model/order_detail.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/image_helper.dart';
+import '../../data/model/cart.dart';
 import '../../model/ingredient_model.dart';
 
 class IngredientItemWidget extends StatelessWidget {
@@ -16,6 +18,7 @@ class IngredientItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Cart cart = Cart();
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -92,7 +95,22 @@ class IngredientItemWidget extends StatelessWidget {
                         Positioned(
                           right: 20,
                           child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(
+                                      'Add ${ingredientModel.ingredientName} to cart!'),
+                                  duration: const Duration(seconds: 2),
+                                ),
+                              );
+                              cart.addToCart(OrderDetail(
+                                  id: "",
+                                  order: null,
+                                  ingredient: ingredientModel,
+                                  price: ingredientModel.price!,
+                                  quantity: 1,
+                                  status: "Active"));
+                            },
                             child: const Icon(
                               FontAwesomeIcons.circlePlus,
                               color: Colors.amber,

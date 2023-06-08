@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/data/model/cart.dart';
 import 'package:matching/data/model/order_detail.dart';
@@ -17,14 +18,13 @@ class CartItemWidget extends StatefulWidget {
 }
 
 class _CartItemWidgetState extends State<CartItemWidget> {
-  late Cart _currentCart;
   late List<OrderDetail> listOrder;
-
+  late Cart cart;
   @override
   void initState() {
     super.initState();
-    _currentCart = widget.cart;
-    listOrder = _currentCart.getListItem();
+    cart = widget.cart;
+    listOrder = cart.getListItem();
   }
 
   Widget _buildSingleCartItem(OrderDetail orderDetail) {
@@ -55,7 +55,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Product: ${orderDetail.ingredient!.name}",
+                  "Product: ${orderDetail.ingredient.ingredientName}",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 16),
                 ),
@@ -72,15 +72,15 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 Row(
                   children: [
                     IconButton(
-                      iconSize: 13,
                       icon: const Icon(
-                        Icons.remove,
+                        FontAwesomeIcons.circleMinus,
+                        color: Colors.amber,
                       ),
                       onPressed: () {
                         setState(() {
                           if (orderDetail.quantity > 1) {
                             orderDetail.quantity -= 1;
-                            _currentCart.editItem(orderDetail.ingredient!.id,
+                            cart.editItem(orderDetail.ingredient.ingredientId!,
                                 orderDetail.quantity);
                           }
                         });
@@ -101,15 +101,15 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                       ),
                     ),
                     IconButton(
-                      iconSize: 13,
                       icon: const Icon(
-                        Icons.add,
+                        FontAwesomeIcons.circlePlus,
+                        color: Colors.amber,
                       ),
                       onPressed: () {
                         setState(() {
                           orderDetail.quantity += 1;
-                          _currentCart.editItem(
-                              orderDetail.ingredient!.id, orderDetail.quantity);
+                          cart.editItem(orderDetail.ingredient.ingredientId!,
+                              orderDetail.quantity);
                         });
                       },
                     ),
@@ -122,10 +122,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
             height: 40,
             width: 40,
             decoration: BoxDecoration(
-              color: Colors.red.withOpacity(0.7),
-              shape: BoxShape.circle
-            ),
-            
+                color: Colors.red.withOpacity(0.7), shape: BoxShape.circle),
             child: IconButton(
               iconSize: 15,
               onPressed: () {
@@ -134,7 +131,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       content: Text(
-                          "Are you sure you want to remove ${orderDetail.ingredient!.name}?"),
+                          "Are you sure you want to remove ${orderDetail.ingredient.ingredientName}?"),
                       actions: <Widget>[
                         TextButton(
                           child: const Text('Cancel'),
@@ -150,8 +147,8 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                           ),
                           onPressed: () {
                             setState(() {
-                              _currentCart
-                                  .removeItem(orderDetail.ingredient!.id);
+                              cart.removeItem(
+                                  orderDetail.ingredient.ingredientId!);
                               listOrder.remove(orderDetail);
                             });
                             Navigator.of(context).pop();
@@ -176,19 +173,20 @@ class _CartItemWidgetState extends State<CartItemWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return listOrder.isNotEmpty
+    return cart.getListItem().isNotEmpty
         ? Column(
-            children: listOrder.map((e) => _buildSingleCartItem(e)).toList(),
+            children:
+                cart.getListItem().map((e) => _buildSingleCartItem(e)).toList(),
           )
         : Column(
-            children: const [
-              SizedBox(
+            children: [
+              const SizedBox(
                 height: 50,
               ),
               Center(
                 child: Text(
-                  "Your cart is empty",
-                  style: TextStyle(
+                  "Your cart is empty ${cart.getCart().length}",
+                  style: const TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 30,

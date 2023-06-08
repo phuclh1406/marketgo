@@ -1,7 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/model/category_detail_model.dart';
 import 'package:matching/model/category_model.dart';
@@ -14,12 +11,14 @@ import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
+<<<<<<< HEAD
 import '../../core/helper/image_helper.dart';
 import '../../model/store_model.dart';
 import '../../services/category_detail_service.dart';
 import '../../services/store_service.dart';
+=======
+>>>>>>> 2bc603b5fad962c19bdf4ffd0c70c5637217e587
 import '../widgets/categories_list_widget.dart';
-import '../widgets/store_item_widget.dart';
 
 class IngredientsScreen extends StatefulWidget {
   const IngredientsScreen({super.key});

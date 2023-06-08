@@ -8,10 +8,8 @@ import 'package:snippet_coder_utils/ProgressHUD.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
-import '../../core/helper/asset_helper.dart';
 import '../../model/category_detail_model.dart';
 import '../../model/category_model.dart';
-import '../../model/recipe_model.dart';
 import '../../services/category_detail_service.dart';
 import '../../services/category_service.dart';
 import '../../services/food_service.dart';
@@ -178,7 +176,7 @@ class _RecipeScreenState extends State<RecipeScreen> {
           }
         },
       );
-    } else if (value.isEmpty && category != null) {
+    } else if (value.isEmpty) {
       return FutureBuilder<List<FoodModel>?>(
         future: FoodService.getFoodsByCategory(category),
         builder:
