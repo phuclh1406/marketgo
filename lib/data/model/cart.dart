@@ -21,11 +21,11 @@ class Cart {
   }
 
   void addToCart(OrderDetail orderDetail) {
-    if (myCart.containsKey(orderDetail.ingredient.ingredientId)) {
-      myCart[orderDetail.ingredient.ingredientId]!.quantity +=
+    if (myCart.containsKey(orderDetail.ingredient!.ingredientId)) {
+      myCart[orderDetail.ingredient!.ingredientId]!.quantity +=
           orderDetail.quantity;
     } else {
-      myCart[orderDetail.ingredient.ingredientId!] = orderDetail;
+      myCart[orderDetail.ingredient!.ingredientId!] = orderDetail;
     }
   }
 

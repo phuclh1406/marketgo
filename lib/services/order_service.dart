@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class OrderService {
   static var client = http.Client();
 
-  static Future<void> createCartOrder(String totalPrice, String userId,
+  static Future<Map<String, dynamic>> createCartOrder(String totalPrice, String userId,
       List<OrderDetail> listOrderDetail) async {
     final prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('accesstoken')!;
@@ -19,15 +19,15 @@ class OrderService {
     };
 
     var body = {
-      'userId': userId,
-      'totalPrice': totalPrice,
-      'orderDetails': listOrderDetail,
+      "userId": userId,
+      "totalPrice": totalPrice,
+      "orderDetails": listOrderDetail.map((detail) => detail.toJson()).toList(),
     };
 
     const url = 'https://market-go.cyclic.app/api/v1/order-detail';
 
     final response =
-        await http.post(Uri.parse(url), headers: requestHeaders, body: body);
+        await http.post(Uri.parse(url), headers: requestHeaders, body: jsonEncode(body),);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);

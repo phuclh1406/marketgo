@@ -1,6 +1,5 @@
 // user_id, user_name, email, password, birthday, avatar, address, phone, accessChangePassword, refresh_token, role_id, status
 
-
 import 'package:matching/model/category_detail_model.dart';
 import 'package:matching/model/user_model.dart';
 

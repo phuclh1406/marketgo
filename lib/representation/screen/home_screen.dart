@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
+import 'package:matching/representation/screen/cart_screen.dart';
 import 'package:matching/representation/screen/ingredients_screen.dart';
+import 'package:matching/representation/screen/recipe_detail_screen.dart';
 import 'package:matching/representation/screen/recipe_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
@@ -25,7 +27,6 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-
 
 class _HomeScreenState extends State<HomeScreen> {
   bool isAPICallProcess = false;
@@ -67,12 +68,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (foods[i].foodName != null ||
                       foods[i].image![0].image != null)
                     _buildImageHomeScreen(
-                        foods[i].foodName, foods[i].image![0].image, () {
-                          Navigator.of(context).pushNamed(
-                            RecipeDetailScreen.routeName,
-                            arguments: foods[i],
-                          );
-                        },)
+                      foods[i].foodName,
+                      foods[i].image![0].image,
+                      () {
+                        Navigator.of(context).pushNamed(
+                          RecipeDetailScreen.routeName,
+                          arguments: foods[i],
+                        );
+                      },
+                    )
               ],
             );
           } else {
@@ -109,12 +113,15 @@ class _HomeScreenState extends State<HomeScreen> {
                   if (foods[i].foodName != null ||
                       foods[i].image![0].image != null)
                     _buildImageHomeScreen(
-                        foods[i].foodName, foods[i].image![0].image, () {
-                          Navigator.of(context).pushNamed(
-                            RecipeDetailScreen.routeName,
-                            arguments: foods[i],
-                          );
-                        },)
+                      foods[i].foodName,
+                      foods[i].image![0].image,
+                      () {
+                        Navigator.of(context).pushNamed(
+                          RecipeDetailScreen.routeName,
+                          arguments: foods[i],
+                        );
+                      },
+                    )
               ],
             );
           } else {
@@ -253,6 +260,15 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               const Spacer(),
+              IconButton(
+                icon: const Icon(
+                  FontAwesomeIcons.cartShopping,
+                  size: kDefaultIconSize,
+                  color: Colors.white,
+                ),
+                onPressed: () => Navigator.pushNamed(context, CartScreen.routeName) ,
+              ),
+              const SizedBox(width: 10,),
               const Icon(
                 FontAwesomeIcons.bell,
                 size: kDefaultIconSize,

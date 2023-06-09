@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+import 'dart:math';
+
+>>>>>>> e4e58086b5bf0a0515038b8ba54089843075bf2b
 import 'package:flutter/material.dart';
 import 'package:matching/core/constants/color_constants.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
@@ -23,25 +28,15 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
-  String userId = '';
   final List<String> listStep = [
     "Delivery",
     "Payment",
     "Confirm",
   ];
 
-  @override
-  void initState() {
-    super.initState();
-    _retrieveUserId();
-  }
-
-  Future<void> _retrieveUserId() async {
-    final prefs = await SharedPreferences.getInstance();
-    final storedUserId = prefs.getString('user_id');
-    setState(() {
-      userId = storedUserId ?? '';
-    });
+  Future<String?> getUserIdFromSharedPreferences() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    return prefs.getString('user_id');
   }
 
   Widget _buildItemStepCheckout(
@@ -150,17 +145,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   const SizedBox(
                     height: kMinPadding,
                   ),
-                  Column(
-                    children: cart.myCart.values
-                        .map(
-                          (e) => CheckoutItemWidget(
-                              name: e.ingredient.ingredientName,
-                              price: e.price,
-                              quantity: e.quantity,
-                              quantitative: e.ingredient.quantitative),
-                        )
-                        .toList(),
-                  ),
+                  CheckoutItemWidget(cart: cart),
                   Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -254,6 +239,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     height: 10,
                   ),
                   ButtonWidget(
+<<<<<<< HEAD
                       title: "Check out",
                       ontap: () async {
                         [
@@ -266,6 +252,28 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           }
                         ];
                       }),
+=======
+                    title: "Check out",
+                    ontap: () {
+                      getUserIdFromSharedPreferences().then((userId) => {
+                            OrderService.createCartOrder(
+                                    cart.totalPrice().toString(),
+                                    userId!,
+                                    cart.getListItem())
+                                .then((response) => {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              '${response['msg']}'),
+                                          duration: const Duration(seconds: 5),
+                                        ),
+                                      )
+                                    })
+                          });
+                    },
+                  ),
+>>>>>>> e4e58086b5bf0a0515038b8ba54089843075bf2b
                   const SizedBox(
                     height: 10,
                   ),
