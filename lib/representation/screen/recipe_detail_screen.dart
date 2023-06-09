@@ -132,13 +132,17 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                           if (foodModel!.step!.isNotEmpty)
                             for (var i = 0; i < foodModel!.step!.length; i++)
                               Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Flexible(
                                         child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
                                             Row(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
                                               children: [
                                                 Container(
                                                     padding:

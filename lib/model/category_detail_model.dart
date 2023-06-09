@@ -35,7 +35,10 @@ class CategoryDetailModel {
     data['cate_detail_id'] = cateDetailId;
     data['cate_detail_name'] = cateDetailName;
     if (categoryModel != null) {
-      data['category_model'] = categoryModel!.toJson();
+      data['detail_cate'] = {
+        'cate_id': categoryModel!.cateId,
+        'cate_name': categoryModel!.cateName,
+      };
     }
 
     data['status'] = status;
