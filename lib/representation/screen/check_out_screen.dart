@@ -12,6 +12,7 @@ import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:matching/services/order_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
   static const String routeName = "/check-out";
@@ -115,9 +116,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const Row(
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
+                    children: const [
                       Text(
                         "Products",
                         style: TextStyle(
@@ -144,9 +145,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Row(
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Text(
                               "Delivery info",
                               style: TextStyle(

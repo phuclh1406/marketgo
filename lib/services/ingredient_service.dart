@@ -7,7 +7,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class IngredientsService {
   static var client = http.Client();
-
+void printWrapped(String text) =>
+      RegExp('.{1,800}').allMatches(text).map((m) => m.group(0)).forEach(print);
   static Future<List<IngredientModel>?> getAllIngredients() async {
     final prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('accesstoken')!;

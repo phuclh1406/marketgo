@@ -2,6 +2,8 @@
 
 import 'package:matching/model/category_detail_model.dart';
 import 'package:matching/model/user_model.dart';
+
+import '../core/helper/asset_helper.dart';
 import 'guide_step_model.dart';
 import 'image_model.dart';
 

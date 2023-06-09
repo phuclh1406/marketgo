@@ -9,7 +9,10 @@ import 'package:matching/services/ingredient_service.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
+import '../../core/helper/image_helper.dart';
+import '../../model/store_model.dart';
 import '../../services/category_detail_service.dart';
+import '../../services/store_service.dart';
 import '../widgets/categories_list_widget.dart';
 
 class IngredientsScreen extends StatefulWidget {

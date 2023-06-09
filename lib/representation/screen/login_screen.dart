@@ -1,9 +1,13 @@
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:matching/core/helper/asset_helper.dart';
 import 'package:matching/representation/screen/main_app.dart';
 import 'package:matching/representation/screen/signup_screen.dart';
 import 'package:matching/services/firebase_service.dart';
 
+import '../../core/constants/dismension_constants.dart';
+import '../../core/constants/textstyle_constants.dart';
+import '../../core/helper/image_helper.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key, this.title}) : super(key: key);
@@ -69,8 +73,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _divider() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      child:  const Row(
-        children: <Widget>[
+      child: Row(
+        children: const <Widget>[
           SizedBox(
             width: 20,
           ),
@@ -109,9 +113,9 @@ class _LoginPageState extends State<LoginPage> {
         margin: const EdgeInsets.symmetric(vertical: 20),
         padding: const EdgeInsets.all(15),
         alignment: Alignment.bottomCenter,
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: const <Widget>[
             Text(
               'Don\'t have an account ?',
               style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
@@ -162,8 +166,6 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-
-
 // signInWithGoogle() async {
 //   final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
@@ -201,14 +203,12 @@ class _LoginPageState extends State<LoginPage> {
 
 //       print('User ID: $userId');
 //       print('Email: $email');
-//     } 
+//     }
 
 //     // Navigate to the main app screen
 //     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const MainApp()));
 //   }
 // }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -239,16 +239,37 @@ class _LoginPageState extends State<LoginPage> {
                             fontSize: 14, fontWeight: FontWeight.w500)),
                   ),
                   _divider(),
-                  ElevatedButton(
-                      onPressed: () async {
-                        await FirebaseServices().signInWithGoogle();
-                        
-                        // ignore: use_build_context_synchronously
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => const MainApp()));},
-                      child: const Text('Login with Google')),
-                  SizedBox(height: height * .055),
-                  _createAccountLabel(),
+                  const SizedBox(height: kDefaultPadding),
+                  GestureDetector(
+                    onTap: () async {
+                      await FirebaseServices().signInWithGoogle();
+
+                      // ignore: use_build_context_synchronously
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MainApp()));
+                    },
+                    child: Container(
+                        width: 320,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: kDefaultPadding),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            border: Border.all(color: const Color.fromARGB(255, 209, 206, 206)),
+                            color: Colors.white),
+                        alignment: Alignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            ImageHelper.loadFromAsset(AssetHelper.google_logo, width: 50, height: kDefaultPadding * 2),
+                            Text('Sign in with Google',
+                                style: TextStyles.regularStyle.bold),
+                          ],
+                        )),
+                  ),
+                  // SizedBox(height: height * .055),
+                  // _createAccountLabel(),
                 ],
               ),
             ),

@@ -33,6 +33,20 @@ class _MainAppState extends State<MainApp> {
           const Profile(),
         ],
       ),
+      // body: PageView(
+      //   controller: _pageController,
+      //   onPageChanged: (index) {
+      //     setState(() {
+      //       _currentIndex = index;
+      //     });
+      //   },
+      //   children: [
+      //     const HomeScreen(),
+      //     const CartScreen(),
+      //     Container(color: Colors.red),
+      //     const Profile(),
+      //   ],
+      // ),
       bottomNavigationBar: SalomonBottomBar(
         currentIndex: _currentIndex,
         onTap: (index) {
