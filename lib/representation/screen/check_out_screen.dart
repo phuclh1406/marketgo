@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 import 'dart:math';
 
->>>>>>> e4e58086b5bf0a0515038b8ba54089843075bf2b
 import 'package:flutter/material.dart';
 import 'package:matching/core/constants/color_constants.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
@@ -239,20 +236,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     height: 10,
                   ),
                   ButtonWidget(
-<<<<<<< HEAD
-                      title: "Check out",
-                      ontap: () async {
-                        [
-                          {OrderService.createCartOrder(
-                              cart.totalPrice().toString(),
-                              userId,
-                              cart.myCart.values.toList())},
-                          {
-                            _launchURL(PaymentService.payment().toString())
-                          }
-                        ];
-                      }),
-=======
                     title: "Check out",
                     ontap: () {
                       getUserIdFromSharedPreferences().then((userId) => {
@@ -273,7 +256,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           });
                     },
                   ),
->>>>>>> e4e58086b5bf0a0515038b8ba54089843075bf2b
                   const SizedBox(
                     height: 10,
                   ),

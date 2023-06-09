@@ -210,8 +210,8 @@ class _CartItemWidgetState extends State<CartItemWidget> {
               ),
             ],
           )
-        : const Column(
-            children: [
+        : Column(
+            children: const [
               SizedBox(
                 height: 300,
               ),
