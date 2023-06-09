@@ -82,7 +82,7 @@ class IngredientModel {
       data['ingredient_cate_detail'] = {
         'cate_detail_id': categoryDetailModel!.cateDetailId,
         'cate_detail_name': categoryDetailModel!.cateDetailName,
-        'cate_id': categoryDetailModel!.categoryModel!.cateId,
+        'cate_id': categoryDetailModel?.categoryModel?.cateId,
       };
     }
     if (ingreImage != null) {

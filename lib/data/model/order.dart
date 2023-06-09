@@ -1,9 +1,9 @@
-import 'package:matching/data/model/user.dart';
+import 'package:matching/model/user_model.dart';
 import 'package:uuid/uuid.dart';
 
 class Order {
   Uuid id;
-  User user;
+  UserModel user;
   double totalPrice;
   DateTime orderDate;
   String status;
@@ -15,5 +15,13 @@ class Order {
       required this.orderDate,
       required this.status});
 
-
+  Map<String, dynamic> toJson() {
+  final data = <String, dynamic>{};
+  data['id'] = id.toString();
+  data['user'] = user.toJson();
+  data['totalPrice'] = totalPrice;
+  data['orderDate'] = orderDate.toIso8601String();
+  data['status'] = status;
+  return data;
+  }
 }

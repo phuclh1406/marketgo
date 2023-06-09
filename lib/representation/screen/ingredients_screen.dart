@@ -5,10 +5,8 @@ import 'package:matching/model/category_model.dart';
 import 'package:matching/model/ingredient_model.dart';
 import 'package:matching/representation/widgets/ingredient_item_widget.dart';
 import 'package:matching/representation/widgets/mini_app_bar_container.dart';
-import 'package:matching/services/category_service.dart';
 import 'package:matching/services/ingredient_service.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
-
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/image_helper.dart';

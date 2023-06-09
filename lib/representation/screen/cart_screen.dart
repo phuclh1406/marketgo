@@ -32,16 +32,6 @@ class _CartScreenState extends State<CartScreen> with WidgetsBindingObserver {
               child: Column(
                 children: [
                   CartItemWidget(cart: cart),
-                  Visibility(
-                    visible: Cart().getListItem().isNotEmpty,
-                    child: ButtonWidget(
-                      title: "Check out",
-                      ontap: () {
-                        Navigator.pushNamed(
-                            context, DeliveryAddressScreen.routeName);
-                      },
-                    ),
-                  ),
                 ],
               ),
             ),
