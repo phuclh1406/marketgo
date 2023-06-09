@@ -36,6 +36,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     return prefs.getString('user_id');
   }
 
+  Future<void> _launchURL(String link) async {
+    final Uri url = Uri.parse(link);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      print('Cannot launch URL');
+    }
+  }
+
   Widget _buildItemStepCheckout(
       int step, String stepName, bool isEnd, bool isCheck) {
     return Row(
@@ -90,13 +99,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
       ],
     );
   }
-
-  _launchURL(String link) async {
-   final Uri url = Uri.parse(link);
-   if (!await launchUrl(url)) {
-        throw Exception('Could not launch $url');
-    }
-}
 
   @override
   Widget build(BuildContext context) {
@@ -237,7 +239,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ),
                   ButtonWidget(
                     title: "Check out",
-                    ontap: () {
+                    ontap: () async {
+                      String? url = await PaymentService.payment('Thanh toan hoa don' ,cart.totalPrice());
                       getUserIdFromSharedPreferences().then((userId) => {
                             OrderService.createCartOrder(
                                     cart.totalPrice().toString(),
@@ -247,12 +250,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
-                                          content: Text(
-                                              '${response['msg']}'),
+                                          content: Text('${response['msg']}'),
                                           duration: const Duration(seconds: 5),
                                         ),
                                       )
                                     })
+                                .then((response) => {_launchURL(url!)})
                           });
                     },
                   ),

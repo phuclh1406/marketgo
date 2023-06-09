@@ -8,22 +8,32 @@ import 'package:shared_preferences/shared_preferences.dart';
 class PaymentService {
   static var client = http.Client;
 
-  static Future<void> payment() async {
+  static Future<String?> payment(String title, double price) async {
     final prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('accesstoken')!;
-    Map<String, String> requestHeaders = {
+    final headers = {
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer $token'
+      'Authorization': 'Bearer $token',
     };
+    final body = json.encode({
+      "order_details": [
+        {"title": title, "price": price}
+      ]
+    });
 
-    const url = 'https://market-go.herokuapp.com/api/v1/stripe/create-checkout-session';
+    const url =
+        'https://market-go.herokuapp.com/api/v1/stripe/create-checkout-session';
+    print(title);
+    print(price);
+    final response =
+        await http.post(Uri.parse(url), headers: headers, body: body);
+    final responseData = json.decode(response.body);
+    final link = responseData['url'];
+    print(link);
+    print(response.statusCode);
 
-    final response = await http.get(Uri.parse(url), headers: requestHeaders);
-
-    if(response.statusCode == 200) {
-      var data = jsonDecode(response.body);
-
-      return data;
+    if (response.statusCode == 200) {
+      return link;
     } else {
       return null;
     }
