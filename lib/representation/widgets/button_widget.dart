@@ -17,7 +17,7 @@ class ButtonWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(kMediumPadding),
+          borderRadius: BorderRadius.circular(10),
           gradient: Gradients.defaultGradientBackground,
         ),
         alignment: Alignment.center,

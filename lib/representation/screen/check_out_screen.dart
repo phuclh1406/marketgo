@@ -1,9 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:matching/core/constants/color_constants.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/data/model/cart.dart';
 import 'package:matching/data/model/delivery_form.dart';
+import 'package:matching/representation/screen/card_form_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:matching/representation/widgets/button_widget.dart';
 import 'package:matching/representation/widgets/item_check_out_widget.dart';
@@ -11,6 +12,7 @@ import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:matching/services/order_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../services/payment_service.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
@@ -97,10 +99,18 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     );
   }
 
+  _launchURL(String link) async {
+   final Uri url = Uri.parse(link);
+   if (!await launchUrl(url)) {
+        throw Exception('Could not launch $url');
+    }
+}
+
   @override
   Widget build(BuildContext context) {
     final deliveryForm =
         ModalRoute.of(context)!.settings.arguments as DeliveryForm;
+
     Cart cart = Cart();
     return MiniAppBarContainerWidget(
       implementLeading: true,
@@ -125,7 +135,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                   Row(
+                  Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: const [
                       Text(
@@ -246,10 +256,15 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   ButtonWidget(
                       title: "Check out",
                       ontap: () async {
-                        OrderService.createCartOrder(
-                            cart.totalPrice().toString(),
-                            userId,
-                            cart.myCart.values.toList());
+                        [
+                          {OrderService.createCartOrder(
+                              cart.totalPrice().toString(),
+                              userId,
+                              cart.myCart.values.toList())},
+                          {
+                            _launchURL(PaymentService.payment().toString())
+                          }
+                        ];
                       }),
                   const SizedBox(
                     height: 10,
