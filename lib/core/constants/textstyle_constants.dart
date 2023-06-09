@@ -12,6 +12,13 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     height: 16 / 14,
   );
+
+  static const TextStyle regularStyle = TextStyle(
+    fontSize: 17,
+    color: ColorPalette.text1Color,
+    fontWeight: FontWeight.w400,
+    height: 16 / 14,
+  );
 }
 
 extension ExtendedTextStyle on TextStyle {
