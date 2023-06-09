@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/core/helper/asset_helper.dart';
+import 'package:matching/data/model/cart.dart';
+import 'package:matching/data/model/order_detail.dart';
+
+import '../../core/helper/image_helper.dart';
 
 class CheckoutItemWidget extends StatelessWidget {
   const CheckoutItemWidget({
     super.key,
-    this.name,
-    this.price,
-    this.quantity,
-    this.quantitative,
+    required this.cart,
   });
 
-  final String? name;
-  final int? price;
-  final int? quantity;
-  final String? quantitative;
+  final Cart cart;
 
-  @override
-  Widget build(BuildContext context) {
+  Widget _buildSingleCheckoutItem(OrderDetail orderDetail) {
     return Container(
       padding: const EdgeInsets.all(kDefaultPadding),
       margin: const EdgeInsets.only(bottom: 20),
@@ -31,11 +28,19 @@ class CheckoutItemWidget extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image.asset(
-            AssetHelper.imageLogoSplash,
-            width: 100,
-            height: 100,
-          ),
+          orderDetail.ingredient!.ingreImage != null &&
+                  orderDetail.ingredient!.ingreImage!.isNotEmpty &&
+                  orderDetail.ingredient!.ingreImage![0].image != null
+              ? Image.network(
+                  orderDetail.ingredient!.ingreImage![0].image!,
+                  width: 80,
+                  height: 80,
+                )
+              : ImageHelper.loadFromAsset(
+                  AssetHelper.no_image,
+                  width: 80,
+                  height: 80,
+                ),
           const SizedBox(
             width: kMediumPadding,
           ),
@@ -43,32 +48,33 @@ class CheckoutItemWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Product: $name",
+                "Product: ${orderDetail.ingredient!.ingredientName}",
                 style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-              ),
-              const SizedBox(
-                height: 5,
+                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               Text(
-                "Price: $price VND",
-                style: const TextStyle(fontSize: 18),
-              ),
-              const SizedBox(
-                height: 5,
+                "Price: ${orderDetail.price} VND",
+                style: const TextStyle(fontSize: 15),
               ),
               Text(
-                "$quantity $quantitative",
-                style: const TextStyle(fontSize: 18),
+                "quantity: ${orderDetail.quantity}\nquantitative: ${orderDetail.ingredient!.quantitative}",
+                style: const TextStyle(fontSize: 15),
               ),
               const SizedBox(
                 width: kMediumPadding,
               ),
             ],
           ),
-
         ],
       ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children:
+          cart.getListItem().map((e) => _buildSingleCheckoutItem(e)).toList(),
     );
   }
 }

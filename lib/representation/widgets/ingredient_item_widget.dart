@@ -41,7 +41,8 @@ class IngredientItemWidget extends StatelessWidget {
                         width: 70,
                         fit: BoxFit.fitWidth,
                       )
-                    : ImageHelper.loadFromAsset(AssetHelper.no_image), // Replace with the desired widget if image does not exist
+                    : ImageHelper.loadFromAsset(AssetHelper
+                        .no_image), // Replace with the desired widget if image does not exist
               ),
               const SizedBox(width: 20),
               Flexible(

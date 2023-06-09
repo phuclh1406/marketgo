@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:matching/core/constants/color_constants.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
@@ -19,18 +21,16 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
-  String? userId = '';
   final List<String> listStep = [
     "Delivery",
     "Payment",
     "Confirm",
   ];
 
-  Future<void> getUserIdFromSharedPreferences() async {
+  Future<String?> getUserIdFromSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    userId = prefs.getString('user_id');
+    return prefs.getString('user_id');
   }
-
 
   Widget _buildItemStepCheckout(
       int step, String stepName, bool isEnd, bool isCheck) {
@@ -89,7 +89,8 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final deliveryForm = ModalRoute.of(context)!.settings.arguments as DeliveryForm;
+    final deliveryForm =
+        ModalRoute.of(context)!.settings.arguments as DeliveryForm;
     Cart cart = Cart();
     return MiniAppBarContainerWidget(
       implementLeading: true,
@@ -129,17 +130,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   const SizedBox(
                     height: kMinPadding,
                   ),
-                  Column(
-                    children: cart.myCart.values
-                        .map(
-                          (e) => CheckoutItemWidget(
-                              name: e.ingredient.ingredientName,
-                              price: e.price,
-                              quantity: e.quantity,
-                              quantitative: e.ingredient.quantitative),
-                        )
-                        .toList(),
-                  ),
+                  CheckoutItemWidget(cart: cart),
                   Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -233,13 +224,26 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     height: 10,
                   ),
                   ButtonWidget(
-                      title: "Check out",
-                      ontap: () async {
-                        OrderService.createCartOrder(
-                            cart.totalPrice().toString(),
-                            userId!,
-                            cart.getListItem());
-                      }),
+                    title: "Check out",
+                    ontap: () {
+                      getUserIdFromSharedPreferences().then((userId) => {
+                            OrderService.createCartOrder(
+                                    cart.totalPrice().toString(),
+                                    userId!,
+                                    cart.getListItem())
+                                .then((response) => {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                              '${response['msg']}'),
+                                          duration: const Duration(seconds: 5),
+                                        ),
+                                      )
+                                    })
+                          });
+                    },
+                  ),
                   const SizedBox(
                     height: 10,
                   ),
