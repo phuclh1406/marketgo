@@ -7,7 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class IngredientsService {
   static var client = http.Client();
-void printWrapped(String text) =>
+  void printWrapped(String text) =>
       RegExp('.{1,800}').allMatches(text).map((m) => m.group(0)).forEach(print);
   static Future<List<IngredientModel>?> getAllIngredients() async {
     final prefs = await SharedPreferences.getInstance();
@@ -29,70 +29,44 @@ void printWrapped(String text) =>
     }
   }
 
-  static Future<List<IngredientModel>?> getIngredientsByName(String? query) async {
-  List<IngredientModel> result = [];
-  final prefs = await SharedPreferences.getInstance();
-  String token = prefs.getString('accesstoken')!;
-  Map<String, String> requestHeaders = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $token'
-  };
+  static Future<List<IngredientModel>?> getIngredientsByName(
+      String? query) async {
+    List<IngredientModel> result = [];
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('accesstoken')!;
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
 
-  const url = 'https://market-go.cyclic.app/api/v1/ingredients';
+    const url = 'https://market-go.cyclic.app/api/v1/ingredients';
 
-  final response = await http.get(Uri.parse(url), headers: requestHeaders);
+    final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
-  if (response.statusCode == 200) {
-    var data = jsonDecode(response.body);
-    List<IngredientModel> ingredients = ingredientsFromJson(data["ingredients"]);
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      List<IngredientModel> ingredients =
+          ingredientsFromJson(data["ingredients"]);
 
-    if (query != null && query.isNotEmpty) {
-      result = ingredients.where((ingredient) =>
-          ingredient.ingredientName!.toLowerCase().contains(query.toLowerCase())).toList();
-          print(result);
+      if (query != null && query.isNotEmpty) {
+        result = ingredients
+            .where((ingredient) => ingredient.ingredientName!
+                .toLowerCase()
+                .contains(query.toLowerCase()))
+            .toList();
+        print(result);
+      } else {
+        result = ingredients;
+      }
     } else {
-      result = ingredients;
+      return null;
     }
-  } else {
-    return null;
+
+    return result;
   }
 
-  return result;
-}
-
-static Future<List<IngredientModel>?> getIngredientsByCategory(String? query) async {
-  List<IngredientModel>? result = [];
-  final prefs = await SharedPreferences.getInstance();
-  String token = prefs.getString('accesstoken')!;
-  Map<String, String> requestHeaders = {
-    'Content-Type': 'application/json',
-    'Authorization': 'Bearer $token'
-  };
-
-  var url = 'https://market-go.cyclic.app/api/v1/ingredients?cate_name=$query';
-
-  final response = await http.get(Uri.parse(url), headers: requestHeaders);
-
-  if (response.statusCode == 200) {
-    var data = jsonDecode(response.body);
-    List<IngredientModel> ingredients = ingredientsFromJson(data["ingredients"]);
-    print(query);
-
-    if (query != null && query.isNotEmpty) {
-      result = ingredients.where((ingredient) =>
-          ingredient.categoryDetailModel!.cateDetailName!.toLowerCase().contains(query.toLowerCase())).toList();
-          print(result);
-    } else {
-      result = ingredients;
-    }
-  } else {
-    return null;
-  }
-
-  return result;
-}
-
-  static Future<List<IngredientModel>?> getIngredientsByNameAndCategory(String name, String category) async {
+  static Future<List<IngredientModel>?> getIngredientsByCategory(
+      String? query) async {
     List<IngredientModel>? result = [];
     final prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('accesstoken')!;
@@ -101,21 +75,58 @@ static Future<List<IngredientModel>?> getIngredientsByCategory(String? query) as
       'Authorization': 'Bearer $token'
     };
 
-    var url = 'https://market-go.cyclic.app/api/v1/foods?cate_name=$category';
+    var url =
+        'https://market-go.cyclic.app/api/v1/ingredients?cate_detail_id=$query';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      List<IngredientModel> foods = ingredientsFromJson(data["ingredients"]);
+      List<IngredientModel> ingredients =
+          ingredientsFromJson(data["ingredients"]);
+      print(query);
+
+      if (query != null && query.isNotEmpty) {
+        result = ingredients
+            .where((ingredient) =>
+                ingredient.categoryDetailModel!.cateDetailId!.contains(query))
+            .toList();
+        print(result);
+      } else {
+        result = ingredients;
+      }
+    } else {
+      return null;
+    }
+
+    return result;
+  }
+
+  static Future<List<IngredientModel>?> getIngredientsByNameAndCategory(
+      String name, String category) async {
+    List<IngredientModel>? result = [];
+    final prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('accesstoken')!;
+    Map<String, String> requestHeaders = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer $token'
+    };
+
+    var url = 'https://market-go.cyclic.app/api/v1/ingredients?cate_detail_id=$category';
+
+    final response = await http.get(Uri.parse(url), headers: requestHeaders);
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      List<IngredientModel> ingredients = ingredientsFromJson(data["ingredients"]);
 
       if (name.isNotEmpty) {
-        result = foods
-            .where((food) =>
-                food.ingredientName!.toLowerCase().contains(name.toLowerCase()))
+        result = ingredients
+            .where((ingredient) =>
+                ingredient.ingredientName!.toLowerCase().contains(name.toLowerCase()))
             .toList();
       } else {
-        result = foods;
+        result = ingredients;
       }
     } else {
       return null;

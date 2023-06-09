@@ -99,7 +99,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                   ),
                 ),
                 const SizedBox(height: kMediumPadding),
-                Expanded(
+                Flexible(
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
@@ -108,14 +108,20 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                         children: [
                           Row(
                             children: [
-                              Text(
-                                widget.foodModel.foodName!,
-                                style: TextStyles.defaultStyle.fontHeader.bold,
+                              Flexible(
+                                child: Text(
+                                  widget.foodModel.foodName!,
+                                  style: TextStyles.defaultStyle.fontHeader.bold,
+                                  maxLines: 5,
+                                ),
                               ),
-                              const Spacer(),
                             ],
                           ),
                           const SizedBox(height: kDefaultPadding),
+                          Text(
+                            widget.foodModel.description!,
+                            style: TextStyles.defaultStyle.subTitleTextColor,
+                          ),
                           const DashLineWidget(),
                           Text(
                             'Nguyên liệu cần thiết',
@@ -213,7 +219,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                               ),
                           const SizedBox(height: kDefaultPadding),
                           ButtonWidget(
-                            title: 'Chuyển tới cửa hàng và nguyên liệu',
+                            title: 'Chuyển tới cửa hàng nguyên liệu',
                             ontap: () {
                               Navigator.of(context)
                                   .pushNamed(IngredientsScreen.routeName);

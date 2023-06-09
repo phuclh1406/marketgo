@@ -31,19 +31,25 @@ class IngredientItemWidget extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              GestureDetector(
-                onTap: onTap,
+              SizedBox(
                 child: Expanded(
                   flex: 3,
-                  child: ingredientModel.ingreImage != null &&
-                          ingredientModel.ingreImage!.isNotEmpty &&
-                          ingredientModel.ingreImage![0].image != null
-                      ? Image.network(
-                          ingredientModel.ingreImage![0].image!,
-                          width: 70,
-                          fit: BoxFit.fitWidth,
-                        )
-                      : ImageHelper.loadFromAsset(AssetHelper.no_image), // Replace with the desired widget if image does not exist
+                  child: GestureDetector(
+                    onTap: onTap,
+                    child: ingredientModel.ingreImage != null &&
+                            ingredientModel.ingreImage!.isNotEmpty &&
+                            ingredientModel.ingreImage![0].image != null
+                        ? Image.network(
+                            ingredientModel.ingreImage![0].image!,
+                            width: 70,
+                            fit: BoxFit.fitWidth,
+                          )
+                        : ImageHelper.loadFromAsset(
+                            AssetHelper.no_image,
+                            width: 70,
+                            fit: BoxFit.fitWidth,
+                          ), // Replace with the desired widget if the image does not exist
+                  ),
                 ),
               ),
               const SizedBox(width: 20),
