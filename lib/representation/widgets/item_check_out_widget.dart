@@ -20,11 +20,11 @@ class CheckoutItemWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       decoration: const BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.all(
-          Radius.circular(
-            kItemPadding,
-          ),
-        ),
+        // borderRadius: BorderRadius.all(
+        //   Radius.circular(
+        //     kItemPadding,
+        //   ),
+        // ),
       ),
       child: Row(
         children: [
@@ -44,26 +44,31 @@ class CheckoutItemWidget extends StatelessWidget {
           const SizedBox(
             width: kMediumPadding,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                "Product: ${orderDetail.ingredient!.ingredientName}",
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-              ),
-              Text(
-                "Price: ${orderDetail.price} VND",
-                style: const TextStyle(fontSize: 15),
-              ),
-              Text(
-                "quantity: ${orderDetail.quantity}\nquantitative: ${orderDetail.ingredient!.quantitative}",
-                style: const TextStyle(fontSize: 15),
-              ),
-              const SizedBox(
-                width: kMediumPadding,
-              ),
-            ],
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  overflow: TextOverflow.fade,
+                  "Tên sản phẩm: ${orderDetail.ingredient!.ingredientName}",
+                  style:
+                      const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                ),
+                const SizedBox(height: kDefaultPadding / 3),
+                Text(
+                  "Giá tiền: ${orderDetail.price} (vnđ)",
+                  style: const TextStyle(fontSize: 15),
+                ),
+                const SizedBox(height: kDefaultPadding / 3),
+                Text(
+                  "Số lượng: ${orderDetail.quantity}\nĐịnh lượng: ${orderDetail.ingredient!.quantitative}",
+                  style: const TextStyle(fontSize: 15),
+                ),
+                const SizedBox(
+                  width: kMediumPadding,
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -51,8 +51,6 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     }
   }
 
-  
-
   @override
   Widget build(BuildContext context) {
     List<String> listCity = [
@@ -64,11 +62,25 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     ];
 
     return MiniAppBarContainerWidget(
-      titleString: "Delivery Address",
+      titleString: "Địa chỉ giao hàng",
       implementLeading: true,
       child: SingleChildScrollView(
         child: Column(
           children: [
+<<<<<<< HEAD
+=======
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.center,
+            //   children: listStep
+            //       .map((e) => _buildItemStepCheckout(
+            //             listStep.indexOf(e) + 1,
+            //             e,
+            //             listStep.indexOf(e) == listStep.length - 1,
+            //             listStep.indexOf(e) == 0,
+            //           ))
+            //       .toList(),
+            // ),
+>>>>>>> main
             const SizedBox(
               height: 20,
             ),
@@ -85,10 +97,10 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                     height: 10,
                   ),
                   const Text(
-                    "Delivery info",
+                    "Địa chỉ cá nhân",
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 30,
+                      fontSize: 20,
                     ),
                   ),
                   Padding(
@@ -101,10 +113,10 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                           TextFormField(
                             controller: _nameController,
                             decoration:
-                                const InputDecoration(labelText: "Name"),
+                                const InputDecoration(labelText: "Họ và Tên"),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Please enter your name";
+                                return "Vui lòng điền tên của bạn";
                               }
                               return null;
                             },
@@ -112,12 +124,12 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                           TextFormField(
                             controller: _emailController,
                             decoration:
-                                const InputDecoration(labelText: "Email"),
+                                const InputDecoration(labelText: "Địa chỉ Email"),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Please enter your email";
+                                return "Vui lòng điền địa chỉ email của bạn";
                               } else if (!emailRegex.hasMatch(value)) {
-                                return "Please enter a valid email";
+                                return "Địa chỉ email không hợp lệ";
                               }
                               return null;
                             },
@@ -125,12 +137,12 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                           TextFormField(
                             controller: _phoneController,
                             decoration: const InputDecoration(
-                                labelText: "Phone number"),
+                                labelText: "Số điện thoại"),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Please enter your phone number";
+                                return "Vui lòng điền số điện thoại của bạn";
                               } else if (!phoneRegex.hasMatch(value)) {
-                                return "Please enter a valid phone number";
+                                return "Số điện thoại không hợp lệ";
                               }
                               return null;
                             },
@@ -138,10 +150,10 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                           TextFormField(
                             controller: _addressController,
                             decoration:
-                                const InputDecoration(labelText: "Address"),
+                                const InputDecoration(labelText: "Địa chỉ"),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Please enter your address";
+                                return "Vui lòng điền địa chỉ của bạn";
                               }
                               return null;
                             },
@@ -149,7 +161,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                           DropdownButtonFormField<String>(
                             validator: (value) {
                               if (value == null || value.isEmpty) {
-                                return "Please choose a city";
+                                return "Chọn thành phố";
                               }
                               return null;
                             },
@@ -158,7 +170,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                               const DropdownMenuItem<String>(
                                 value: "",
                                 enabled: false,
-                                child: Text('Select a city'),
+                                child: Text('Chọn thành phố'),
                               ),
                               ...listCity.map((String value) {
                                 return DropdownMenuItem<String>(
@@ -175,14 +187,14 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                               });
                             },
                             decoration: const InputDecoration(
-                              labelText: 'City',
+                              labelText: 'Thành phố',
                             ),
                           ),
                           const SizedBox(
                             height: 16.0,
                           ),
                           ButtonWidget(
-                            title: "Submit",
+                            title: "Tiếp tục",
                             ontap: () {
                               _submitForm();
                             },

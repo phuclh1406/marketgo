@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/model/category_detail_model.dart';
 import 'package:matching/model/ingredient_model.dart';
+import 'package:matching/representation/screen/ingredient_detail_screen.dart';
 import 'package:matching/representation/widgets/ingredient_item_widget.dart';
 import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:matching/services/ingredient_service.dart';
@@ -47,10 +48,10 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                       IngredientItemWidget(
                         ingredientModel: ingredients[i],
                         onTap: () {
-                          // Navigator.of(context).pushNamed(
-                          //   RecipeDetailScreen.routeName,
-                          //   arguments: ingredients[i],
-                          // );
+                          Navigator.of(context).pushNamed(
+                            IngredientDetailScreen.routeName,
+                            arguments: ingredients[i],
+                          );
                         },
                       ),
                 ],
@@ -65,7 +66,7 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
           }
         },
       );
-    } else if (value.isNotEmpty && category.isEmpty) {
+    } else if (value.isNotEmpty && category == null) {
       return FutureBuilder<List<IngredientModel>?>(
         future: IngredientsService.getIngredientsByName(value),
         builder: (BuildContext context,
@@ -86,10 +87,49 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                       IngredientItemWidget(
                         ingredientModel: ingredients[i],
                         onTap: () {
-                          // Navigator.of(context).pushNamed(
-                          //   RecipeDetailScreen.routeName,
-                          //   arguments: ingredients[i],
-                          // );
+                          Navigator.of(context).pushNamed(
+                            IngredientDetailScreen.routeName,
+                            arguments: ingredients[i],
+                          );
+                        },
+                      ),
+                ],
+              );
+            } else {
+              return const Text('No ingredients found.');
+            }
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            return const SizedBox(); // Return an empty container or widget if data is null
+          }
+        },
+      );
+    } else if (value.isEmpty) {
+      return FutureBuilder<List<IngredientModel>?>(
+        future: IngredientsService.getIngredientsByCategory(category),
+        builder:
+            (BuildContext context, AsyncSnapshot<List<IngredientModel>?> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasData) {
+            List<IngredientModel>? ingredients = snapshot.data;
+
+            if (ingredients != null && ingredients.isNotEmpty) {
+              return Column(
+                children: [
+                  for (var i = 0; i < ingredients.length; i++)
+                    if (ingredients[i].ingredientName != null ||
+                        ingredients[i].ingreImage![0].image != null)
+                      IngredientItemWidget(
+                        ingredientModel: ingredients[i],
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            IngredientDetailScreen.routeName,
+                            arguments: ingredients[i],
+                          );
                         },
                       ),
                 ],
@@ -105,21 +145,65 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
         },
       );
     } else {
-      return (const Text('123'));
+      return FutureBuilder<List<IngredientModel>?>(
+        future: IngredientsService.getIngredientsByNameAndCategory(value, category),
+        builder:
+            (BuildContext context, AsyncSnapshot<List<IngredientModel>?> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (snapshot.hasData) {
+            List<IngredientModel>? ingredients = snapshot.data;
+
+            if (ingredients != null && ingredients.isNotEmpty) {
+              return Column(
+                children: [
+                  for (var i = 0; i < ingredients.length; i++)
+                    if (ingredients[i].ingredientName != null ||
+                        ingredients[i].ingreImage![0].image != null)
+                      IngredientItemWidget(
+                        ingredientModel: ingredients[i],
+                        onTap: () {
+                          Navigator.of(context).pushNamed(
+                            IngredientDetailScreen.routeName,
+                            arguments: ingredients[i],
+                          );
+                        },
+                      ),
+                ],
+              );
+            } else {
+              return const Text('No ingredients found.');
+            }
+          } else if (snapshot.hasError) {
+            return Text('Error: ${snapshot.error}');
+          } else {
+            return const SizedBox(); // Return an empty container or widget if data is null
+          }
+        },
+      );
     }
   }
 
   Widget loadCategories() {
     return FutureBuilder<List<CategoryDetailModel>?>(
-      future: CategoryDetailService.getAllCategoriesDetailForFoods(),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<CategoryDetailModel>?> snapshot) {
+      future: CategoryDetailService.getAllCategoriesDetailForIngredients(),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<CategoryDetailModel>?> snapshot) {
         if (snapshot.hasData) {
           List<CategoryDetailModel>? listCate = snapshot.data!;
 
           if (listCate.isNotEmpty) {
             return Row(
               children: [
+                CategoriesList(
+                    cateName: 'Tất cả',
+                    ontap: () {
+                      setState(() {
+                        category = '';
+                      });
+                    }),
                 for (var i = 0; i < listCate.length; i++)
                   if (listCate[i].cateDetailName != null)
                     CategoriesList(
@@ -128,7 +212,7 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                           setState(() {
                             category = listCate[i].cateDetailId!;
                           });
-                        })
+                        }),
               ],
             );
           } else {
@@ -220,8 +304,8 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
                                   listIngredients('', '')
                                 else if (query.isNotEmpty && category.isEmpty)
                                   listIngredients(query, '')
-                                // else
-                                //   listIngredients(query, category)
+                                else
+                                  listIngredients(query, category)
                               ]),
                             ),
                           ],

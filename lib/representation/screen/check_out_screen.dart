@@ -4,6 +4,10 @@ import 'package:matching/core/constants/color_constants.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/data/model/cart.dart';
 import 'package:matching/data/model/delivery_form.dart';
+import 'package:matching/representation/screen/card_form_screen.dart';
+import 'package:matching/representation/screen/home_screen.dart';
+import 'package:matching/representation/screen/main_app.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:matching/representation/widgets/button_widget.dart';
 import 'package:matching/representation/widgets/item_check_out_widget.dart';
@@ -11,6 +15,14 @@ import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:matching/services/order_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+<<<<<<< HEAD
+=======
+import '../../core/constants/textstyle_constants.dart';
+import '../../services/payment_service.dart';
+import '../widgets/button_payment_widget.dart';
+import 'success_screen.dart';
+
+>>>>>>> main
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
   static const String routeName = "/check-out";
@@ -25,35 +37,38 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     return prefs.getString('user_id');
   }
 
+  Future<void> _launchURL(String link) async {
+    final Uri url = Uri.parse(link);
+    if (await canLaunchUrl(url)) {
+      await launch(url.toString(),
+          forceSafariVC: false, forceWebView: false, universalLinksOnly: true);
+      if (url.path == '/success') {
+        Navigator.of(context).pushNamed(SuccessScreen.routeName);
+      } else {
+        Navigator.of(context).pushNamed(CheckOutScreen.routeName);
+      }
+    } else {
+      print('Cannot launch URL');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final deliveryForm =
-        ModalRoute.of(context)!.settings.arguments as DeliveryForm;
+        ModalRoute.of(context)?.settings.arguments as DeliveryForm?;
     Cart cart = Cart();
     return MiniAppBarContainerWidget(
       implementLeading: true,
-      titleString: "Checkout Screen",
+      titleString: "Thông tin giao dịch",
       child: Column(
         children: [
           const SizedBox(
-            height: kMediumPadding,
+            height: kMediumPadding / 2,
           ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Products",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ],
-                  ),
                   const SizedBox(
                     height: kMinPadding,
                   ),
@@ -61,9 +76,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,10 +87,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              "Delivery info",
+                              "Địa chỉ giao hàng",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 30,
+                                fontSize: 20,
                               ),
                             ),
                           ],
@@ -89,45 +101,45 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Name: ${deliveryForm.name}",
+                                "Tên: ${deliveryForm?.name}",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 ),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                "Phone: ${deliveryForm.phone}",
+                                "Số điện thoại: ${deliveryForm?.phone}",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 ),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                "Email: ${deliveryForm.email}",
+                                "Email: ${deliveryForm?.email}",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 ),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                "Address: ${deliveryForm.address}",
+                                "Địa chỉ: ${deliveryForm?.address}",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 ),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                "City: ${deliveryForm.city}",
+                                "Thành phố: ${deliveryForm?.city}",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 ),
                               ),
                               const SizedBox(
@@ -140,93 +152,66 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
                   Container(
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
+                    padding: const EdgeInsets.all(kMinPadding),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(kMinPadding),
+                      color: const Color.fromARGB(255, 212, 204, 204)
+                          .withOpacity(0.4),
                     ),
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        Text(
-                          'Total: ${cart.totalPrice().toInt()} VND',
-                          style: const TextStyle(
-                              fontSize: 24, fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        ButtonWidget(
-                          title: "Confirm",
-                          ontap: () {
-                            getUserIdFromSharedPreferences().then((userId) => {
-                                  OrderService.createCartOrder(
-                                          cart.totalPrice().toString(),
-                                          userId!,
-                                          cart.getListItem())
-                                      .then((response) => {
-                                            showDialog(
-                                              context: context,
-                                              builder: (BuildContext context) {
-                                                return AlertDialog(
-                                                  content: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    children: [
-                                                      response['status'] == 200
-                                                          ? const Icon(
-                                                              FontAwesomeIcons
-                                                                  .circleCheck,
-                                                              size: 80,
-                                                              color:
-                                                                  Colors.green,
-                                                            )
-                                                          : const Icon(
-                                                              FontAwesomeIcons
-                                                                  .xmark,
-                                                              size: 80,
-                                                              color: Colors.red,
-                                                            ),
-                                                      const SizedBox(
-                                                          height: 16),
-                                                      Text(
-                                                        response['msg'],
-                                                        style: const TextStyle(
-                                                          fontSize: 25,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  actions: [
-                                                    ButtonWidget(
-                                                      title: 'Close',
-                                                      ontap: () {
-                                                        Navigator.of(context)
-                                                            .pushNamedAndRemoveUntil(
-                                                                'main_app',
-                                                                (route) =>
-                                                                    false);
-                                                      },
-                                                    )
-                                                  ],
-                                                );
-                                              },
-                                            )
-                                          })
-                                });
-                          },
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                      ],
+                    child: Text(
+                      'Số tiền bạn cần thanh toán là: ${cart.totalPrice().toInt()} (vnđ)',
+                      style: TextStyles.defaultStyle.bold,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  )
+                  ),
+
+                  // Text(
+                  //   'Total: ${cart.totalPrice().toInt()} VND',
+                  //   style: const TextStyle(
+                  //       fontSize: 24, fontWeight: FontWeight.bold),
+                  // ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ButtonPaymentWidget(
+                    title: "Thanh toán qua thẻ VISA",
+                    ontap: () async {
+                      String? url = await PaymentService.payment(
+                          'Thanh toan hoa don', cart.totalPrice());
+                      getUserIdFromSharedPreferences().then((userId) {
+                        _launchURL(url!);
+                        OrderService.createCartOrder(
+                                cart.totalPrice().toString(),
+                                userId!,
+                                cart.getListItem())
+                                
+                            .then((response) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('${response['msg']}'),
+                              duration: const Duration(seconds: 5),
+                            ),
+                          );
+                        });
+                      });
+                    },
+                  ),
+
+                  const SizedBox(height: kDefaultPadding),
+
+                  ButtonWidget(
+                    title: "Về trang chủ",
+                    ontap: () {
+                      Navigator.of(context).pushNamed(MainApp.routeName);
+                    },
+                  ),
+
+                  const SizedBox(
+                    height: 10,
+                  ),
                 ],
               ),
             ),

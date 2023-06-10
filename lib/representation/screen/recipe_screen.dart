@@ -62,7 +62,6 @@ class _RecipeScreenState extends State<RecipeScreen> {
     );
   }
 
-
   Widget loadCategoriesDetail() {
     return FutureBuilder<List<CategoryDetailModel>?>(
       future: CategoryDetailService.getAllCategoriesDetailForFoods(),
@@ -74,6 +73,13 @@ class _RecipeScreenState extends State<RecipeScreen> {
           if (listCateDetail.isNotEmpty) {
             return Row(
               children: [
+                CategoriesList(
+                    cateName: 'Tất cả',
+                    ontap: () {
+                      setState(() {
+                        category = '';
+                      });
+                    }),
                 for (var i = 0; i < listCateDetail.length; i++)
                   if (listCateDetail[i].cateDetailName != null)
                     CategoriesList(
@@ -82,7 +88,8 @@ class _RecipeScreenState extends State<RecipeScreen> {
                           setState(() {
                             category = listCateDetail[i].cateDetailId!;
                           });
-                        })
+                        }),
+                
               ],
             );
           } else {
@@ -343,5 +350,4 @@ class _RecipeScreenState extends State<RecipeScreen> {
       ),
     );
   }
-
 }

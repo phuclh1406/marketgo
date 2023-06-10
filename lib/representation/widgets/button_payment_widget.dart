@@ -4,8 +4,8 @@ import '../../core/constants/color_constants.dart';
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
 
-class ButtonWidget extends StatelessWidget {
-  const ButtonWidget({super.key, required this.title, this.ontap});
+class ButtonPaymentWidget extends StatelessWidget {
+  const ButtonPaymentWidget({super.key, required this.title, this.ontap});
 
   final String title;
   final Function()? ontap;
@@ -18,10 +18,10 @@ class ButtonWidget extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: kDefaultPadding),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          gradient: Gradients.defaultGradientBackground,
+          color: Colors.white
         ),
         alignment: Alignment.center,
-        child: Text(title, style: TextStyles.defaultStyle.bold.whiteTextColor)
+        child: Text(title, style: TextStyles.defaultStyle.bold)
       ),
     );
   }

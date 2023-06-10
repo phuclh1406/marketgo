@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:matching/representation/screen/card_form_screen.dart';
 import 'package:matching/representation/screen/cart_screen.dart';
 import 'package:matching/representation/screen/delivery_address.dart';
+import 'package:matching/representation/screen/ingredient_detail_screen.dart';
 import 'package:matching/representation/screen/ingredients_screen.dart';
 import 'package:matching/representation/screen/order_history_screen.dart';
 import 'package:matching/representation/screen/profile.dart';
+import 'package:matching/representation/screen/success_screen.dart';
+import 'model/ingredient_model.dart';
 import 'representation/screen/check_out_screen.dart';
 import 'package:matching/representation/screen/home_screen.dart';
 import 'package:matching/model/food_model.dart';
@@ -27,13 +31,15 @@ final Map<String, WidgetBuilder> routes = {
   CartScreen.routeName: (context) => const CartScreen(),
   HomeScreen.routeName: (context) => const HomeScreen(),
   ProfileScreen.routeName: (context) => const ProfileScreen(),
-  Profile.routeName:(context) => const Profile(),
+  Profile.routeName: (context) => const Profile(),
   RecipeScreen.routeName: (context) => const RecipeScreen(),
-  IngredientsInRecipeScreen.routeName: (context) => const IngredientsInRecipeScreen(),
+  IngredientsInRecipeScreen.routeName: (context) =>
+      const IngredientsInRecipeScreen(),
   DeliveryAddressScreen.routeName: (context) => const DeliveryAddressScreen(),
   StoreScreen.routeName: (context) => const StoreScreen(),
   IngredientsScreen.routeName: (context) => const IngredientsScreen(),
   OrderHistoryScreen.routeName: (context) => const OrderHistoryScreen(),
+  SuccessScreen.routeName: (context) => const SuccessScreen(),
 };
 
 MaterialPageRoute<dynamic>? generateRoutes(RouteSettings settings) {
@@ -50,19 +56,20 @@ MaterialPageRoute<dynamic>? generateRoutes(RouteSettings settings) {
         );
       }
       break;
-
-    case RecipeOrderScreen.routeName:
-      final String? destination = (settings.arguments as String?);
-      return MaterialPageRoute<dynamic>(
-        settings: settings,
-        builder: (context) => RecipeOrderScreen(
-          destination: destination,
-        ),
-      );
-      
+    case IngredientDetailScreen.routeName:
+      final dynamic arguments = settings.arguments;
+      if (arguments is IngredientModel) {
+        final IngredientModel ingredientModel = arguments;
+        return MaterialPageRoute<dynamic>(
+          settings: settings,
+          builder: (context) => IngredientDetailScreen(
+            ingredientModel: ingredientModel,
+          ),
+        );
+      }
+      break;
     default:
       return null;
   }
   return null;
 }
-
