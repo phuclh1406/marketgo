@@ -17,7 +17,7 @@ class IngredientsService {
       'Authorization': 'Bearer $token'
     };
 
-    const url = 'https://market-go.cyclic.app/api/v1/ingredients';
+    const url = 'https://market-go.herokuapp.com/api/v1/ingredients';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
@@ -39,7 +39,7 @@ class IngredientsService {
       'Authorization': 'Bearer $token'
     };
 
-    const url = 'https://market-go.cyclic.app/api/v1/ingredients';
+    const url = 'https://market-go.herokuapp.com/api/v1/ingredients';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
@@ -76,7 +76,7 @@ class IngredientsService {
     };
 
     var url =
-        'https://market-go.cyclic.app/api/v1/ingredients?cate_detail_id=$query';
+        'https://market-go.herokuapp.com/api/v1/ingredients?cate_detail_id=$query';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
@@ -112,18 +112,21 @@ class IngredientsService {
       'Authorization': 'Bearer $token'
     };
 
-    var url = 'https://market-go.cyclic.app/api/v1/ingredients?cate_detail_id=$category';
+    var url =
+        'https://market-go.herokuapp.com/api/v1/ingredients?cate_detail_id=$category';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
-      List<IngredientModel> ingredients = ingredientsFromJson(data["ingredients"]);
+      List<IngredientModel> ingredients =
+          ingredientsFromJson(data["ingredients"]);
 
       if (name.isNotEmpty) {
         result = ingredients
-            .where((ingredient) =>
-                ingredient.ingredientName!.toLowerCase().contains(name.toLowerCase()))
+            .where((ingredient) => ingredient.ingredientName!
+                .toLowerCase()
+                .contains(name.toLowerCase()))
             .toList();
       } else {
         result = ingredients;

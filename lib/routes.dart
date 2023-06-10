@@ -4,6 +4,7 @@ import 'package:matching/representation/screen/cart_screen.dart';
 import 'package:matching/representation/screen/delivery_address.dart';
 import 'package:matching/representation/screen/ingredient_detail_screen.dart';
 import 'package:matching/representation/screen/ingredients_screen.dart';
+import 'package:matching/representation/screen/order_history_screen.dart';
 import 'package:matching/representation/screen/profile.dart';
 import 'package:matching/representation/screen/success_screen.dart';
 import 'model/ingredient_model.dart';
@@ -37,6 +38,7 @@ final Map<String, WidgetBuilder> routes = {
   DeliveryAddressScreen.routeName: (context) => const DeliveryAddressScreen(),
   StoreScreen.routeName: (context) => const StoreScreen(),
   IngredientsScreen.routeName: (context) => const IngredientsScreen(),
+  OrderHistoryScreen.routeName: (context) => const OrderHistoryScreen(),
   SuccessScreen.routeName: (context) => const SuccessScreen(),
 };
 

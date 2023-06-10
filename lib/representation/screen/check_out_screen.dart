@@ -1,6 +1,5 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/color_constants.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/data/model/cart.dart';
@@ -16,11 +15,14 @@ import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:matching/services/order_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+<<<<<<< HEAD
+=======
 import '../../core/constants/textstyle_constants.dart';
 import '../../services/payment_service.dart';
 import '../widgets/button_payment_widget.dart';
 import 'success_screen.dart';
 
+>>>>>>> main
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
   static const String routeName = "/check-out";
@@ -30,12 +32,6 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
-  final List<String> listStep = [
-    "Delivery",
-    "Payment",
-    "Confirm",
-  ];
-
   Future<String?> getUserIdFromSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('user_id');
@@ -56,83 +52,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     }
   }
 
-  Widget _buildItemStepCheckout(
-      int step, String stepName, bool isEnd, bool isCheck) {
-    return Row(
-      children: [
-        Container(
-          width: kMediumPadding,
-          height: kMediumPadding,
-          decoration: BoxDecoration(
-            color: isCheck
-                ? ColorPalette.yellowColor
-                : ColorPalette.yellowColor.withOpacity(0.4),
-            borderRadius: BorderRadius.circular(
-              kMediumPadding,
-            ),
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            step.toString(),
-            style: const TextStyle(
-              fontSize: 13,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: kMinPadding,
-        ),
-        Text(
-          stepName,
-          style: const TextStyle(
-              color: ColorPalette.yellowColor,
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          width: kMinPadding,
-        ),
-        if (!isEnd)
-          const SizedBox(
-            width: kDefaultPadding,
-            child: Divider(
-              height: 1,
-              thickness: 1,
-              color: ColorPalette.yellowColor,
-            ),
-          ),
-        if (!isEnd)
-          const SizedBox(
-            width: kMinPadding,
-          ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final deliveryForm =
         ModalRoute.of(context)?.settings.arguments as DeliveryForm?;
-
     Cart cart = Cart();
     return MiniAppBarContainerWidget(
       implementLeading: true,
       titleString: "Thông tin giao dịch",
       child: Column(
         children: [
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: listStep
-          //       .map((e) => _buildItemStepCheckout(
-          //             listStep.indexOf(e) + 1,
-          //             e,
-          //             listStep.indexOf(e) == listStep.length - 1,
-          //             listStep.indexOf(e) == 2,
-          //           ))
-          //       .toList(),
-          // ),
           const SizedBox(
             height: kMediumPadding / 2,
           ),
@@ -140,18 +69,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  // Row(
-                  //   mainAxisAlignment: MainAxisAlignment.center,
-                  //   children: const [
-                  //     Text(
-                  //       "Products",
-                  //       style: TextStyle(
-                  //         fontWeight: FontWeight.bold,
-                  //         fontSize: 25,
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
                   const SizedBox(
                     height: kMinPadding,
                   ),
@@ -159,9 +76,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
-                      // borderRadius: BorderRadius.all(
-                      //   Radius.circular(5),
-                      // ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -169,9 +83,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
                               "Địa chỉ giao hàng",
                               style: TextStyle(
@@ -240,7 +154,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   const SizedBox(
                     height: 20,
                   ),
-
                   Container(
                     padding: const EdgeInsets.all(kMinPadding),
                     decoration: BoxDecoration(

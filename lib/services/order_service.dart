@@ -24,7 +24,7 @@ class OrderService {
       "orderDetails": listOrderDetail.map((detail) => detail.toJson()).toList(),
     };
 
-    const url = 'https://market-go.cyclic.app/api/v1/order-detail';
+    const url = 'https://market-go.herokuapp.com/api/v1/order-detail';
 
     final response =
         await http.post(Uri.parse(url), headers: requestHeaders, body: jsonEncode(body),);

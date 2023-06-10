@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:matching/representation/screen/order_history_screen.dart';
 import 'package:matching/representation/screen/profile.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
@@ -25,28 +26,12 @@ class _MainAppState extends State<MainApp> {
       backgroundColor: Colors.white,
       body: IndexedStack(
         index: _currentIndex,
-        children: [
-          const HomeScreen(),
-          Container(
-            color: Colors.red,
-          ),
-          const Profile(),
+        children: const [
+          HomeScreen(),
+          OrderHistoryScreen(),
+          Profile(),
         ],
       ),
-      // body: PageView(
-      //   controller: _pageController,
-      //   onPageChanged: (index) {
-      //     setState(() {
-      //       _currentIndex = index;
-      //     });
-      //   },
-      //   children: [
-      //     const HomeScreen(),
-      //     const CartScreen(),
-      //     Container(color: Colors.red),
-      //     const Profile(),
-      //   ],
-      // ),
       bottomNavigationBar: SalomonBottomBar(
         currentIndex: _currentIndex,
         onTap: (index) {

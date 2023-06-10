@@ -18,7 +18,7 @@ class StoreService {
       'Authorization': 'Bearer $token',
     };
 
-    const url = 'https://market-go.cyclic.app/api/v1/stores';
+    const url = 'https://market-go.herokuapp.com/api/v1/stores';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
     print(response.statusCode);

@@ -27,11 +27,6 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       r"^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$");
   final phoneRegex = RegExp(
       r"^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$");
-  final List<String> listStep = [
-    "Delivery",
-    "Payment",
-    "Confirm",
-  ];
 
   String? selectedValue;
 
@@ -56,61 +51,6 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     }
   }
 
-  Widget _buildItemStepCheckout(
-      int step, String stepName, bool isEnd, bool isCheck) {
-    return Row(
-      children: [
-        Container(
-          width: kMediumPadding,
-          height: kMediumPadding,
-          decoration: BoxDecoration(
-            color: isCheck
-                ? ColorPalette.yellowColor
-                : ColorPalette.yellowColor.withOpacity(0.4),
-            borderRadius: BorderRadius.circular(
-              kMediumPadding,
-            ),
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            step.toString(),
-            style: const TextStyle(
-              fontSize: 13,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: kMinPadding,
-        ),
-        Text(
-          stepName,
-          style: const TextStyle(
-              color: ColorPalette.yellowColor,
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          width: kMinPadding,
-        ),
-        if (!isEnd)
-          const SizedBox(
-            width: kDefaultPadding,
-            child: Divider(
-              height: 1,
-              thickness: 1,
-              color: ColorPalette.yellowColor,
-            ),
-          ),
-        if (!isEnd)
-          const SizedBox(
-            width: kMinPadding,
-          ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     List<String> listCity = [
@@ -127,6 +67,8 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: [
+<<<<<<< HEAD
+=======
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.center,
             //   children: listStep
@@ -138,6 +80,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
             //           ))
             //       .toList(),
             // ),
+>>>>>>> main
             const SizedBox(
               height: 20,
             ),

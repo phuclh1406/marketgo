@@ -107,10 +107,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                       width: 10,
                     ),
                     Container(
-                      height: 30,
-                      width: 30,
+                      height: 25,
+                      width: 25,
                       alignment: Alignment.center,
-                      padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
                           border: Border.all(
                         width: 1.0,
