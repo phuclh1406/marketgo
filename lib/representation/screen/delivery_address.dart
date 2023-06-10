@@ -67,20 +67,6 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-<<<<<<< HEAD
-=======
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: listStep
-            //       .map((e) => _buildItemStepCheckout(
-            //             listStep.indexOf(e) + 1,
-            //             e,
-            //             listStep.indexOf(e) == listStep.length - 1,
-            //             listStep.indexOf(e) == 0,
-            //           ))
-            //       .toList(),
-            // ),
->>>>>>> main
             const SizedBox(
               height: 20,
             ),
