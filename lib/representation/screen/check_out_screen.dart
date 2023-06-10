@@ -30,12 +30,6 @@ class CheckOutScreen extends StatefulWidget {
 }
 
 class _CheckOutScreenState extends State<CheckOutScreen> {
-  final List<String> listStep = [
-    "Delivery",
-    "Payment",
-    "Confirm",
-  ];
-
   Future<String?> getUserIdFromSharedPreferences() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getString('user_id');
@@ -56,83 +50,16 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     }
   }
 
-  Widget _buildItemStepCheckout(
-      int step, String stepName, bool isEnd, bool isCheck) {
-    return Row(
-      children: [
-        Container(
-          width: kMediumPadding,
-          height: kMediumPadding,
-          decoration: BoxDecoration(
-            color: isCheck
-                ? ColorPalette.yellowColor
-                : ColorPalette.yellowColor.withOpacity(0.4),
-            borderRadius: BorderRadius.circular(
-              kMediumPadding,
-            ),
-          ),
-          alignment: Alignment.center,
-          child: Text(
-            step.toString(),
-            style: const TextStyle(
-              fontSize: 13,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: kMinPadding,
-        ),
-        Text(
-          stepName,
-          style: const TextStyle(
-              color: ColorPalette.yellowColor,
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          width: kMinPadding,
-        ),
-        if (!isEnd)
-          const SizedBox(
-            width: kDefaultPadding,
-            child: Divider(
-              height: 1,
-              thickness: 1,
-              color: ColorPalette.yellowColor,
-            ),
-          ),
-        if (!isEnd)
-          const SizedBox(
-            width: kMinPadding,
-          ),
-      ],
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final deliveryForm =
         ModalRoute.of(context)?.settings.arguments as DeliveryForm?;
-
     Cart cart = Cart();
     return MiniAppBarContainerWidget(
       implementLeading: true,
       titleString: "Thông tin giao dịch",
       child: Column(
         children: [
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.center,
-          //   children: listStep
-          //       .map((e) => _buildItemStepCheckout(
-          //             listStep.indexOf(e) + 1,
-          //             e,
-          //             listStep.indexOf(e) == listStep.length - 1,
-          //             listStep.indexOf(e) == 2,
-          //           ))
-          //       .toList(),
-          // ),
           const SizedBox(
             height: kMediumPadding / 2,
           ),
