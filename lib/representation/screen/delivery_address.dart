@@ -3,10 +3,6 @@ import "package:matching/data/model/delivery_form.dart";
 import "package:matching/representation/screen/check_out_screen.dart";
 import "package:matching/representation/widgets/button_widget.dart";
 import "package:matching/representation/widgets/mini_app_bar_container.dart";
-
-import "../../core/constants/color_constants.dart";
-import "../../core/constants/dismension_constants.dart";
-
 class DeliveryAddressScreen extends StatefulWidget {
   const DeliveryAddressScreen({super.key});
 
@@ -67,20 +63,6 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-<<<<<<< HEAD
-=======
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: listStep
-            //       .map((e) => _buildItemStepCheckout(
-            //             listStep.indexOf(e) + 1,
-            //             e,
-            //             listStep.indexOf(e) == listStep.length - 1,
-            //             listStep.indexOf(e) == 0,
-            //           ))
-            //       .toList(),
-            // ),
->>>>>>> main
             const SizedBox(
               height: 20,
             ),
