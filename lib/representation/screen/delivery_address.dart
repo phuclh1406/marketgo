@@ -3,10 +3,6 @@ import "package:matching/data/model/delivery_form.dart";
 import "package:matching/representation/screen/check_out_screen.dart";
 import "package:matching/representation/widgets/button_widget.dart";
 import "package:matching/representation/widgets/mini_app_bar_container.dart";
-
-import "../../core/constants/color_constants.dart";
-import "../../core/constants/dismension_constants.dart";
-
 class DeliveryAddressScreen extends StatefulWidget {
   const DeliveryAddressScreen({super.key});
 
