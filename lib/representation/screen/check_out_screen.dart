@@ -7,6 +7,7 @@ import 'package:matching/data/model/delivery_form.dart';
 import 'package:matching/representation/screen/card_form_screen.dart';
 import 'package:matching/representation/screen/home_screen.dart';
 import 'package:matching/representation/screen/main_app.dart';
+import 'package:matching/representation/screen/success_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:matching/representation/widgets/button_widget.dart';
@@ -15,14 +16,10 @@ import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:matching/services/order_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-<<<<<<< HEAD
-=======
 import '../../core/constants/textstyle_constants.dart';
 import '../../services/payment_service.dart';
 import '../widgets/button_payment_widget.dart';
-import 'success_screen.dart';
 
->>>>>>> main
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
   static const String routeName = "/check-out";
