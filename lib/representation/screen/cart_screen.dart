@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:matching/data/model/cart.dart';
-import 'package:matching/representation/screen/delivery_address.dart';
 import 'package:matching/representation/widgets/item_cart_widget.dart';
-import '../widgets/button_widget.dart';
 import '../widgets/mini_app_bar_container.dart';
 
 class CartScreen extends StatefulWidget {
@@ -25,7 +23,7 @@ class _CartScreenState extends State<CartScreen> with WidgetsBindingObserver {
       child: Column(
         children: [
           const SizedBox(
-            height: 10,
+            height: 30,
           ),
           Expanded(
             child: SingleChildScrollView(

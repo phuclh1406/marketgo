@@ -71,13 +71,22 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15),
                 ),
+                const SizedBox(
+                  height: 5,
+                ),
                 Text(
                   "Price: ${orderDetail.price} VND",
                   style: const TextStyle(fontSize: 14),
                 ),
+                const SizedBox(
+                  height: 5,
+                ),
                 Text(
                   "Quantitative: ${orderDetail.ingredient!.quantitative}",
                   style: const TextStyle(fontSize: 14),
+                ),
+                const SizedBox(
+                  height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -104,10 +113,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                       width: 10,
                     ),
                     Container(
-                      height: 30,
-                      width: 30,
+                      height: 25,
+                      width: 25,
                       alignment: Alignment.center,
-                      padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
                           border: Border.all(
                         width: 1.0,

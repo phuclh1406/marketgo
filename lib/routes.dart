@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:matching/representation/screen/cart_screen.dart';
 import 'package:matching/representation/screen/delivery_address.dart';
 import 'package:matching/representation/screen/ingredients_screen.dart';
+import 'package:matching/representation/screen/order_history_screen.dart';
 import 'package:matching/representation/screen/profile.dart';
 import 'representation/screen/check_out_screen.dart';
 import 'package:matching/representation/screen/home_screen.dart';
@@ -31,7 +32,8 @@ final Map<String, WidgetBuilder> routes = {
   IngredientsInRecipeScreen.routeName: (context) => const IngredientsInRecipeScreen(),
   DeliveryAddressScreen.routeName: (context) => const DeliveryAddressScreen(),
   StoreScreen.routeName: (context) => const StoreScreen(),
-  IngredientsScreen.routeName: (context) => const IngredientsScreen()
+  IngredientsScreen.routeName: (context) => const IngredientsScreen(),
+  OrderHistoryScreen.routeName: (context) => const OrderHistoryScreen(),
 };
 
 MaterialPageRoute<dynamic>? generateRoutes(RouteSettings settings) {

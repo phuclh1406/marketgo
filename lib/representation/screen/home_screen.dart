@@ -16,7 +16,6 @@ import '../../model/food_model.dart';
 import '../../model/user_model.dart';
 import '../../services/food_service.dart';
 import '../widgets/app_bar_container.dart';
-import 'recipe_detail_screen.dart';
 import 'store_screen.dart';
 
 class HomeScreen extends StatefulWidget {

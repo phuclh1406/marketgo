@@ -17,7 +17,7 @@ void printWrapped(String text) =>
       'Authorization': 'Bearer $token'
     };
 
-    const url = 'https://market-go.cyclic.app/api/v1/ingredients';
+    const url = 'https://market-go.herokuapp.com/api/v1/ingredients';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
@@ -38,7 +38,7 @@ void printWrapped(String text) =>
     'Authorization': 'Bearer $token'
   };
 
-  const url = 'https://market-go.cyclic.app/api/v1/ingredients';
+  const url = 'https://market-go.herokuapp.com/api/v1/ingredients';
 
   final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
@@ -69,7 +69,7 @@ static Future<List<IngredientModel>?> getIngredientsByCategory(String? query) as
     'Authorization': 'Bearer $token'
   };
 
-  var url = 'https://market-go.cyclic.app/api/v1/ingredients?cate_name=$query';
+  var url = 'https://market-go.herokuapp.com/api/v1/ingredients?cate_name=$query';
 
   final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
@@ -101,7 +101,7 @@ static Future<List<IngredientModel>?> getIngredientsByCategory(String? query) as
       'Authorization': 'Bearer $token'
     };
 
-    var url = 'https://market-go.cyclic.app/api/v1/foods?cate_name=$category';
+    var url = 'https://market-go.herokuapp.com/api/v1/foods?cate_name=$category';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 

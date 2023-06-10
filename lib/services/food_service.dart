@@ -38,7 +38,7 @@ class FoodService {
       'Authorization': 'Bearer $token'
     };
 
-    var url = 'https://market-go.cyclic.app/api/v1/foods?food_name=$query';
+    var url = 'https://market-go.herokuapp.com/api/v1/foods?food_name=$query';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
@@ -72,7 +72,7 @@ class FoodService {
       'Authorization': 'Bearer $token'
     };
 
-    var url = 'https://market-go.cyclic.app/api/v1/foods?cate_detail_id=$query';
+    var url = 'https://market-go.herokuapp.com/api/v1/foods?cate_detail_id=$query';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
@@ -108,7 +108,7 @@ class FoodService {
     };
 
     var url =
-        'https://market-go.cyclic.app/api/v1/foods?cate_detail_id=$category';
+        'https://market-go.herokuapp.com/api/v1/foods?cate_detail_id=$category';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
@@ -139,7 +139,7 @@ class FoodService {
       'Authorization': 'Bearer $token'
     };
 
-    var url = 'https://market-go.cyclic.app/api/v1/foods?page=$query';
+    var url = 'https://market-go.herokuapp.com/api/v1/foods?page=$query';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 

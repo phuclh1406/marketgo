@@ -45,7 +45,7 @@ class FirebaseServices {
   }
 
   Future<void> sendTokenToApi(String token) async {
-    const url = 'https://market-go.cyclic.app/api/v1/auth/login-google';
+    const url = 'https://market-go.herokuapp.com/api/v1/auth/login-google';
     // ignore: non_constant_identifier_names
     final headers = {
       'Content-Type': 'application/json',
