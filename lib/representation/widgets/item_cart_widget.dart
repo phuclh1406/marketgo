@@ -67,18 +67,21 @@ class _CartItemWidgetState extends State<CartItemWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Product: ${orderDetail.ingredient!.ingredientName}",
+                  "Tên sản phẩm: ${orderDetail.ingredient!.ingredientName}",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15),
                 ),
+                const SizedBox(height: kDefaultPadding / 3),
                 Text(
-                  "Price: ${orderDetail.price} VND",
+                  "Giá: ${orderDetail.price} (vnđ)",
                   style: const TextStyle(fontSize: 14),
                 ),
+                const SizedBox(height: kDefaultPadding / 3),
                 Text(
-                  "Quantitative: ${orderDetail.ingredient!.quantitative}",
+                  "Định lượng: ${orderDetail.ingredient!.quantitative}",
                   style: const TextStyle(fontSize: 14),
                 ),
+                const SizedBox(height: kDefaultPadding / 3),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
@@ -150,17 +153,17 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     content: Text(
-                        "Are you sure you want to remove ${orderDetail.ingredient!.ingredientName}?"),
+                        "Xác nhận xóa sản phẩm ${orderDetail.ingredient!.ingredientName}?"),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text('Cancel'),
+                        child: const Text('Hủy'),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
                         child: const Text(
-                          "Delete",
+                          "Xóa",
                           style: TextStyle(
                               color: Colors.red, fontWeight: FontWeight.bold),
                         ),
@@ -203,7 +206,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                     .toList(),
               ),
               ButtonWidget(
-                title: "Check out",
+                title: "Tiếp tục",
                 ontap: () {
                   Navigator.pushNamed(context, DeliveryAddressScreen.routeName);
                 },
@@ -217,7 +220,7 @@ class _CartItemWidgetState extends State<CartItemWidget> {
               ),
               Center(
                 child: Text(
-                  "Your cart is empty",
+                  "Giỏ hàng trống",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,

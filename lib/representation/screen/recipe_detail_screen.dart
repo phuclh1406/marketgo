@@ -142,7 +142,7 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                                     children: [
                                       Flexible(
                                         child: Column(
-                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
                                           children: [
                                             Row(
                                               crossAxisAlignment: CrossAxisAlignment.start,

@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     if (ignoreIntroScreen != null && ignoreIntroScreen) {
       if (mounted) {
-        Navigator.of(context).pushNamed(LoginPage.routeName);
+        Navigator.of(context).pushNamed(IntroScreen.routeName);
       } // => sua thanh Navigator.of(context).pushNamed(IntroScreen.routeName)
     } else {
       LocalStorageHelper.setValue('ignoreIntroScreen', true);

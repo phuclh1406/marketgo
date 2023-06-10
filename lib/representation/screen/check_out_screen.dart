@@ -6,6 +6,8 @@ import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/data/model/cart.dart';
 import 'package:matching/data/model/delivery_form.dart';
 import 'package:matching/representation/screen/card_form_screen.dart';
+import 'package:matching/representation/screen/home_screen.dart';
+import 'package:matching/representation/screen/main_app.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:matching/representation/widgets/button_widget.dart';
@@ -14,7 +16,10 @@ import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:matching/services/order_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/constants/textstyle_constants.dart';
 import '../../services/payment_service.dart';
+import '../widgets/button_payment_widget.dart';
+import 'success_screen.dart';
 
 class CheckOutScreen extends StatefulWidget {
   const CheckOutScreen({super.key});
@@ -39,7 +44,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   Future<void> _launchURL(String link) async {
     final Uri url = Uri.parse(link);
     if (await canLaunchUrl(url)) {
-      await launchUrl(url);
+      await launch(url.toString(),
+          forceSafariVC: false, forceWebView: false, universalLinksOnly: true);
+      if (url.path == '/success') {
+        Navigator.of(context).pushNamed(SuccessScreen.routeName);
+      } else {
+        Navigator.of(context).pushNamed(CheckOutScreen.routeName);
+      }
     } else {
       print('Cannot launch URL');
     }
@@ -103,44 +114,44 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
   @override
   Widget build(BuildContext context) {
     final deliveryForm =
-        ModalRoute.of(context)!.settings.arguments as DeliveryForm;
+        ModalRoute.of(context)?.settings.arguments as DeliveryForm?;
 
     Cart cart = Cart();
     return MiniAppBarContainerWidget(
       implementLeading: true,
-      titleString: "Checkout Screen",
+      titleString: "Thông tin giao dịch",
       child: Column(
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: listStep
-                .map((e) => _buildItemStepCheckout(
-                      listStep.indexOf(e) + 1,
-                      e,
-                      listStep.indexOf(e) == listStep.length - 1,
-                      listStep.indexOf(e) == 2,
-                    ))
-                .toList(),
-          ),
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: listStep
+          //       .map((e) => _buildItemStepCheckout(
+          //             listStep.indexOf(e) + 1,
+          //             e,
+          //             listStep.indexOf(e) == listStep.length - 1,
+          //             listStep.indexOf(e) == 2,
+          //           ))
+          //       .toList(),
+          // ),
           const SizedBox(
-            height: kMediumPadding,
+            height: kMediumPadding / 2,
           ),
           Expanded(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const [
-                      Text(
-                        "Products",
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: const [
+                  //     Text(
+                  //       "Products",
+                  //       style: TextStyle(
+                  //         fontWeight: FontWeight.bold,
+                  //         fontSize: 25,
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
                   const SizedBox(
                     height: kMinPadding,
                   ),
@@ -148,9 +159,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                   Container(
                     decoration: const BoxDecoration(
                       color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(20),
-                      ),
+                      // borderRadius: BorderRadius.all(
+                      //   Radius.circular(5),
+                      // ),
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,10 +173,10 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: const [
                             Text(
-                              "Delivery info",
+                              "Địa chỉ giao hàng",
                               style: TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 30,
+                                fontSize: 20,
                               ),
                             ),
                           ],
@@ -176,45 +187,45 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "Name: ${deliveryForm.name}",
+                                "Tên: ${deliveryForm?.name}",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 ),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                "Phone: ${deliveryForm.phone}",
+                                "Số điện thoại: ${deliveryForm?.phone}",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 ),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                "Email: ${deliveryForm.email}",
+                                "Email: ${deliveryForm?.email}",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 ),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                "Address: ${deliveryForm.address}",
+                                "Địa chỉ: ${deliveryForm?.address}",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 ),
                               ),
                               const SizedBox(
                                 height: 10,
                               ),
                               Text(
-                                "City: ${deliveryForm.city}",
+                                "Thành phố: ${deliveryForm?.city}",
                                 style: const TextStyle(
-                                  fontSize: 20,
+                                  fontSize: 15,
                                 ),
                               ),
                               const SizedBox(
@@ -227,38 +238,64 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     ),
                   ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
-                  Text(
-                    'Total: ${cart.totalPrice().toInt()} VND',
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
+
+                  Container(
+                    padding: const EdgeInsets.all(kMinPadding),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(kMinPadding),
+                      color: const Color.fromARGB(255, 212, 204, 204)
+                          .withOpacity(0.4),
+                    ),
+                    child: Text(
+                      'Số tiền bạn cần thanh toán là: ${cart.totalPrice().toInt()} (vnđ)',
+                      style: TextStyles.defaultStyle.bold,
+                      overflow: TextOverflow.ellipsis,
+                    ),
                   ),
+
+                  // Text(
+                  //   'Total: ${cart.totalPrice().toInt()} VND',
+                  //   style: const TextStyle(
+                  //       fontSize: 24, fontWeight: FontWeight.bold),
+                  // ),
                   const SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
-                  ButtonWidget(
-                    title: "Check out",
+                  ButtonPaymentWidget(
+                    title: "Thanh toán qua thẻ VISA",
                     ontap: () async {
-                      String? url = await PaymentService.payment('Thanh toan hoa don' ,cart.totalPrice());
-                      getUserIdFromSharedPreferences().then((userId) => {
-                            OrderService.createCartOrder(
-                                    cart.totalPrice().toString(),
-                                    userId!,
-                                    cart.getListItem())
-                                .then((response) => {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text('${response['msg']}'),
-                                          duration: const Duration(seconds: 5),
-                                        ),
-                                      )
-                                    })
-                                .then((response) => {_launchURL(url!)})
-                          });
+                      String? url = await PaymentService.payment(
+                          'Thanh toan hoa don', cart.totalPrice());
+                      getUserIdFromSharedPreferences().then((userId) {
+                        _launchURL(url!);
+                        OrderService.createCartOrder(
+                                cart.totalPrice().toString(),
+                                userId!,
+                                cart.getListItem())
+                                
+                            .then((response) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('${response['msg']}'),
+                              duration: const Duration(seconds: 5),
+                            ),
+                          );
+                        });
+                      });
                     },
                   ),
+
+                  const SizedBox(height: kDefaultPadding),
+
+                  ButtonWidget(
+                    title: "Về trang chủ",
+                    ontap: () {
+                      Navigator.of(context).pushNamed(MainApp.routeName);
+                    },
+                  ),
+
                   const SizedBox(
                     height: 10,
                   ),

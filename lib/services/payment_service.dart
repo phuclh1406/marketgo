@@ -29,6 +29,7 @@ class PaymentService {
         await http.post(Uri.parse(url), headers: headers, body: body);
     final responseData = json.decode(response.body);
     final link = responseData['url'];
+    final sessionId = responseData['id'];
     print(link);
     print(response.statusCode);
 

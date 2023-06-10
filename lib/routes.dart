@@ -5,6 +5,7 @@ import 'package:matching/representation/screen/delivery_address.dart';
 import 'package:matching/representation/screen/ingredient_detail_screen.dart';
 import 'package:matching/representation/screen/ingredients_screen.dart';
 import 'package:matching/representation/screen/profile.dart';
+import 'package:matching/representation/screen/success_screen.dart';
 import 'model/ingredient_model.dart';
 import 'representation/screen/check_out_screen.dart';
 import 'package:matching/representation/screen/home_screen.dart';
@@ -36,6 +37,7 @@ final Map<String, WidgetBuilder> routes = {
   DeliveryAddressScreen.routeName: (context) => const DeliveryAddressScreen(),
   StoreScreen.routeName: (context) => const StoreScreen(),
   IngredientsScreen.routeName: (context) => const IngredientsScreen(),
+  SuccessScreen.routeName: (context) => const SuccessScreen(),
 };
 
 MaterialPageRoute<dynamic>? generateRoutes(RouteSettings settings) {

@@ -19,6 +19,7 @@ class TextStyles {
     fontWeight: FontWeight.w400,
     height: 16 / 14,
   );
+  
 }
 
 extension ExtendedTextStyle on TextStyle {

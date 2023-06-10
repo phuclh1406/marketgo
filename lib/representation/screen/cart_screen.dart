@@ -21,7 +21,7 @@ class _CartScreenState extends State<CartScreen> with WidgetsBindingObserver {
   Widget build(BuildContext context) {
     return MiniAppBarContainerWidget(
       implementLeading: true,
-      titleString: "Your Cart",
+      titleString: "Giỏ hàng của bạn",
       child: Column(
         children: [
           const SizedBox(
