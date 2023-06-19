@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:matching/representation/screen/recipe_order_screen.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
-import '../../model/food_model.dart';
-import '../../model/guide_step_model.dart';
 import '../../model/ingredient_model.dart';
-import '../../model/recipe_model.dart';
-import '../widgets/button_widget.dart';
 import '../widgets/dash_line_widget.dart';
 import '../widgets/info_ingredient_item_widget.dart';
-import 'ingredients_screen.dart';
 
 class IngredientDetailScreen extends StatefulWidget {
   static const String routeName = '/ingredient_detail_screen';

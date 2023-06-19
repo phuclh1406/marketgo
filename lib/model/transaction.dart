@@ -1,5 +1,7 @@
-import 'package:matching/data/model/order.dart';
+
 import 'package:uuid/uuid.dart';
+
+import 'order_model.dart';
 
 class Transaction {
   Uuid id;

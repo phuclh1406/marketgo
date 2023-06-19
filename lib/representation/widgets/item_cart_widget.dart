@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
-import 'package:matching/data/model/cart.dart';
-import 'package:matching/data/model/order_detail.dart';
+import 'package:matching/model/cart.dart';
+import 'package:matching/model/order_detail_model.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
 import '../screen/delivery_address.dart';
@@ -212,8 +212,8 @@ class _CartItemWidgetState extends State<CartItemWidget> {
               ),
             ],
           )
-        : Column(
-            children: const [
+        : const Column(
+            children: [
               SizedBox(
                 height: 300,
               ),
