@@ -37,7 +37,7 @@ class StoreItemWidget extends StatelessWidget {
                     fit: BoxFit.fitWidth),
               ),
               const SizedBox(width: 20),
-              Expanded(
+              Flexible(
                 flex: 7,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -45,6 +45,7 @@ class StoreItemWidget extends StatelessWidget {
                     Text(
                       storeModel.storeName!,
                       style: TextStyles.defaultStyle.fontHeader,
+                      overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(
                       height: kDefaultPadding / 2,

@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:matching/firebase_options.dart';
+import 'package:matching/representation/screen/intro_screen.dart';
 
 import 'core/constants/color_constants.dart';
 import 'core/helper/local_storage_helper.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Travel App',
+      title: 'Market GO',
       theme: ThemeData(
         primaryColor: ColorPalette.primaryColor,
         scaffoldBackgroundColor: ColorPalette.backgorundScaffoldColor,
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       routes: routes,
       onGenerateRoute: generateRoutes,
       debugShowCheckedModeBanner: false,
-      home: const SplashScreen(),
+      home: const IntroScreen(),
 
     );
   }
