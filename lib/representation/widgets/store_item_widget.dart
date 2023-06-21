@@ -22,13 +22,13 @@ class StoreItemWidget extends StatelessWidget {
       decoration: const BoxDecoration(
         color: Colors.white,
       ),
-      margin: const EdgeInsets.only(bottom: kMediumPadding),
+      margin: const EdgeInsets.only(bottom: kMediumPadding / 3),
       padding: const EdgeInsets.all(kDefaultPadding),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Expanded(
                 flex: 3,
@@ -54,10 +54,13 @@ class StoreItemWidget extends StatelessWidget {
                       children: [
                         const Icon(FontAwesomeIcons.locationDot, color: Colors.red, size: kDefaultIconSize),
                         const SizedBox(width: kDefaultPadding / 3),
-                        Text(
-                          storeModel.address!,
-                          style: TextStyles.defaultStyle.light,
-                          maxLines: 2,
+                        Flexible(
+                          child: Text(
+                            storeModel.address!,
+                            style: TextStyles.defaultStyle.light,
+                            overflow: TextOverflow.ellipsis,
+                                     
+                          ),
                         ),
                       ],
                     ),

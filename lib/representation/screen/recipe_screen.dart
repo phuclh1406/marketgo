@@ -63,46 +63,48 @@ class _RecipeScreenState extends State<RecipeScreen> {
   }
 
   Widget loadCategoriesDetail() {
-    return FutureBuilder<List<CategoryDetailModel>?>(
-      future: CategoryDetailService.getAllCategoriesDetailForFoods(),
-      builder: (BuildContext context,
-          AsyncSnapshot<List<CategoryDetailModel>?> snapshot) {
-        if (snapshot.hasData) {
-          List<CategoryDetailModel>? listCateDetail = snapshot.data!;
+  return FutureBuilder<List<CategoryDetailModel>?>(
+    future: Future.delayed(const Duration(seconds: 2), () {
+      return CategoryDetailService.getAllCategoriesDetailForFoods();
+    }),
+    builder: (BuildContext context, AsyncSnapshot<List<CategoryDetailModel>?> snapshot) {if (snapshot.hasData) {
+        List<CategoryDetailModel>? listCateDetail = snapshot.data!;
 
-          if (listCateDetail.isNotEmpty) {
-            return Row(
-              children: [
-                CategoriesList(
-                    cateName: 'Tất cả',
+        if (listCateDetail.isNotEmpty) {
+          return Row(
+            children: [
+              CategoriesList(
+                cateName: 'Tất cả',
+                ontap: () {
+                  setState(() {
+                    category = '';
+                  });
+                },
+              ),
+              for (var i = 0; i < listCateDetail.length; i++)
+                if (listCateDetail[i].cateDetailName != null)
+                  CategoriesList(
+                    cateName: listCateDetail[i].cateDetailName!,
                     ontap: () {
                       setState(() {
-                        category = '';
+                        category = listCateDetail[i].cateDetailId!;
                       });
-                    }),
-                for (var i = 0; i < listCateDetail.length; i++)
-                  if (listCateDetail[i].cateDetailName != null)
-                    CategoriesList(
-                        cateName: listCateDetail[i].cateDetailName!,
-                        ontap: () {
-                          setState(() {
-                            category = listCateDetail[i].cateDetailId!;
-                          });
-                        }),
-                
-              ],
-            );
-          } else {
-            return const Text('No category found.');
-          }
-        } else if (snapshot.hasError) {
-          return Text('Error: ${snapshot.error}');
+                    },
+                  ),
+            ],
+          );
         } else {
-          return const SizedBox(); // Return an empty container or widget if data is null
+          return const Text('No category found.');
         }
-      },
-    );
-  }
+      } else if (snapshot.hasError) {
+        return Text('Error: ${snapshot.error}');
+      } else {
+        return const SizedBox(); // Return an empty container or widget if data is null
+      }
+    },
+  );
+}
+
 
   Widget listRecipe(String value, String category) {
     if (value.isEmpty && category.isEmpty) {
