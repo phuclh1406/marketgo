@@ -23,7 +23,7 @@ class OrderDetail {
 
   OrderDetail.fromJson(Map<String, dynamic> json) {
     id = json['order_detail_id'];
-    order = null;
+    order = Order.fromJson(json['detail_order']);
     ingredient = IngredientModel.fromJson(json['order_detail_ingredient']);
     price = json['price'];
     quantity = json['quantity'];

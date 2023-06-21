@@ -22,15 +22,11 @@ class PaymentService {
 
     const url =
         'https://market-go.herokuapp.com/api/v1/stripe/create-checkout-session';
-    print(title);
-    print(price);
     final response =
         await http.post(Uri.parse(url), headers: headers, body: body);
     final responseData = json.decode(response.body);
     final link = responseData['url'];
     final sessionId = responseData['id'];
-    print(link);
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       return link;

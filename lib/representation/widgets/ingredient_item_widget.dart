@@ -111,32 +111,32 @@ class IngredientItemWidget extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        Positioned(
-                          right: 20,
-                          child: GestureDetector(
-                            onTap: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                      'Add ${ingredientModel.ingredientName} to cart!'),
-                                  duration: const Duration(seconds: 2),
-                                ),
-                              );
-                              getUserIdFromSharedPreferences().then((value) =>
-                                  cart.addToCart(OrderDetail(
-                                      id: "",
-                                      order: null,
-                                      ingredient: ingredientModel,
-                                      price: ingredientModel.price!,
-                                      quantity: 1,
-                                      status: "Active")));
-                            },
-                            child: const Icon(
-                              FontAwesomeIcons.circlePlus,
-                              color: Colors.amber,
-                            ),
-                          ),
-                        )
+                        // Positioned(
+                        //   right: 20,
+                        //   child: GestureDetector(
+                        //     onTap: () {
+                        //       ScaffoldMessenger.of(context).showSnackBar(
+                        //         SnackBar(
+                        //           content: Text(
+                        //               'Add ${ingredientModel.ingredientName} to cart!'),
+                        //           duration: const Duration(seconds: 2),
+                        //         ),
+                        //       );
+                        //       getUserIdFromSharedPreferences().then((value) =>
+                        //           cart.addToCart(OrderDetail(
+                        //               id: "",
+                        //               order: null,
+                        //               ingredient: ingredientModel,
+                        //               price: ingredientModel.price!,
+                        //               quantity: 1,
+                        //               status: "Active")));
+                        //     },
+                        //     child: const Icon(
+                        //       FontAwesomeIcons.circlePlus,
+                        //       color: Colors.amber,
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     ),
                     const SizedBox(height: kDefaultPadding / 2),

@@ -100,48 +100,136 @@ class OrderDetailScreen extends StatelessWidget {
             List<OrderDetail>? orderDetails = snapshot.data;
             if (orderDetails != null && orderDetails.isNotEmpty) {
               return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ...orderDetails
-                      .map((e) => buildSingleOrderDetail(e))
-                      .toList(),
-                  const SizedBox(
-                    height: kItemPadding,
-                  ),
-                  Text(
-                    'Số sản phẩm: ${orderDetails.length}',
-                    style: const TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(
-                    height: kItemPadding,
-                  ),
-                  Text(
-                    "Ngày đặt hàng: $date",
-                    style: const TextStyle(color: Colors.grey),
-                  ),
-                  const SizedBox(
-                    height: kDefaultPadding,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Tổng số tiền',
-                        style: TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: ColorPalette.yellowColor,
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(kDefaultPadding),
+                    margin: const EdgeInsets.only(bottom: kMediumPadding / 2),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Thông tin đơn hàng",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                            ),
+                          ),
                         ),
-                      ),
-                      Text(
-                        '${args.totalPrice} (vnđ)',
-                        style: const TextStyle(
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          color: ColorPalette.yellowColor,
+                        const SizedBox(
+                          height: kMediumPadding,
                         ),
-                      ),
-                    ],
+                        ...orderDetails
+                            .map((e) => buildSingleOrderDetail(e))
+                            .toList(),
+                        const SizedBox(
+                          height: kItemPadding,
+                        ),
+                        Text(
+                          'Số sản phẩm: ${orderDetails.length}',
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                        const SizedBox(
+                          height: kItemPadding,
+                        ),
+                        Text(
+                          "Ngày đặt hàng: $date",
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                        const SizedBox(
+                          height: kDefaultPadding,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Tổng số tiền',
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: ColorPalette.yellowColor,
+                              ),
+                            ),
+                            Text(
+                              '${args.totalPrice} (vnđ)',
+                              style: const TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: ColorPalette.yellowColor,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(height: kDefaultPadding / 2),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(kDefaultPadding),
+                    margin: const EdgeInsets.only(bottom: kMediumPadding / 2),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Địa chỉ giao hàng",
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: kMediumPadding,
+                        ),
+                        Text(
+                          "Tên: ${orderDetails[0].order!.user!.name}",
+                          style: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: kItemPadding,
+                        ),
+                        Text(
+                          "Số điện thoại: ${orderDetails[0].order!.user!.phone}",
+                          style: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: kItemPadding,
+                        ),
+                        Text(
+                          "Địa chỉ: ${orderDetails[0].order!.address}",
+                          style: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: kItemPadding,
+                        ),
+                        Text(
+                          "Thành phố: ${orderDetails[0].order!.city!.cityName}",
+                          style: const TextStyle(
+                            fontSize: 15,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: kItemPadding,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               );
@@ -156,34 +244,11 @@ class OrderDetailScreen extends StatelessWidget {
         titleString: "Order Detail",
         implementLeading: true,
         child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(kMediumPadding / 2),
-                margin: const EdgeInsets.only(bottom: kMediumPadding / 2),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: Column(
-                  children: [
-                    const Text(
-                      "Thông tin đơn hàng",
-                      style:
-                          TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                    ),
-                    const SizedBox(
-                      height: kMediumPadding,
-                    ),
-                    ProgressHUD(
-                      inAsyncCall: isAPICallProcess,
-                      opacity: 0.5,
-                      key: UniqueKey(),
-                      child: Expanded(child: loadOrderDetails()),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+          child: ProgressHUD(
+            inAsyncCall: isAPICallProcess,
+            opacity: 0.5,
+            key: UniqueKey(),
+            child: Expanded(child: loadOrderDetails()),
           ),
         ));
   }

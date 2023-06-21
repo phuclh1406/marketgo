@@ -10,7 +10,12 @@ import 'package:http/http.dart' as http;
 class OrderService {
   static var client = http.Client();
 
-  static Future<Map<String, dynamic>> createCartOrder(String userId, int totalPrice, String? address, String? cityName, List<OrderDetail> listOrderDetail) async {
+  static Future<Map<String, dynamic>> createCartOrder(
+      String userId,
+      int totalPrice,
+      String? address,
+      String? cityName,
+      List<OrderDetail> listOrderDetail) async {
     final prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('accesstoken')!;
     Map<String, String> requestHeaders = {
@@ -19,10 +24,10 @@ class OrderService {
     };
 
     var body = {
-      "userId" : userId,
-      "totalPrice" : totalPrice,
-      "cityName" : cityName,
-      "address" : address,
+      "userId": userId,
+      "totalPrice": totalPrice,
+      "cityName": cityName,
+      "address": address,
       "orderDetails": listOrderDetail.map((detail) => detail.toJson()).toList(),
     };
 
@@ -57,7 +62,8 @@ class OrderService {
     return null;
   }
 
-  static Future<List<OrderDetail>?> getOrderDetailsByOrderId(String? orderId) async {
+  static Future<List<OrderDetail>?> getOrderDetailsByOrderId(
+      String? orderId) async {
     final prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('accesstoken')!;
     Map<String, String> requestHeaders = {
@@ -65,7 +71,8 @@ class OrderService {
       'Authorization': 'Bearer $token'
     };
 
-    var url = 'https://market-go.herokuapp.com/api/v1/order-detail?orderId=$orderId';
+    var url =
+        'https://market-go.herokuapp.com/api/v1/order-detail?orderId=$orderId';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 

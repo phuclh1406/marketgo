@@ -4,21 +4,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class DeliveryForm {
   String? name;
-  String? email;
   String? phone;
   String? address;
   String? city;
 
   DeliveryForm(
       {required this.name,
-      required this.email,
       required this.phone,
       required this.address,
       required this.city});
 
   static final DeliveryForm _singleton = DeliveryForm(
     name: null,
-    email: null,
     phone: null,
     address: null,
     city: null,
@@ -31,7 +28,6 @@ class DeliveryForm {
   Map<String, dynamic> toJson() {
     final data = <String, dynamic>{};
     data['name'] = name;
-    data['email'] = email;
     data['phone'] = phone;
     data['address'] = address;
     data['city'] = city;
@@ -40,7 +36,6 @@ class DeliveryForm {
 
   DeliveryForm.fromJson(Map<String, dynamic> json) {
     name = json['name'];
-    email = json['email'];
     phone = json['phone'];
     address = json['address'];
     city = json['city'];

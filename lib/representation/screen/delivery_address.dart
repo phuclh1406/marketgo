@@ -34,7 +34,6 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
     if (_formKey.currentState!.validate()) {
       String name = _nameController.text;
       String address = _addressController.text;
-      String email = _emailController.text;
       String phone = _phoneController.text;
       String? city = selectedCity;
 
@@ -43,7 +42,6 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       singletonInstance.saveDeliveryFormToSharedPreferences(
         DeliveryForm(
           name: name,
-          email: email,
           phone: phone,
           address: address,
           city: city));
@@ -163,19 +161,6 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                             validator: (value) {
                               if (value == null || value.isEmpty) {
                                 return "Vui lòng điền tên của bạn";
-                              }
-                              return null;
-                            },
-                          ),
-                          TextFormField(
-                            controller: _emailController,
-                            decoration: const InputDecoration(
-                                labelText: "Địa chỉ Email"),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Vui lòng điền địa chỉ email của bạn";
-                              } else if (!emailRegex.hasMatch(value)) {
-                                return "Địa chỉ email không hợp lệ";
                               }
                               return null;
                             },

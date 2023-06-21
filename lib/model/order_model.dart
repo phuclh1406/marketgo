@@ -26,7 +26,7 @@ class Order {
 
   Order.fromJson(Map<String, dynamic> json) {
     id = json['order_id'];
-    user = null;
+    user = UserModel.fromJson(json['order_user']);
     totalPrice = json['total_price'];
     orderDate = formatDateTime(json['order_date']);
     address = json['address'];

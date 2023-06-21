@@ -116,7 +116,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: kDefaultPadding/2,
                                     ),
                                     Text(
                                       "Số điện thoại: ${deliveryForm?.phone}",
@@ -125,16 +125,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 10,
-                                    ),
-                                    Text(
-                                      "Email: ${deliveryForm?.email}",
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 10,
+                                      height: kDefaultPadding/2,
                                     ),
                                     Text(
                                       "Địa chỉ: ${deliveryForm?.address}",
@@ -143,7 +134,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: kDefaultPadding/2,
                                     ),
                                     Text(
                                       "Thành phố: ${deliveryForm?.city}",
@@ -152,7 +143,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: 10,
+                                      height: kDefaultPadding/2,
                                     ),
                                   ],
                                 ),
@@ -211,7 +202,6 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           );
                         });
                       });
-                      Navigator.of(context).pushNamed(CartScreen.routeName);
                     },
                   ),
                   const SizedBox(height: kDefaultPadding),
