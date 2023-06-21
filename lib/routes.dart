@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:matching/representation/screen/card_form_screen.dart';
 import 'package:matching/representation/screen/cart_screen.dart';
 import 'package:matching/representation/screen/delivery_address.dart';
 import 'package:matching/representation/screen/ingredient_detail_screen.dart';
 import 'package:matching/representation/screen/ingredients_screen.dart';
+import 'package:matching/representation/screen/order_detail_screen.dart';
 import 'package:matching/representation/screen/order_history_screen.dart';
 import 'package:matching/representation/screen/profile.dart';
 import 'package:matching/representation/screen/success_screen.dart';
@@ -12,7 +12,6 @@ import 'representation/screen/check_out_screen.dart';
 import 'package:matching/representation/screen/home_screen.dart';
 import 'package:matching/model/food_model.dart';
 import 'package:matching/representation/screen/recipe_detail_screen.dart';
-import 'package:matching/representation/screen/recipe_order_screen.dart';
 import 'package:matching/representation/screen/recipe_screen.dart';
 import 'package:matching/representation/screen/select_ingredients_recipe_screen.dart';
 import 'package:matching/representation/screen/store_screen.dart';
@@ -39,6 +38,7 @@ final Map<String, WidgetBuilder> routes = {
   StoreScreen.routeName: (context) => const StoreScreen(),
   IngredientsScreen.routeName: (context) => const IngredientsScreen(),
   OrderHistoryScreen.routeName: (context) => const OrderHistoryScreen(),
+  OrderDetailScreen.routeName: (context) => const OrderDetailScreen(),
   SuccessScreen.routeName: (context) => const SuccessScreen(),
 };
 

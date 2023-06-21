@@ -1,5 +1,6 @@
 import 'dart:collection';
-import 'package:matching/data/model/order_detail.dart';
+
+import 'order_detail_model.dart';
 
 class Cart {
   static final Cart _instance = Cart._internal();
@@ -7,7 +8,7 @@ class Cart {
   factory Cart() {
     return _instance;
   }
-
+  
   Cart._internal();
 
   HashMap<String, OrderDetail> myCart = HashMap<String, OrderDetail>();
@@ -41,8 +42,8 @@ class Cart {
     }
   }
 
-  double totalPrice() {
-    double total = 0;
+  int totalPrice() {
+    int total = 0;
     for (var element in myCart.values) {
       total += element.price * element.quantity;
     }

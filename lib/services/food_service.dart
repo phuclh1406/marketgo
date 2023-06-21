@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../model/food_model.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
+
+import '../model/food_model.dart';
 
 class FoodService {
   static var client = http.Client();

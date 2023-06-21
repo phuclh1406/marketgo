@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
-import 'package:matching/data/model/cart.dart';
-import 'package:matching/data/model/order_detail.dart';
+import 'package:matching/model/cart.dart';
+import 'package:matching/model/order_detail_model.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
 import '../screen/delivery_address.dart';
@@ -82,65 +82,72 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                   style: const TextStyle(fontSize: 14),
                 ),
                 const SizedBox(height: kDefaultPadding / 3),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (orderDetail.quantity > 1) {
-                            orderDetail.quantity -= 1;
-                            cart.editItem(orderDetail.ingredient!.ingredientId!,
-                                orderDetail.quantity);
-                          }
-                        });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.zero,
-                        child: const Icon(
-                          FontAwesomeIcons.circleMinus,
-                          color: Colors.amber,
+                Container(
+                  padding: const EdgeInsets.all(5),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (orderDetail.quantity > 1) {
+                              orderDetail.quantity -= 1;
+                              cart.editItem(
+                                  orderDetail.ingredient!.ingredientId!,
+                                  orderDetail.quantity);
+                            }
+                          });
+                        },
+                        child: Container(
+                          padding: EdgeInsets.zero,
+                          child: const Icon(
+                            FontAwesomeIcons.circleMinus,
+                            color: Colors.amber,
+                          ),
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Container(
-                      height: 25,
-                      width: 25,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                        width: 1.0,
-                        color: Colors.black,
-                      )),
-                      child: Text(
-                        "${orderDetail.quantity}",
+                      const SizedBox(
+                        width: 10,
                       ),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          if (orderDetail.quantity < 5) {
-                            orderDetail.quantity += 1;
-                            cart.editItem(orderDetail.ingredient!.ingredientId!,
-                                orderDetail.quantity);
-                          }
-                        });
-                      },
-                      child: Container(
-                        padding: EdgeInsets.zero,
-                        child: const Icon(
-                          FontAwesomeIcons.circlePlus,
-                          color: Colors.amber,
+                      Container(
+                        height: 25,
+                        width: 25,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                          width: 1.0,
+                          color: Colors.black,
+                        )),
+                        child: Text(
+                          "${orderDetail.quantity}",
                         ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (orderDetail.quantity <
+                                int.parse(orderDetail.ingredient!.quantity
+                                    .toString())) {
+                              orderDetail.quantity += 1;
+                              cart.editItem(
+                                  orderDetail.ingredient!.ingredientId!,
+                                  orderDetail.quantity);
+                            }
+                          });
+                        },
+                        child: Container(
+                          padding: EdgeInsets.zero,
+                          child: const Icon(
+                            FontAwesomeIcons.circlePlus,
+                            color: Colors.amber,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -198,12 +205,10 @@ class _CartItemWidgetState extends State<CartItemWidget> {
     return cart.getListItem().isNotEmpty
         ? Column(
             children: [
-              Column(
-                children: cart
-                    .getListItem()
-                    .map((e) => _buildSingleCartItem(e))
-                    .toList(),
-              ),
+              ...cart
+                  .getListItem()
+                  .map((e) => _buildSingleCartItem(e))
+                  .toList(),
               ButtonWidget(
                 title: "Tiếp tục",
                 ontap: () {
@@ -212,8 +217,8 @@ class _CartItemWidgetState extends State<CartItemWidget> {
               ),
             ],
           )
-        : Column(
-            children: const [
+        : const Column(
+            children: [
               SizedBox(
                 height: 300,
               ),

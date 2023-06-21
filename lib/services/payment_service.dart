@@ -2,7 +2,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:matching/model/category_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PaymentService {
@@ -23,15 +22,11 @@ class PaymentService {
 
     const url =
         'https://market-go.herokuapp.com/api/v1/stripe/create-checkout-session';
-    print(title);
-    print(price);
     final response =
         await http.post(Uri.parse(url), headers: headers, body: body);
     final responseData = json.decode(response.body);
     final link = responseData['url'];
     final sessionId = responseData['id'];
-    print(link);
-    print(response.statusCode);
 
     if (response.statusCode == 200) {
       return link;
