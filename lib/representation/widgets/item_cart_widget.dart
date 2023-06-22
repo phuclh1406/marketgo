@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
-import 'package:matching/model/cart.dart';
-import 'package:matching/model/order_detail_model.dart';
 import '../../core/helper/asset_helper.dart';
 import '../../core/helper/image_helper.dart';
+import '../../model/cart.dart';
+import '../../model/order_detail_model.dart';
 import '../screen/delivery_address.dart';
 import 'button_widget.dart';
 
@@ -67,87 +67,78 @@ class _CartItemWidgetState extends State<CartItemWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Tên sản phẩm: ${orderDetail.ingredient!.ingredientName}",
+                  "Product: ${orderDetail.ingredient!.ingredientName}",
                   style: const TextStyle(
                       fontWeight: FontWeight.bold, fontSize: 15),
                 ),
-                const SizedBox(height: kDefaultPadding / 3),
                 Text(
-                  "Giá: ${orderDetail.price} (vnđ)",
+                  "Price: ${orderDetail.price} VND",
                   style: const TextStyle(fontSize: 14),
                 ),
-                const SizedBox(height: kDefaultPadding / 3),
                 Text(
-                  "Định lượng: ${orderDetail.ingredient!.quantitative}",
+                  "Quantitative: ${orderDetail.ingredient!.quantitative}",
                   style: const TextStyle(fontSize: 14),
                 ),
-                const SizedBox(height: kDefaultPadding / 3),
-                Container(
-                  padding: const EdgeInsets.all(5),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (orderDetail.quantity > 1) {
-                              orderDetail.quantity -= 1;
-                              cart.editItem(
-                                  orderDetail.ingredient!.ingredientId!,
-                                  orderDetail.quantity);
-                            }
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.zero,
-                          child: const Icon(
-                            FontAwesomeIcons.circleMinus,
-                            color: Colors.amber,
-                          ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (orderDetail.quantity > 1) {
+                            orderDetail.quantity -= 1;
+                            cart.editItem(orderDetail.ingredient!.ingredientId!,
+                                orderDetail.quantity);
+                          }
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.zero,
+                        child: const Icon(
+                          FontAwesomeIcons.circleMinus,
+                          color: Colors.amber,
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Container(
+                      height: 30,
+                      width: 30,
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.all(4),
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                        width: 1.0,
+                        color: Colors.black,
+                      )),
+                      child: Text(
+                        "${orderDetail.quantity}",
                       ),
-                      Container(
-                        height: 25,
-                        width: 25,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                          width: 1.0,
-                          color: Colors.black,
-                        )),
-                        child: Text(
-                          "${orderDetail.quantity}",
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          if (orderDetail.quantity < 5) {
+                            orderDetail.quantity += 1;
+                            cart.editItem(orderDetail.ingredient!.ingredientId!,
+                                orderDetail.quantity);
+                          }
+                        });
+                      },
+                      child: Container(
+                        padding: EdgeInsets.zero,
+                        child: const Icon(
+                          FontAwesomeIcons.circlePlus,
+                          color: Colors.amber,
                         ),
                       ),
-                      const SizedBox(
-                        width: 10,
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (orderDetail.quantity <
-                                int.parse(orderDetail.ingredient!.quantity
-                                    .toString())) {
-                              orderDetail.quantity += 1;
-                              cart.editItem(
-                                  orderDetail.ingredient!.ingredientId!,
-                                  orderDetail.quantity);
-                            }
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.zero,
-                          child: const Icon(
-                            FontAwesomeIcons.circlePlus,
-                            color: Colors.amber,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -159,17 +150,17 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     content: Text(
-                        "Xác nhận xóa sản phẩm ${orderDetail.ingredient!.ingredientName}?"),
+                        "Are you sure you want to remove ${orderDetail.ingredient!.ingredientName}?"),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text('Hủy'),
+                        child: const Text('Cancel'),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
                         child: const Text(
-                          "Xóa",
+                          "Delete",
                           style: TextStyle(
                               color: Colors.red, fontWeight: FontWeight.bold),
                         ),
@@ -205,26 +196,28 @@ class _CartItemWidgetState extends State<CartItemWidget> {
     return cart.getListItem().isNotEmpty
         ? Column(
             children: [
-              ...cart
-                  .getListItem()
-                  .map((e) => _buildSingleCartItem(e))
-                  .toList(),
+              Column(
+                children: cart
+                    .getListItem()
+                    .map((e) => _buildSingleCartItem(e))
+                    .toList(),
+              ),
               ButtonWidget(
-                title: "Tiếp tục",
+                title: "Check out",
                 ontap: () {
                   Navigator.pushNamed(context, DeliveryAddressScreen.routeName);
                 },
               ),
             ],
           )
-        : const Column(
-            children: [
+        : Column(
+            children: const [
               SizedBox(
                 height: 300,
               ),
               Center(
                 child: Text(
-                  "Giỏ hàng trống",
+                  "Your cart is empty",
                   style: TextStyle(
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
