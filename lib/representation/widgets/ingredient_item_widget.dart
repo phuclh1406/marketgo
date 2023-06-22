@@ -1,13 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/helper/asset_helper.dart';
-import 'package:matching/data/model/order_detail.dart';
+import 'package:matching/model/order_detail_model.dart';
+import 'package:matching/model/user_model.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
 import '../../core/helper/image_helper.dart';
-import '../../data/model/cart.dart';
+import '../../model/cart.dart';
 import '../../model/ingredient_model.dart';
+import '../../model/order_model.dart';
 
 class IngredientItemWidget extends StatelessWidget {
   const IngredientItemWidget(
@@ -19,6 +23,12 @@ class IngredientItemWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Cart cart = Cart();
+
+    Future<String?> getUserIdFromSharedPreferences() async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      return prefs.getString('user_id');
+    }
+
     return Container(
       decoration: const BoxDecoration(
         color: Colors.white,
@@ -101,31 +111,32 @@ class IngredientItemWidget extends StatelessWidget {
                           ),
                         ),
                         const Spacer(),
-                        Positioned(
-                          right: 20,
-                          child: GestureDetector(
-                            onTap: () {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text(
-                                      'Add ${ingredientModel.ingredientName} to cart!'),
-                                  duration: const Duration(seconds: 2),
-                                ),
-                              );
-                              cart.addToCart(OrderDetail(
-                                  id: "",
-                                  order: null,
-                                  ingredient: ingredientModel,
-                                  price: ingredientModel.price!,
-                                  quantity: 1,
-                                  status: "Active"));
-                            },
-                            child: const Icon(
-                              FontAwesomeIcons.circlePlus,
-                              color: Colors.amber,
-                            ),
-                          ),
-                        )
+                        // Positioned(
+                        //   right: 20,
+                        //   child: GestureDetector(
+                        //     onTap: () {
+                        //       ScaffoldMessenger.of(context).showSnackBar(
+                        //         SnackBar(
+                        //           content: Text(
+                        //               'Add ${ingredientModel.ingredientName} to cart!'),
+                        //           duration: const Duration(seconds: 2),
+                        //         ),
+                        //       );
+                        //       getUserIdFromSharedPreferences().then((value) =>
+                        //           cart.addToCart(OrderDetail(
+                        //               id: "",
+                        //               order: null,
+                        //               ingredient: ingredientModel,
+                        //               price: ingredientModel.price!,
+                        //               quantity: 1,
+                        //               status: "Active")));
+                        //     },
+                        //     child: const Icon(
+                        //       FontAwesomeIcons.circlePlus,
+                        //       color: Colors.amber,
+                        //     ),
+                        //   ),
+                        // )
                       ],
                     ),
                     const SizedBox(height: kDefaultPadding / 2),

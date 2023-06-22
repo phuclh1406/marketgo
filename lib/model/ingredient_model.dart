@@ -54,6 +54,7 @@ class IngredientModel {
         : null;
     if (json['ingredient_image'] != null && json['ingredient_image'] is List) {
       ingreImage = List<ImageModel>.from(
+        
         json['ingredient_image'].map((x) => ImageModel.fromJson(x)),
       );
     }

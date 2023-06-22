@@ -15,7 +15,7 @@ class CategoryDetailService {
       'Authorization': 'Bearer $token'
     };
 
-    const url = 'https://market-go.cyclic.app/api/v1/categories_detail?cate_id=1f3db210-89c7-4afd-b6e1-5b4be3cdb6b1';
+    const url = 'https://market-go.herokuapp.com/api/v1/categories_detail?cate_id=1f3db210-89c7-4afd-b6e1-5b4be3cdb6b1';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
@@ -36,7 +36,7 @@ class CategoryDetailService {
       'Authorization': 'Bearer $token'
     };
 
-    const url = 'https://market-go.cyclic.app/api/v1/categories_detail?cate_id=6e3f5b3b-df19-4776-a7cc-92b0a0a3ce1d';
+    const url = 'https://market-go.herokuapp.com/api/v1/categories_detail?cate_id=6e3f5b3b-df19-4776-a7cc-92b0a0a3ce1d';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 

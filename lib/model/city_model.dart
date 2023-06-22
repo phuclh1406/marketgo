@@ -1,6 +1,5 @@
 // user_id, user_name, email, password, birthday, avatar, address, phone, accessChangePassword, refresh_token, role_id, status
 
-
 List<CityModel> citiesFromJson(dynamic str) =>
     List<CityModel>.from((str).map((x) => CityModel.fromJson(x)));
 
@@ -13,7 +12,6 @@ class CityModel {
     this.cityId,
     this.cityName,
     this.status,
-    
   });
 
   CityModel.fromJson(Map<String, dynamic> json) {

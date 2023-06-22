@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/core/helper/asset_helper.dart';
-import 'package:matching/data/model/cart.dart';
-import 'package:matching/data/model/order_detail.dart';
+import 'package:matching/model/cart.dart';
+import 'package:matching/model/order_detail_model.dart';
 
 import '../../core/helper/image_helper.dart';
 
@@ -20,11 +20,6 @@ class CheckoutItemWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 20),
       decoration: const BoxDecoration(
         color: Colors.white,
-        // borderRadius: BorderRadius.all(
-        //   Radius.circular(
-        //     kItemPadding,
-        //   ),
-        // ),
       ),
       child: Row(
         children: [

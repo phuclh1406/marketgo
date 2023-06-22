@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../core/constants/dismension_constants.dart';
 import '../../core/constants/textstyle_constants.dart';
@@ -19,8 +17,8 @@ class IngredientItemDetailWidget extends StatelessWidget {
             width: 140,
             height: 50,
             padding:  const EdgeInsets.symmetric(vertical: kDefaultPadding, horizontal: kDefaultPadding),
-            decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 211, 208, 208),
+            decoration: const BoxDecoration(
+              color: Color.fromARGB(255, 211, 208, 208),
               
             ),
             child: Text(
@@ -32,8 +30,8 @@ class IngredientItemDetailWidget extends StatelessWidget {
           height: 50,
           padding: const EdgeInsets.symmetric(
               vertical: kDefaultPadding, horizontal: kDefaultPadding),
-          decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 240, 237, 237),
+          decoration: const BoxDecoration(
+            color: Color.fromARGB(255, 240, 237, 237),
 
           ),
           child: SingleChildScrollView(

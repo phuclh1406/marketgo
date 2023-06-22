@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
-import "package:matching/data/model/delivery_form.dart";
+import "package:matching/model/city_model.dart";
+import 'package:matching/model/delivery_form.dart';
 import "package:matching/representation/screen/check_out_screen.dart";
 import "package:matching/representation/widgets/button_widget.dart";
 import "package:matching/representation/widgets/mini_app_bar_container.dart";
-
-import "../../core/constants/color_constants.dart";
-import "../../core/constants/dismension_constants.dart";
+import "package:matching/services/city_service.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 class DeliveryAddressScreen extends StatefulWidget {
   const DeliveryAddressScreen({super.key});
@@ -27,117 +27,104 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
       r"^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$");
   final phoneRegex = RegExp(
       r"^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$");
-  final List<String> listStep = [
-    "Delivery",
-    "Payment",
-    "Confirm",
-  ];
 
-  String? selectedValue;
-
+  String? selectedCity;
+  List<String?> listCityName = [];
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
       String name = _nameController.text;
       String address = _addressController.text;
-      String email = _emailController.text;
       String phone = _phoneController.text;
-      String city = selectedValue!;
+      String? city = selectedCity;
 
-      Navigator.pushNamed(
-        context,
-        CheckOutScreen.routeName,
-        arguments: DeliveryForm(
-            name: name,
-            email: email,
-            phone: phone,
-            address: address,
-            city: city),
-      );
+      DeliveryForm singletonInstance = DeliveryForm.singleton();
+
+      singletonInstance.saveDeliveryFormToSharedPreferences(
+        DeliveryForm(
+          name: name,
+          phone: phone,
+          address: address,
+          city: city));
+
+      Navigator.pushNamed(context, CheckOutScreen.routeName);
     }
   }
 
-  Widget _buildItemStepCheckout(
-      int step, String stepName, bool isEnd, bool isCheck) {
-    return Row(
-      children: [
-        Container(
-          width: kMediumPadding,
-          height: kMediumPadding,
-          decoration: BoxDecoration(
-            color: isCheck
-                ? ColorPalette.yellowColor
-                : ColorPalette.yellowColor.withOpacity(0.4),
-            borderRadius: BorderRadius.circular(
-              kMediumPadding,
+  Widget loadCities() {
+    List<CityModel>? listCity = [];
+    return FutureBuilder<List<CityModel>?>(
+      future: CityService.getCities(),
+      builder:
+          (BuildContext context, AsyncSnapshot<List<CityModel>?> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (snapshot.hasData) {
+          listCity = snapshot.data;
+          listCityName = listCity!.map((e) => e.cityName).toList();
+          return DropdownButtonFormField<String>(
+            validator: (value) {
+              if (value == null) {
+                return "Chọn thành phố";
+              }
+              return null;
+            },
+            value: selectedCity,
+            onChanged: (newCityName) {
+              setState(() {
+                selectedCity = newCityName;
+              });
+            },
+            items: [
+              ...listCityName.map((city) {
+                return DropdownMenuItem<String>(
+                  value: city,
+                  child: Text(
+                    city!,
+                  ),
+                );
+              }).toList(),
+            ],
+            decoration: const InputDecoration(
+              labelText: 'Thành phố',
             ),
+          );
+        }
+
+        return DropdownButtonFormField<String>(
+          validator: (value) {
+            if (value == null) {
+              return "Chọn thành phố";
+            }
+            return null;
+          },
+          onChanged: (value) {},
+          value: selectedCity,
+          items: const [
+            DropdownMenuItem<String>(
+              value: null,
+              child: Text(
+                "Empty city",
+              ),
+            )
+          ],
+          decoration: const InputDecoration(
+            labelText: 'Thành phố',
           ),
-          alignment: Alignment.center,
-          child: Text(
-            step.toString(),
-            style: const TextStyle(
-              fontSize: 13,
-              color: Colors.white,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
-        const SizedBox(
-          width: kMinPadding,
-        ),
-        Text(
-          stepName,
-          style: const TextStyle(
-              color: ColorPalette.yellowColor,
-              fontSize: 16,
-              fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          width: kMinPadding,
-        ),
-        if (!isEnd)
-          const SizedBox(
-            width: kDefaultPadding,
-            child: Divider(
-              height: 1,
-              thickness: 1,
-              color: ColorPalette.yellowColor,
-            ),
-          ),
-        if (!isEnd)
-          const SizedBox(
-            width: kMinPadding,
-          ),
-      ],
+        );
+      },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    List<String> listCity = [
-      "Hồ Chí Minh",
-      "Đà Nẵng",
-      "Vũng tàu",
-      "Nha Trang",
-      "Hà Tĩnh"
-    ];
-
     return MiniAppBarContainerWidget(
       titleString: "Địa chỉ giao hàng",
       implementLeading: true,
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: listStep
-            //       .map((e) => _buildItemStepCheckout(
-            //             listStep.indexOf(e) + 1,
-            //             e,
-            //             listStep.indexOf(e) == listStep.length - 1,
-            //             listStep.indexOf(e) == 0,
-            //           ))
-            //       .toList(),
-            // ),
             const SizedBox(
               height: 20,
             ),
@@ -179,19 +166,6 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                             },
                           ),
                           TextFormField(
-                            controller: _emailController,
-                            decoration:
-                                const InputDecoration(labelText: "Địa chỉ Email"),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Vui lòng điền địa chỉ email của bạn";
-                              } else if (!emailRegex.hasMatch(value)) {
-                                return "Địa chỉ email không hợp lệ";
-                              }
-                              return null;
-                            },
-                          ),
-                          TextFormField(
                             controller: _phoneController,
                             decoration: const InputDecoration(
                                 labelText: "Số điện thoại"),
@@ -215,38 +189,7 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
                               return null;
                             },
                           ),
-                          DropdownButtonFormField<String>(
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return "Chọn thành phố";
-                              }
-                              return null;
-                            },
-                            value: selectedValue,
-                            items: [
-                              const DropdownMenuItem<String>(
-                                value: "",
-                                enabled: false,
-                                child: Text('Chọn thành phố'),
-                              ),
-                              ...listCity.map((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(
-                                    value,
-                                  ),
-                                );
-                              }).toList(),
-                            ],
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedValue = newValue!;
-                              });
-                            },
-                            decoration: const InputDecoration(
-                              labelText: 'Thành phố',
-                            ),
-                          ),
+                          loadCities(),
                           const SizedBox(
                             height: 16.0,
                           ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/representation/widgets/info_cart.dart';
 import 'package:matching/representation/widgets/upload_image_widget.dart';
