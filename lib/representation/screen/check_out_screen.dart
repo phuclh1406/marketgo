@@ -192,6 +192,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                 cart.totalPrice(),
                                 deliveryForm!.address,
                                 deliveryForm!.city,
+                                deliveryForm!.phone,
                                 cart.getListItem())
                             .then((response) {
                           ScaffoldMessenger.of(context).showSnackBar(

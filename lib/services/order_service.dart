@@ -15,6 +15,7 @@ class OrderService {
       int totalPrice,
       String? address,
       String? cityName,
+      String? phone,
       List<OrderDetail> listOrderDetail) async {
     final prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('accesstoken')!;
@@ -28,6 +29,7 @@ class OrderService {
       "totalPrice": totalPrice,
       "cityName": cityName,
       "address": address,
+      "phone": phone,
       "orderDetails": listOrderDetail.map((detail) => detail.toJson()).toList(),
     };
 
