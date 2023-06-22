@@ -184,7 +184,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
   @override
   Widget build(BuildContext context) {
     return MiniAppBarContainerWidget(
-      titleString: "Order History",
+      titleString: "Lịch sử mua hàng",
       child: SingleChildScrollView(
         child: Column(
           children: [
