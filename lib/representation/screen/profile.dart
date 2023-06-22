@@ -130,24 +130,24 @@ class _ProfileState extends State<Profile> {
                 }
               },
             ),
-            FutureBuilder<String>(
-              future: getYob(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.hasData == '') {
-                  return InfoCard(
-                      text: snapshot.data!,
-                      icon: Icons.date_range,
-                      onPressed: () async {});
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  return InfoCard(
-                      text: 'Chưa có dữ liệu',
-                      icon: Icons.date_range,
-                      onPressed: () async {});
-                }
-              },
-            ),
+            // FutureBuilder<String>(
+            //   future: getYob(),
+            //   builder: (context, snapshot) {
+            //     if (snapshot.hasData && snapshot.hasData == '') {
+            //       return InfoCard(
+            //           text: snapshot.data!,
+            //           icon: Icons.date_range,
+            //           onPressed: () async {});
+            //     } else if (snapshot.hasError) {
+            //       return Text('Error: ${snapshot.error}');
+            //     } else {
+            //       return InfoCard(
+            //           text: 'Chưa có dữ liệu',
+            //           icon: Icons.date_range,
+            //           onPressed: () async {});
+            //     }
+            //   },
+            // ),
             FutureBuilder<String>(
               future: getUserName(),
               builder: (context, snapshot) {
@@ -163,24 +163,24 @@ class _ProfileState extends State<Profile> {
                 }
               },
             ),
-            FutureBuilder<String>(
-              future: getPhone(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData && snapshot.hasData == '') {
-                  return InfoCard(
-                      text: snapshot.data!,
-                      icon: Icons.phone,
-                      onPressed: () async {});
-                } else if (snapshot.hasError) {
-                  return Text('Error: ${snapshot.error}');
-                } else {
-                  return InfoCard(
-                      text: 'Chưa có dữ liệu',
-                      icon: Icons.phone,
-                      onPressed: () async {});
-                }
-              },
-            ),
+            // FutureBuilder<String>(
+            //   future: getPhone(),
+            //   builder: (context, snapshot) {
+            //     if (snapshot.hasData && snapshot.hasData == '') {
+            //       return InfoCard(
+            //           text: snapshot.data!,
+            //           icon: Icons.phone,
+            //           onPressed: () async {});
+            //     } else if (snapshot.hasError) {
+            //       return Text('Error: ${snapshot.error}');
+            //     } else {
+            //       return InfoCard(
+            //           text: 'Chưa có dữ liệu',
+            //           icon: Icons.phone,
+            //           onPressed: () async {});
+            //     }
+            //   },
+            // ),
             FutureBuilder<String>(
               future: getEmail(),
               builder: (context, snapshot) {

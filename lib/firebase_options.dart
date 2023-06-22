@@ -14,8 +14,6 @@ import 'package:flutter/foundation.dart'
 ///   options: DefaultFirebaseOptions.currentPlatform,
 /// );
 /// ```
-
-
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
@@ -57,7 +55,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDfDj95PpyYIi287Z5eu5wI3keDFFE13sw',
-    appId: '1:566841533356:android:942016f8cc269c8ff41009',
+    appId: '1:566841533356:android:1ca86c4d5082a219f41009',
     messagingSenderId: '566841533356',
     projectId: 'wallet-fpt',
     storageBucket: 'wallet-fpt.appspot.com',
@@ -65,23 +63,23 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBYCsElJzD1R_Ws8flAX3PUoMGV_p-6ELg',
-    appId: '1:566841533356:ios:ae7f2f12e0380ea2f41009',
+    appId: '1:566841533356:ios:7e4492f8c870e332f41009',
     messagingSenderId: '566841533356',
     projectId: 'wallet-fpt',
     storageBucket: 'wallet-fpt.appspot.com',
     androidClientId: '566841533356-0q3i7av8jq4mmvkr61tl7hvgn656auoh.apps.googleusercontent.com',
-    iosClientId: '566841533356-esrubt43ld5v8dcubdp81ovujpj4vhq1.apps.googleusercontent.com',
-    iosBundleId: 'com.example.matching',
+    iosClientId: '566841533356-5ip37cotkue0rs5jnje8c0gn4efsdhvv.apps.googleusercontent.com',
+    iosBundleId: 'com.MarketGO.MarketGO',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyBYCsElJzD1R_Ws8flAX3PUoMGV_p-6ELg',
-    appId: '1:566841533356:ios:ae7f2f12e0380ea2f41009',
+    appId: '1:566841533356:ios:7e4492f8c870e332f41009',
     messagingSenderId: '566841533356',
     projectId: 'wallet-fpt',
     storageBucket: 'wallet-fpt.appspot.com',
     androidClientId: '566841533356-0q3i7av8jq4mmvkr61tl7hvgn656auoh.apps.googleusercontent.com',
-    iosClientId: '566841533356-esrubt43ld5v8dcubdp81ovujpj4vhq1.apps.googleusercontent.com',
-    iosBundleId: 'com.example.matching',
+    iosClientId: '566841533356-5ip37cotkue0rs5jnje8c0gn4efsdhvv.apps.googleusercontent.com',
+    iosBundleId: 'com.MarketGO.MarketGO',
   );
 }
