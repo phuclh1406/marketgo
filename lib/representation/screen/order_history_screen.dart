@@ -71,15 +71,15 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
   }
 
   Color getColorByDeliveryStatus(String? deliveryStatus) {
-  switch (deliveryStatus) {
-    case "On Going":
-      return Colors.orange;
-    case "Delivered":
-      return Colors.green;
-    default:
-      return Colors.red;
+    switch (deliveryStatus) {
+      case "On Going":
+        return Colors.orange;
+      case "Delivered":
+        return Colors.green;
+      default:
+        return Colors.red;
+    }
   }
-}
 
   Widget _buildOrderHistoryItem(Order order) {
     String date =

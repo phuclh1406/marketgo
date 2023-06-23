@@ -2,19 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/model/cart.dart';
 import 'package:matching/model/delivery_form.dart';
-import 'package:matching/representation/screen/cart_screen.dart';
 import 'package:matching/representation/screen/main_app.dart';
-import 'package:matching/representation/screen/success_screen.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import 'package:matching/representation/widgets/button_widget.dart';
 import 'package:matching/representation/widgets/item_check_out_widget.dart';
 import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:matching/services/order_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../core/constants/textstyle_constants.dart';
-import '../../services/payment_service.dart';
 import '../widgets/button_payment_widget.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -36,20 +30,20 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
     return await singletonInstance.getDeliveryFormFromSharedPreferences();
   }
 
-  Future<void> _launchURL(String link) async {
-    final Uri url = Uri.parse(link);
-    if (await canLaunchUrl(url)) {
-      await launch(url.toString(),
-          forceSafariVC: false, forceWebView: false, universalLinksOnly: true);
-      if (url.path == '/success') {
-        Navigator.of(context).pushNamed(SuccessScreen.routeName);
-      } else {
-        Navigator.of(context).pushNamed(CheckOutScreen.routeName);
-      }
-    } else {
-      print('Cannot launch URL');
-    }
-  }
+  // Future<void> _launchURL(String link) async {
+  //   final Uri url = Uri.parse(link);
+  //   if (await canLaunchUrl(url)) {
+  //     await launch(url.toString(),
+  //         forceSafariVC: false, forceWebView: false, universalLinksOnly: true);
+  //     if (url.path == '/success') {
+  //       Navigator.of(context).pushNamed(SuccessScreen.routeName);
+  //     } else {
+  //       Navigator.of(context).pushNamed(CheckOutScreen.routeName);
+  //     }
+  //   } else {
+  //     print('Cannot launch URL');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -81,9 +75,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                       Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
                               "Địa chỉ giao hàng",
                               style: TextStyle(
@@ -116,7 +110,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: kDefaultPadding/2,
+                                      height: kDefaultPadding / 2,
                                     ),
                                     Text(
                                       "Số điện thoại: ${deliveryForm?.phone}",
@@ -125,7 +119,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: kDefaultPadding/2,
+                                      height: kDefaultPadding / 2,
                                     ),
                                     Text(
                                       "Địa chỉ: ${deliveryForm?.address}",
@@ -134,7 +128,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: kDefaultPadding/2,
+                                      height: kDefaultPadding / 2,
                                     ),
                                     Text(
                                       "Thành phố: ${deliveryForm?.city}",
@@ -143,7 +137,7 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                                       ),
                                     ),
                                     const SizedBox(
-                                      height: kDefaultPadding/2,
+                                      height: kDefaultPadding / 2,
                                     ),
                                   ],
                                 ),
@@ -198,9 +192,13 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('${response['msg']}'),
-                              duration: const Duration(seconds: 5),
+                              duration: const Duration(seconds: 3),
                             ),
                           );
+                          if (response['status'] == 200) {
+                            Navigator.of(context).popUntil((route) => route.isFirst);
+                            Navigator.of(context).pushNamed(MainApp.routeName);
+                          }
                         });
                       });
                     },
