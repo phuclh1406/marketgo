@@ -5,7 +5,6 @@ import "package:matching/representation/screen/check_out_screen.dart";
 import "package:matching/representation/widgets/button_widget.dart";
 import "package:matching/representation/widgets/mini_app_bar_container.dart";
 import "package:matching/services/city_service.dart";
-import "package:shared_preferences/shared_preferences.dart";
 
 class DeliveryAddressScreen extends StatefulWidget {
   const DeliveryAddressScreen({super.key});
@@ -20,11 +19,8 @@ class _DeliveryAddressScreenState extends State<DeliveryAddressScreen> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _addressController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   final AutovalidateMode _autoValidateMode = AutovalidateMode.always;
-  final emailRegex = RegExp(
-      r"^[\w-]+(\.[\w-]+)*@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*(\.[a-zA-Z]{2,})$");
   final phoneRegex = RegExp(
       r"^\+?\d{1,3}[-.\s]?\(?\d{1,3}\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}$");
 

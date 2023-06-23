@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/model/cart.dart';
 import 'package:matching/model/delivery_form.dart';
-import 'package:matching/representation/screen/cart_screen.dart';
 import 'package:matching/representation/screen/main_app.dart';
 import 'package:matching/representation/screen/success_screen.dart';
 import 'package:url_launcher/url_launcher.dart';
