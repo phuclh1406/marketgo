@@ -80,9 +80,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        const Row(
+                       Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Text(
                               "Địa chỉ giao hàng",
                               style: TextStyle(
@@ -180,12 +180,12 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                     height: 20,
                   ),
                   ButtonPaymentWidget(
-                    title: "Thanh toán qua thẻ VISA",
-                    ontap: () async {
-                      String? url = await PaymentService.payment(
-                          'Thanh toan hoa don', cart.totalPrice().toDouble());
+                    title: "Đặt hàng",
+                    ontap: () {
+                      // String? url = await PaymentService.payment(
+                      //     'Thanh toan hoa don', cart.totalPrice().toDouble());
                       getUserIdFromSharedPreferences().then((userId) {
-                        _launchURL(url!);
+                        // _launchURL(url!);
                         OrderService.createCartOrder(
                                 userId!,
                                 cart.totalPrice(),

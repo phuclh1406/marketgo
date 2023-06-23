@@ -72,8 +72,8 @@ class _LoginPageState extends State<LoginPage> {
   Widget _divider() {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 10),
-      child: const Row(
-        children: <Widget>[
+      child: Row(
+        children: const <Widget>[
           SizedBox(
             width: 20,
           ),
@@ -102,38 +102,38 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _createAccountLabel() {
-    return InkWell(
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => const SignUpPage()));
-      },
-      child: Container(
-        margin: const EdgeInsets.symmetric(vertical: 20),
-        padding: const EdgeInsets.all(15),
-        alignment: Alignment.bottomCenter,
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Don\'t have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
-              'Register',
-              style: TextStyle(
-                  color: Color(0xfff79c4f),
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
+  // Widget _createAccountLabel() {
+  //   return InkWell(
+  //     onTap: () {
+  //       Navigator.push(context,
+  //           MaterialPageRoute(builder: (context) => const SignUpPage()));
+  //     },
+  //     child: Container(
+  //       margin: const EdgeInsets.symmetric(vertical: 20),
+  //       padding: const EdgeInsets.all(15),
+  //       alignment: Alignment.bottomCenter,
+  //       child: Row(
+  //         mainAxisAlignment: MainAxisAlignment.center,
+  //         children: const <Widget>[
+  //           Text(
+  //             'Don\'t have an account ?',
+  //             style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+  //           ),
+  //           SizedBox(
+  //             width: 10,
+  //           ),
+  //           Text(
+  //             'Register',
+  //             style: TextStyle(
+  //                 color: Color(0xfff79c4f),
+  //                 fontSize: 13,
+  //                 fontWeight: FontWeight.w600),
+  //           ),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
   Widget _title() {
     return RichText(
