@@ -79,6 +79,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                   "Quantitative: ${orderDetail.ingredient!.quantitative}",
                   style: const TextStyle(fontSize: 14),
                 ),
+                const SizedBox(
+                  height: kItemPadding,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
