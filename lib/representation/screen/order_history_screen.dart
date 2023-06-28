@@ -35,6 +35,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
             );
           } else if (snapshot.hasData) {
             String? userId = snapshot.data;
+            print(snapshot.data);
             if (userId != null) {
               return FutureBuilder<List<Order>?>(
                 future: OrderService.getOrdersByUserId(userId),
@@ -195,7 +196,7 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
               inAsyncCall: isAPICallProcess,
               opacity: 0.5,
               key: UniqueKey(),
-              child: Expanded(child: loadOrders()),
+              child: Positioned(child: loadOrders()),
             ),
           ],
         ),

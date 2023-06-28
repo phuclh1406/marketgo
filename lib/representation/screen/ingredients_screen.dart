@@ -189,37 +189,42 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
 
   Widget loadCategories() {
     return FutureBuilder<List<CategoryDetailModel>?>(
-      future: CategoryDetailService.getAllCategoriesDetailForIngredients(),
+      future: CategoryDetailService.getAllCategoriesDetailForFoods(),
       builder: (BuildContext context,
           AsyncSnapshot<List<CategoryDetailModel>?> snapshot) {
-        if (snapshot.hasData) {
-          List<CategoryDetailModel>? listCate = snapshot.data!;
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Text('');
+        } else if (snapshot.hasData) {
+          List<CategoryDetailModel>? listCateDetail = snapshot.data!;
 
-          if (listCate.isNotEmpty) {
+          if (listCateDetail.isNotEmpty) {
             return Row(
               children: [
                 CategoriesList(
-                    cateName: 'Tất cả',
-                    ontap: () {
-                      setState(() {
-                        category = '';
-                      });
-                    }),
-                for (var i = 0; i < listCate.length; i++)
-                  if (listCate[i].cateDetailName != null)
+                  cateName: 'Tất cả',
+                  ontap: () {
+                    setState(() {
+                      category = '';
+                    });
+                  },
+                ),
+                for (var i = 0; i < listCateDetail.length; i++)
+                  if (listCateDetail[i].cateDetailName != null)
                     CategoriesList(
-                        cateName: listCate[i].cateDetailName!,
-                        ontap: () {
-                          setState(() {
-                            category = listCate[i].cateDetailId!;
-                          });
-                        }),
+                      cateName: listCateDetail[i].cateDetailName!,
+                      ontap: () {
+                        setState(() {
+                          category = listCateDetail[i].cateDetailId!;
+                        });
+                      },
+                    ),
               ],
             );
           } else {
             return const Text('No category found.');
           }
         } else if (snapshot.hasError) {
+          // Display an error message if the future completed with an error
           return Text('Error: ${snapshot.error}');
         } else {
           return const SizedBox(); // Return an empty container or widget if data is null
