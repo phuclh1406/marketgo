@@ -17,7 +17,7 @@ class FoodService {
       'Authorization': 'Bearer $token'
     };
 
-    const url = 'https://market-go.cyclic.app/api/v1/foods';
+    const url = 'https://market-go.herokuapp.com/api/v1/foods';
 
     final response = await http.get(Uri.parse(url), headers: requestHeaders);
 
