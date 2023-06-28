@@ -153,17 +153,17 @@ class _CartItemWidgetState extends State<CartItemWidget> {
                 builder: (BuildContext context) {
                   return AlertDialog(
                     content: Text(
-                        "Are you sure you want to remove ${orderDetail.ingredient!.ingredientName}?"),
+                        "Bạn chắc chắn muốn xóa ${orderDetail.ingredient!.ingredientName} khỏi giỏ hàng?"),
                     actions: <Widget>[
                       TextButton(
-                        child: const Text('Cancel'),
+                        child: const Text('Hủy'),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
                       ),
                       TextButton(
                         child: const Text(
-                          "Delete",
+                          "Xác nhận",
                           style: TextStyle(
                               color: Colors.red, fontWeight: FontWeight.bold),
                         ),
@@ -214,20 +214,9 @@ class _CartItemWidgetState extends State<CartItemWidget> {
             ],
           )
         : Column(
-            children: const [
-              SizedBox(
-                height: 300,
-              ),
+            children: [
               Center(
-                child: Text(
-                  "Your cart is empty",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                child: ImageHelper.loadFromAsset(AssetHelper.empty)
               ),
             ],
           );

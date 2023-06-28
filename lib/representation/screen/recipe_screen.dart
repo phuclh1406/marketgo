@@ -63,48 +63,49 @@ class _RecipeScreenState extends State<RecipeScreen> {
   }
 
   Widget loadCategoriesDetail() {
-  return FutureBuilder<List<CategoryDetailModel>?>(
-    future: Future.delayed(const Duration(seconds: 2), () {
-      return CategoryDetailService.getAllCategoriesDetailForFoods();
-    }),
-    builder: (BuildContext context, AsyncSnapshot<List<CategoryDetailModel>?> snapshot) {if (snapshot.hasData) {
-        List<CategoryDetailModel>? listCateDetail = snapshot.data!;
+    return FutureBuilder<List<CategoryDetailModel>?>(
+      future: Future.delayed(const Duration(seconds: 2), () {
+        return CategoryDetailService.getAllCategoriesDetailForFoods();
+      }),
+      builder: (BuildContext context,
+          AsyncSnapshot<List<CategoryDetailModel>?> snapshot) {
+        if (snapshot.hasData) {
+          List<CategoryDetailModel>? listCateDetail = snapshot.data!;
 
-        if (listCateDetail.isNotEmpty) {
-          return Row(
-            children: [
-              CategoriesList(
-                cateName: 'Tất cả',
-                ontap: () {
-                  setState(() {
-                    category = '';
-                  });
-                },
-              ),
-              for (var i = 0; i < listCateDetail.length; i++)
-                if (listCateDetail[i].cateDetailName != null)
-                  CategoriesList(
-                    cateName: listCateDetail[i].cateDetailName!,
-                    ontap: () {
-                      setState(() {
-                        category = listCateDetail[i].cateDetailId!;
-                      });
-                    },
-                  ),
-            ],
-          );
+          if (listCateDetail.isNotEmpty) {
+            return Row(
+              children: [
+                CategoriesList(
+                  cateName: 'Tất cả',
+                  ontap: () {
+                    setState(() {
+                      category = '';
+                    });
+                  },
+                ),
+                for (var i = 0; i < listCateDetail.length; i++)
+                  if (listCateDetail[i].cateDetailName != null)
+                    CategoriesList(
+                      cateName: listCateDetail[i].cateDetailName!,
+                      ontap: () {
+                        setState(() {
+                          category = listCateDetail[i].cateDetailId!;
+                        });
+                      },
+                    ),
+              ],
+            );
+          } else {
+            return const Text('No category found.');
+          }
+        } else if (snapshot.hasError) {
+          return Text('Error: ${snapshot.error}');
         } else {
-          return const Text('No category found.');
+          return const SizedBox(); // Return an empty container or widget if data is null
         }
-      } else if (snapshot.hasError) {
-        return Text('Error: ${snapshot.error}');
-      } else {
-        return const SizedBox(); // Return an empty container or widget if data is null
-      }
-    },
-  );
-}
-
+      },
+    );
+  }
 
   Widget listRecipe(String value, String category) {
     if (value.isEmpty && category.isEmpty) {
@@ -311,15 +312,13 @@ class _RecipeScreenState extends State<RecipeScreen> {
           SizedBox(
             height: 30,
             width: double.infinity,
-            child: Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SizedBox(
-                  child: Row(
-                    children: [
-                      loadCategoriesDetail(),
-                    ],
-                  ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: SizedBox(
+                child: Row(
+                  children: [
+                    loadCategoriesDetail(),
+                  ],
                 ),
               ),
             ),
@@ -331,20 +330,14 @@ class _RecipeScreenState extends State<RecipeScreen> {
                 inAsyncCall: isAPICallProcess,
                 opacity: 0.3,
                 key: UniqueKey(),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: Column(children: [
-                        if (query.isEmpty && category.isEmpty)
-                          listRecipe('', '')
-                        else if (query.isNotEmpty && category.isEmpty)
-                          listRecipe(query, '')
-                        else
-                          listRecipe(query, category)
-                      ]),
-                    ),
-                  ],
-                ),
+                child: Column(children: [
+                  if (query.isEmpty && category.isEmpty)
+                    listRecipe('', '')
+                  else if (query.isNotEmpty && category.isEmpty)
+                    listRecipe(query, '')
+                  else
+                    listRecipe(query, category)
+                ]),
               ),
             ),
           ),

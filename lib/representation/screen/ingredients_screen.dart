@@ -108,8 +108,8 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
     } else if (value.isEmpty) {
       return FutureBuilder<List<IngredientModel>?>(
         future: IngredientsService.getIngredientsByCategory(category),
-        builder:
-            (BuildContext context, AsyncSnapshot<List<IngredientModel>?> snapshot) {
+        builder: (BuildContext context,
+            AsyncSnapshot<List<IngredientModel>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -146,9 +146,10 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
       );
     } else {
       return FutureBuilder<List<IngredientModel>?>(
-        future: IngredientsService.getIngredientsByNameAndCategory(value, category),
-        builder:
-            (BuildContext context, AsyncSnapshot<List<IngredientModel>?> snapshot) {
+        future:
+            IngredientsService.getIngredientsByNameAndCategory(value, category),
+        builder: (BuildContext context,
+            AsyncSnapshot<List<IngredientModel>?> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
@@ -233,92 +234,74 @@ class _IngredientsScreenState extends State<IngredientsScreen> {
       titleString: 'Danh sách nguyên liệu',
       implementTraling: true,
       implementLeading: true,
-      child: Expanded(
-        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-          TextField(
-            enabled: true,
-            autocorrect: false,
-            decoration: const InputDecoration(
-              hintText: 'Search your destination',
-              prefixIcon: Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Icon(
-                  FontAwesomeIcons.magnifyingGlass,
-                  color: Colors.black,
-                  size: 14,
-                ),
+      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+        TextField(
+          enabled: true,
+          autocorrect: false,
+          decoration: const InputDecoration(
+            hintText: 'Tìm kiếm nguyên liệu của bạn',
+            prefixIcon: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Icon(
+                FontAwesomeIcons.magnifyingGlass,
+                color: Colors.black,
+                size: 14,
               ),
-              filled: true,
-              fillColor: Colors.white,
-              border: OutlineInputBorder(
-                borderSide: BorderSide.none,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    kItemPadding,
-                  ),
-                ),
-              ),
-              contentPadding: EdgeInsets.symmetric(horizontal: kItemPadding),
             ),
-            style: TextStyles.defaultStyle,
-            onChanged: (value) {},
-            onSubmitted: (String submitValue) {
-              setState(() {
-                query = submitValue;
-              });
-            },
-          ),
-          const SizedBox(height: kDefaultPadding / 2),
-          SizedBox(
-            height: 30,
-            width: double.infinity,
-            child: Expanded(
-              child: SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: SizedBox(
-                  child: Row(
-                    children: [
-                      loadCategories(),
-                    ],
-                  ),
+            filled: true,
+            fillColor: Colors.white,
+            border: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.all(
+                Radius.circular(
+                  kItemPadding,
                 ),
               ),
             ),
+            contentPadding: EdgeInsets.symmetric(horizontal: kItemPadding),
           ),
-          const SizedBox(height: 10),
-          Expanded(
-            child: SingleChildScrollView(
+          style: TextStyles.defaultStyle,
+          onChanged: (value) {},
+          onSubmitted: (String submitValue) {
+            setState(() {
+              query = submitValue;
+            });
+          },
+        ),
+        const SizedBox(height: kDefaultPadding / 2),
+        SizedBox(
+          height: 30,
+          width: double.infinity,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
               child: Row(
                 children: [
-                  Expanded(
-                    child: SingleChildScrollView(
-                      child: ProgressHUD(
-                        inAsyncCall: isAPICallProcess,
-                        opacity: 0.3,
-                        key: UniqueKey(),
-                        child: Row(
-                          children: [
-                            Expanded(
-                              child: Column(children: [
-                                if (query.isEmpty && category.isEmpty)
-                                  listIngredients('', '')
-                                else if (query.isNotEmpty && category.isEmpty)
-                                  listIngredients(query, '')
-                                else
-                                  listIngredients(query, category)
-                              ]),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  loadCategories(),
                 ],
               ),
             ),
           ),
-        ]),
-      ),
+        ),
+        const SizedBox(height: 10),
+        Expanded(
+          child: SingleChildScrollView(
+            child: ProgressHUD(
+              inAsyncCall: isAPICallProcess,
+              opacity: 0.3,
+              key: UniqueKey(),
+              child: Column(children: [
+                if (query.isEmpty && category.isEmpty)
+                  listIngredients('', '')
+                else if (query.isNotEmpty && category.isEmpty)
+                  listIngredients(query, '')
+                else
+                  listIngredients(query, category)
+              ]),
+            ),
+          ),
+        ),
+      ]),
     );
   }
 }

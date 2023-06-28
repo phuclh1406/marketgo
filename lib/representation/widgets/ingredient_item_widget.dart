@@ -41,25 +41,23 @@ class IngredientItemWidget extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(
-                child: Expanded(
-                  flex: 3,
-                  child: GestureDetector(
-                    onTap: onTap,
-                    child: ingredientModel.ingreImage != null &&
-                            ingredientModel.ingreImage!.isNotEmpty &&
-                            ingredientModel.ingreImage![0].image != null
-                        ? Image.network(
-                            ingredientModel.ingreImage![0].image!,
-                            width: 70,
-                            fit: BoxFit.fitWidth,
-                          )
-                        : ImageHelper.loadFromAsset(
-                            AssetHelper.no_image,
-                            width: 70,
-                            fit: BoxFit.fitWidth,
-                          ), // Replace with the desired widget if the image does not exist
-                  ),
+              Flexible(
+                flex: 3,
+                child: GestureDetector(
+                  onTap: onTap,
+                  child: ingredientModel.ingreImage != null &&
+                          ingredientModel.ingreImage!.isNotEmpty &&
+                          ingredientModel.ingreImage![0].image != null
+                      ? Image.network(
+                          ingredientModel.ingreImage![0].image!,
+                          width: 70,
+                          fit: BoxFit.fitWidth,
+                        )
+                      : ImageHelper.loadFromAsset(
+                          AssetHelper.no_image,
+                          width: 70,
+                          fit: BoxFit.fitWidth,
+                        ), // Replace with the desired widget if the image does not exist
                 ),
               ),
               const SizedBox(width: 20),
@@ -70,32 +68,31 @@ class IngredientItemWidget extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        Flexible(
+                        Text(
+                          ingredientModel.ingredientName!,
+                          style: TextStyles.defaultStyle.fontHeader,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(width: kDefaultPadding),                       
+                      ],
+                    ),
+                    const SizedBox(
+                      height: kDefaultPadding / 2,
+                    ),
+                    Container(
+                          padding: const EdgeInsets.all(kMinPadding),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(kMinPadding),
+                            color: const Color.fromARGB(255, 212, 204, 204)
+                                .withOpacity(0.4),
+                          ),
                           child: Text(
-                            ingredientModel.ingredientName!,
-                            style: TextStyles.defaultStyle.fontHeader,
+                            'Phân loại: ${ingredientModel.categoryDetailModel!.cateDetailName!}',
+                            style: const TextStyle(
+                                color: Colors.black, fontSize: 10),
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        const SizedBox(width: kDefaultPadding),
-                        Flexible(
-                          child: Container(
-                            padding: const EdgeInsets.all(kMinPadding),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(kMinPadding),
-                              color: const Color.fromARGB(255, 212, 204, 204)
-                                  .withOpacity(0.4),
-                            ),
-                            child: Text(
-                              'Phân loại: ${ingredientModel.categoryDetailModel!.cateDetailName!}',
-                              style: const TextStyle(
-                                  color: Colors.black, fontSize: 10),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     const SizedBox(
                       height: kDefaultPadding / 2,
                     ),
@@ -103,13 +100,12 @@ class IngredientItemWidget extends StatelessWidget {
                       children: [
                         const Text('Cửa hàng: ',
                             style: TextStyle(color: Colors.grey)),
-                        Flexible(
-                          child: Text(
-                            ingredientModel.storeModel!.storeName!,
-                            style: TextStyles.defaultStyle.regular,
-                            overflow: TextOverflow.ellipsis,
-                          ),
+                        Text(
+                          ingredientModel.storeModel!.storeName!,
+                          style: TextStyles.defaultStyle.regular,
+                          overflow: TextOverflow.ellipsis,
                         ),
+
                         const Spacer(),
                         // Positioned(
                         //   right: 20,

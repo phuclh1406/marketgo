@@ -114,16 +114,16 @@ class _IngredientDetailScreenState extends State<IngredientDetailScreen> {
                             ],
                           ),
                           const SizedBox(height: kDefaultPadding),
+                          Text(
+                            widget.ingredientModel.description!,
+                            style: TextStyles.defaultStyle.subTitleTextColor,
+                          ),
                           const DashLineWidget(),
                           Column(children: [
                             IngredientItemDetailWidget(
                                 title: 'Tên sản phẩm',
                                 description:
                                     widget.ingredientModel.ingredientName!),
-                            IngredientItemDetailWidget(
-                                title: 'Mô tả',
-                                description:
-                                    widget.ingredientModel.description!),
                             IngredientItemDetailWidget(
                                 title: 'Giá tiền',
                                 description:

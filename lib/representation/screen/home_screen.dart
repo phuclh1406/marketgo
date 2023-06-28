@@ -225,38 +225,39 @@ class _HomeScreenState extends State<HomeScreen> {
       titleString: 'home',
       title: Padding(
         padding: const EdgeInsets.symmetric(horizontal: kItemPadding),
-        child: Flexible(
-          child: Row(
+        child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  FutureBuilder<String>(
-                    future: getUser(),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return Text(
-                          'Xin chào \n${snapshot.data!}!',
-                          style: const TextStyle(fontSize: 16),
-                          overflow: TextOverflow.ellipsis,
-                        );
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        return const Text('Loading...');
-                      }
-                    },
-                  ),
-                  const SizedBox(
-                    height: kMediumPadding,
-                  ),
-                  Text(
-                    'Bạn đang cần gì?',
-                    style: TextStyles.defaultStyle.fontCaption.whiteTextColor,
-                  )
-                ],
+              Flexible(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    FutureBuilder<String>(
+                      future: getUser(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return Text(
+                            'Xin chào \n${snapshot.data!}!',
+                            style: const TextStyle(fontSize: 16),
+                            overflow: TextOverflow.visible,
+                          );
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          return const Text('Loading...');
+                        }
+                      },
+                    ),
+                    const SizedBox(
+                      height: kMediumPadding,
+                    ),
+                    Text(
+                      'Bạn đang cần gì?',
+                      style: TextStyles.defaultStyle.fontCaption.whiteTextColor,
+                    )
+                  ],
+                ),
               ),
               const Spacer(),
               IconButton(
@@ -305,7 +306,7 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ],
           ),
-        ),
+
       ),
       implementLeading: false,
       child: Column(

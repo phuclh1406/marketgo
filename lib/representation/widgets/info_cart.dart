@@ -21,9 +21,9 @@ class InfoCard extends StatelessWidget {
             icon,
             color: const Color.fromARGB(255, 240, 159, 52),
           ),
-          title: Flexible(
+          title: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
             child: Text(
-              overflow: TextOverflow.ellipsis,
               text,
               style: const TextStyle(
                   color: Color.fromARGB(255, 240, 159, 52),
