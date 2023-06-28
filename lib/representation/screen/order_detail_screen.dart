@@ -241,7 +241,7 @@ class OrderDetailScreen extends StatelessWidget {
     }
 
     return MiniAppBarContainerWidget(
-        titleString: "Order Detail",
+        titleString: "Chi tiết đơn hàng",
         implementLeading: true,
         child: SingleChildScrollView(
           child: ProgressHUD(

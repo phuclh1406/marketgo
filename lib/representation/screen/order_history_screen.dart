@@ -42,10 +42,12 @@ class _OrderHistoryScreenState extends State<OrderHistoryScreen> {
                 builder: (BuildContext context,
                     AsyncSnapshot<List<Order>?> snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
+                    
                     return const Center(
                       child: CircularProgressIndicator(),
                     );
                   } else if (snapshot.hasData) {
+                    print('12342131213 ${snapshot.data}' );
                     List<Order>? orders = snapshot.data;
                     if (orders != null && orders.isNotEmpty) {
                       return Column(
