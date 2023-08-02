@@ -7,6 +7,7 @@ import '../../model/guide_step_model.dart';
 import '../widgets/button_widget.dart';
 import '../widgets/dash_line_widget.dart';
 import 'ingredients_screen.dart';
+import 'main_app.dart';
 
 class RecipeDetailScreen extends StatefulWidget {
   static const String routeName = '/recipe_detail_screen';
@@ -65,6 +66,29 @@ class _RecipeDetailScreenState extends State<RecipeDetailScreen> {
                 padding: const EdgeInsets.all(kItemPadding),
                 child: const Icon(
                   FontAwesomeIcons.arrowLeft,
+                  size: kDefaultPadding,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: kMediumPadding * 3,
+            right: kMediumPadding,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(MainApp.routeName);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    kDefaultPadding,
+                  ),
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(kItemPadding),
+                child: const Icon(
+                  FontAwesomeIcons.house,
                   size: kDefaultPadding,
                   color: Colors.black,
                 ),

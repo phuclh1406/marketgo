@@ -3,6 +3,8 @@ import 'package:matching/representation/screen/cart_screen.dart';
 import 'package:matching/representation/screen/delivery_address.dart';
 import 'package:matching/representation/screen/ingredient_detail_screen.dart';
 import 'package:matching/representation/screen/ingredients_screen.dart';
+import 'package:matching/representation/screen/momo_screen.dart';
+import 'package:matching/representation/screen/notification_screen.dart';
 import 'package:matching/representation/screen/order_detail_screen.dart';
 import 'package:matching/representation/screen/order_history_screen.dart';
 import 'package:matching/representation/screen/profile.dart';
@@ -39,6 +41,8 @@ final Map<String, WidgetBuilder> routes = {
   OrderHistoryScreen.routeName: (context) => const OrderHistoryScreen(),
   OrderDetailScreen.routeName: (context) => const OrderDetailScreen(),
   SuccessScreen.routeName: (context) => const SuccessScreen(),
+  NotificationScreen.routeName: (context) => const NotificationScreen(),
+  MomoScreen.routeName: (context) => const MomoScreen(),
 };
 
 MaterialPageRoute<dynamic>? generateRoutes(RouteSettings settings) {

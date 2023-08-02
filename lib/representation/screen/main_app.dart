@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:matching/representation/screen/cart_screen.dart';
 import 'package:matching/representation/screen/order_history_screen.dart';
 import 'package:matching/representation/screen/profile.dart';
 import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
@@ -7,6 +8,7 @@ import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 import '../../core/constants/color_constants.dart';
 import '../../core/constants/dismension_constants.dart';
 import 'home_screen.dart';
+import 'notification_screen.dart';
 
 class MainApp extends StatefulWidget {
   const MainApp({super.key});
@@ -28,6 +30,7 @@ class _MainAppState extends State<MainApp> {
         index: _currentIndex,
         children: const [
           HomeScreen(),
+          NotificationScreen(),
           OrderHistoryScreen(),
           Profile(),
         ],
@@ -50,6 +53,12 @@ class _MainAppState extends State<MainApp> {
                 size: kDefaultIconSize,
               ),
               title: const Text('Trang chủ')),
+              SalomonBottomBarItem(
+              icon: const Icon(
+                FontAwesomeIcons.solidBell,
+                size: kDefaultIconSize,
+              ),
+              title: const Text('Thông báo')),
           SalomonBottomBarItem(
               icon: const Icon(
                 FontAwesomeIcons.moneyBillTransfer,

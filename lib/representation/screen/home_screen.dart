@@ -268,12 +268,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 onPressed: () => Navigator.pushNamed(context, CartScreen.routeName) ,
               ),
-              const SizedBox(width: 10,),
-              const Icon(
-                FontAwesomeIcons.bell,
-                size: kDefaultIconSize,
-                color: Colors.white,
-              ),
               const SizedBox(
                 width: kMinPadding,
               ),

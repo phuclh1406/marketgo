@@ -41,35 +41,33 @@ class OrderDetailScreen extends StatelessWidget {
               const SizedBox(
                 width: kDefaultPadding,
               ),
-              Flexible(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const SizedBox(
-                      height: kItemPadding,
-                    ),
-                    Text(
-                      overflow: TextOverflow.fade,
-                      "Sản phẩm: ${orderDetail.ingredient!.ingredientName}",
-                      style: const TextStyle(
-                          fontWeight: FontWeight.bold, fontSize: 18),
-                    ),
-                    const SizedBox(
-                      height: kItemPadding,
-                    ),
-                    Text(
-                      "Định lượng: ${orderDetail.ingredient!.quantitative}  x ${orderDetail.quantity}",
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                    const SizedBox(
-                      height: kItemPadding,
-                    ),
-                    Text(
-                      "Giá tiền: ${orderDetail.price} (vnđ)",
-                      style: const TextStyle(fontSize: 18),
-                    ),
-                  ],
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(
+                    height: kItemPadding,
+                  ),
+                  Text(
+                    overflow: TextOverflow.fade,
+                    "Sản phẩm: ${orderDetail.ingredient!.ingredientName}",
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 18),
+                  ),
+                  const SizedBox(
+                    height: kItemPadding,
+                  ),
+                  Text(
+                    "Định lượng: ${orderDetail.ingredient!.quantitative}  x ${orderDetail.quantity}",
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                  const SizedBox(
+                    height: kItemPadding,
+                  ),
+                  Text(
+                    "Giá tiền: ${orderDetail.price} (vnđ)",
+                    style: const TextStyle(fontSize: 18),
+                  ),
+                ],
               ),
             ],
           ),
@@ -248,7 +246,7 @@ class OrderDetailScreen extends StatelessWidget {
             inAsyncCall: isAPICallProcess,
             opacity: 0.5,
             key: UniqueKey(),
-            child: Expanded(child: loadOrderDetails()),
+            child: Positioned(child: loadOrderDetails()),
           ),
         ));
   }

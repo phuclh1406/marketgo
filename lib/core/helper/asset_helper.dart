@@ -11,6 +11,7 @@ class AssetHelper {
   static const String no_image = 'assets/images/no_image.jpg';
   static const String google_logo = 'assets/images/google_logo.png';
   static const String empty = 'assets/images/empty.png';
+  static const String momo = 'assets/images/momo.jpg';
 
   static const String food1 = 'assets/images/food1.jpg';
   static const String food2 = 'assets/images/food2.jpg';

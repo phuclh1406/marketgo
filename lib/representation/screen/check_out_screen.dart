@@ -3,12 +3,14 @@ import 'package:matching/core/constants/dismension_constants.dart';
 import 'package:matching/model/cart.dart';
 import 'package:matching/model/delivery_form.dart';
 import 'package:matching/representation/screen/main_app.dart';
+import 'package:matching/representation/screen/momo_screen.dart';
 import 'package:matching/representation/widgets/button_widget.dart';
 import 'package:matching/representation/widgets/item_check_out_widget.dart';
 import 'package:matching/representation/widgets/mini_app_bar_container.dart';
 import 'package:matching/services/order_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/constants/textstyle_constants.dart';
+import '../widgets/button_momo_widget.dart';
 import '../widgets/button_payment_widget.dart';
 
 class CheckOutScreen extends StatefulWidget {
@@ -75,9 +77,9 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                         const SizedBox(
                           height: 10,
                         ),
-                        Row(
+                        const Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: const [
+                          children: [
                             Text(
                               "Địa chỉ giao hàng",
                               style: TextStyle(
@@ -196,8 +198,43 @@ class _CheckOutScreenState extends State<CheckOutScreen> {
                             ),
                           );
                           if (response['status'] == 200) {
-                            Navigator.of(context).popUntil((route) => route.isFirst);
+                            Navigator.of(context)
+                                .popUntil((route) => route.isFirst);
                             Navigator.of(context).pushNamed(MainApp.routeName);
+                          }
+                        });
+                      });
+                    },
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ButtonMomoWidget(
+                    title: "Thanh toán momo",
+                    ontap: () {
+                      // String? url = await PaymentService.payment(
+                      //     'Thanh toan hoa don', cart.totalPrice().toDouble());
+                      getUserIdFromSharedPreferences().then((userId) {
+                        // _launchURL(url!);
+                        OrderService.createCartOrder(
+                                userId!,
+                                cart.totalPrice(),
+                                deliveryForm!.address,
+                                deliveryForm!.city,
+                                deliveryForm!.phone,
+                                cart.getListItem())
+                            .then((response) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              content: Text('${response['msg']}'),
+                              duration: const Duration(seconds: 3),
+                            ),
+                          );
+                          if (response['status'] == 200) {
+                            Navigator.of(context)
+                                .popUntil((route) => route.isFirst);
+                            Navigator.of(context)
+                                .pushNamed(MomoScreen.routeName);
                           }
                         });
                       });

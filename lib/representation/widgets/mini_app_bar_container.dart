@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:matching/representation/screen/home_screen.dart';
+import 'package:matching/representation/screen/main_app.dart';
 
 import '../../core/constants/color_constants.dart';
 import '../../core/constants/dismension_constants.dart';
@@ -90,18 +92,23 @@ class MiniAppBarContainerWidget extends StatelessWidget {
                       ),
                     ),
                     if (implementTraling)
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            kDefaultPadding,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pushNamed(MainApp.routeName);
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(
+                              kDefaultPadding,
+                            ),
+                            color: Colors.white,
                           ),
-                          color: Colors.white,
-                        ),
-                        padding: const EdgeInsets.all(kItemPadding),
-                        child: const Icon(
-                          FontAwesomeIcons.bars,
-                          size: kDefaultPadding,
-                          color: Colors.black,
+                          padding: const EdgeInsets.all(kItemPadding),
+                          child: const Icon(
+                            FontAwesomeIcons.house,
+                            size: kDefaultPadding,
+                            color: Colors.black,
+                          ),
                         ),
                       ),
                   ],

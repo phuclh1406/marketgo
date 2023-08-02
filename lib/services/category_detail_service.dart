@@ -21,8 +21,8 @@ class CategoryDetailService {
 
     if(response.statusCode == 200) {
       var data = jsonDecode(response.body);
-
-      return categoryDetailFromJson(data['categories']);
+      print(data);
+      return categoryDetailFromJson(data['categories_detail']);
     } else {
       return null;
     }
@@ -42,8 +42,8 @@ class CategoryDetailService {
 
     if(response.statusCode == 200) {
       var data = jsonDecode(response.body);
-
-      return categoryDetailFromJson(data['categories']);
+      print(data);
+      return categoryDetailFromJson(data['categories_detail']);
     } else {
       return null;
     }

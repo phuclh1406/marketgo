@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:matching/model/cart.dart';
 import 'package:matching/model/order_detail_model.dart';
+import 'package:matching/representation/screen/main_app.dart';
 import 'package:matching/representation/widgets/button_widget.dart';
 
 import '../../core/constants/dismension_constants.dart';
@@ -66,6 +67,29 @@ class _IngredientDetailScreenState extends State<IngredientDetailScreen> {
                 padding: const EdgeInsets.all(kItemPadding),
                 child: const Icon(
                   FontAwesomeIcons.arrowLeft,
+                  size: kDefaultPadding,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: kMediumPadding * 3,
+            right: kMediumPadding,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.of(context).pushNamed(MainApp.routeName);
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(
+                    kDefaultPadding,
+                  ),
+                  color: Colors.white,
+                ),
+                padding: const EdgeInsets.all(kItemPadding),
+                child: const Icon(
+                  FontAwesomeIcons.house,
                   size: kDefaultPadding,
                   color: Colors.black,
                 ),
